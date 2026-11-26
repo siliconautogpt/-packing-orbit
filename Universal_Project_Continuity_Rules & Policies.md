@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.27.3` (Badge — Tighter Header + 200px QR)
+- **Current Version:** `v0.27.4` (Badge — No Caption, Centered, Watermark)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -271,10 +271,22 @@ Packing Orbit/
 | `v0.27.1` | **Completed** | Badge rounded corners (radius 28), CSS/JS v58 | 2026-11-26 |
 | `v0.27.2` | **Completed** | Badge header gap minimal, QR 140px standard black at top-right, CSS/JS v59 | 2026-11-26 |
 | `v0.27.3` | **Completed** | Header gap 22px, QR 200px stretched left/down, CSS/JS v60 | 2026-11-26 |
+| `v0.27.4` | **Completed** | Share caption removed, centered headings/footer, licensed-firm watermark, CSS/JS v61 | 2026-11-26 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-26 21:36:33 IST] - v0.27.4
+- **Session:** Badge — No Caption, Centered Headings, Firm Watermark.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - WhatsApp share caption removed (`waText = ''`) — badge image already carries all details; native bridge and Web Share send no extra text.
+  - Firm name heading, "INWARD ENTRY" heading and footer tagline are now **center-aligned**; firm name font bumped to bold 32px.
+  - Added faint diagonal **watermark** of the licensed firm name (`Hans Packing Firm`) across the badge.
+  - Cache-busted `style.css?v=61` / `app.js?v=61`; package.json `0.27.4`.
+  - Updated DB `system_info.version` to `v0.27.4`.
+  - Bumped version to `v0.27.4`.
 
 ### [2026-11-26 21:23:22 IST] - v0.27.3
 - **Session:** Badge — Tighter Header Gap + Much Larger QR.

@@ -1665,6 +1665,16 @@ function buildInwardBadgeCanvas(e) {
 
   const firmName = (currentUser && currentUser.firmName) ? currentUser.firmName : '—';
 
+  // Watermark — licensed firm name (faint, diagonal)
+  ctx.save();
+  ctx.translate(319, 560);
+  ctx.rotate(-Math.PI / 6);
+  ctx.font = 'bold 58px Arial';
+  ctx.fillStyle = 'rgba(6, 95, 70, 0.06)';
+  ctx.textAlign = 'center';
+  ctx.fillText(firmName, 0, 0, 700);
+  ctx.restore();
+
   // Header band with white brand text
   ctx.fillStyle = '#065f46';
   ctx.fillRect(0, 0, 638, 240);
@@ -1705,8 +1715,10 @@ function buildInwardBadgeCanvas(e) {
   }
 
   // Headings after the header
-  put(firmName, 32, 270, 'bold 30px Arial', '#111827', 440);
-  put('INWARD ENTRY', 32, 312, 'bold 25px Arial', '#047857');
+  ctx.textAlign = 'center';
+  put(firmName, 319, 270, 'bold 32px Arial', '#111827', 560);
+  put('INWARD ENTRY', 319, 312, 'bold 25px Arial', '#047857');
+  ctx.textAlign = 'left';
 
   ctx.strokeStyle = '#e5e7eb';
   ctx.lineWidth = 2;
@@ -1739,7 +1751,9 @@ function buildInwardBadgeCanvas(e) {
 
   ctx.fillStyle = '#e5e7eb';
   ctx.fillRect(24, 945, 590, 1);
-  put('Original Brand - License Protected', 32, 982, '16px Arial', '#6b7280');
+  ctx.textAlign = 'center';
+  put('Original Brand - License Protected', 319, 982, '16px Arial', '#6b7280');
+  ctx.textAlign = 'left';
   ctx.restore();
   return canvas;
 }
@@ -1755,7 +1769,7 @@ window.shareInwardOnWhatsApp = async function(id) {
 
   const canvas = buildInwardBadgeCanvas(e);
   const fileName = `inward-${e.inward_no || 'entry'}.png`;
-  const waText = `*Packing Orbit — ${(currentUser && currentUser.firmName) || '—'}*\nInward: ${e.inward_no || '—'}\nBales: ${e.bale_numbers || '—'} | Total Takha: ${e.total_takha != null ? e.total_takha : '—'}`;
+  const waText = ''; // image badge me saari details hai — extra caption nahi
 
   canvas.toBlob(async (rawBlob) => {
     if (!rawBlob) { alert('Image ban nahi payi.'); return; }
