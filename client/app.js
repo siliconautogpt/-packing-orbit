@@ -1589,33 +1589,76 @@ async function loadInwardList() {
   }
 }
 
+function crc32(bytes) {
+  let c = ~0;
+  for (let i = 0; i < bytes.length; i++) {
+    c ^= bytes[i];
+    for (let k = 0; k < 8; k++) {
+      c = (c >>> 1) ^ (0xEDB88320 & -(c & 1));
+    }
+  }
+  return (~c) >>> 0;
+}
+
+// Inject pHYs chunk so the PNG carries 300 DPI metadata
+async function pngWithDpi(blob, dpi) {
+  try {
+    const src = new Uint8Array(await blob.arrayBuffer());
+    if (src.length < 40 || src[0] !== 137 || src[1] !== 80) return blob;
+    const ppm = Math.round(dpi / 0.0254);
+    const data = new Uint8Array(9);
+    data[0] = (ppm >>> 24) & 255; data[1] = (ppm >>> 16) & 255;
+    data[2] = (ppm >>> 8) & 255;  data[3] = ppm & 255;
+    data[4] = data[0]; data[5] = data[1]; data[6] = data[2]; data[7] = data[3];
+    data[8] = 1;
+    const type = [112, 72, 89, 115]; // pHYs
+    const crcInput = new Uint8Array(type.length + data.length);
+    crcInput.set(type, 0);
+    crcInput.set(data, type.length);
+    const crc = crc32(crcInput);
+    const chunk = new Uint8Array(21);
+    chunk[0] = 0; chunk[1] = 0; chunk[2] = 0; chunk[3] = 9;
+    chunk.set(type, 4);
+    chunk.set(data, 8);
+    chunk[17] = (crc >>> 24) & 255; chunk[18] = (crc >>> 16) & 255;
+    chunk[19] = (crc >>> 8) & 255;  chunk[20] = crc & 255;
+    const insertAt = 8 + 25; // signature + IHDR chunk
+    const out = new Uint8Array(src.length + chunk.length);
+    out.set(src.slice(0, insertAt), 0);
+    out.set(chunk, insertAt);
+    out.set(src.slice(insertAt), insertAt + chunk.length);
+    return new Blob([out], { type: 'image/png' });
+  } catch (err) {
+    console.warn('DPI metadata skip:', err);
+    return blob;
+  }
+}
+
 function buildInwardBadgeCanvas(e) {
   const canvas = document.createElement('canvas');
-  canvas.width = 720;
-  canvas.height = 1010;
+  canvas.width = 638;
+  canvas.height = 1011;
   const ctx = canvas.getContext('2d');
 
-  const bg = ctx.createLinearGradient(0, 0, 0, 1010);
-  bg.addColorStop(0, '#0b1220');
-  bg.addColorStop(1, '#111827');
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, 720, 1010);
-
-  ctx.fillStyle = '#10b981';
-  ctx.fillRect(0, 0, 720, 10);
+  // White background
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, 638, 1011);
 
   const put = (text, x, y, font, color, maxWidth) => {
     ctx.font = font;
     ctx.fillStyle = color;
-    ctx.fillText(text == null || text === '' ? '—' : String(text), x, y, maxWidth || 620);
+    ctx.fillText(text == null || text === '' ? '—' : String(text), x, y, maxWidth || 560);
   };
 
   const firmName = (currentUser && currentUser.firmName) ? currentUser.firmName : '—';
-  put('PACKING ORBIT', 56, 92, 'bold 26px Arial', '#6ee7b7');
-  put(firmName, 56, 146, 'bold 38px Arial', '#ffffff', 430);
-  put('INWARD ENTRY', 56, 204, 'bold 30px Arial', '#60a5fa');
 
-  // QR code — unique for this record, top-right of the badge header
+  // Header band with white brand text
+  ctx.fillStyle = '#065f46';
+  ctx.fillRect(0, 0, 638, 150);
+  put('PACKING ORBIT', 32, 62, 'bold 30px Arial', '#ffffff');
+  put('Original Brand - License Protected', 32, 104, '16px Arial', '#d1fae5');
+
+  // QR — unique for this record, top-right inside header
   try {
     if (typeof qrcode === 'function') {
       const qrData = [
@@ -1627,21 +1670,15 @@ function buildInwardBadgeCanvas(e) {
         `Bales: ${e.bale_numbers || '-'} [${(e.bales || []).join(', ')}]`,
         `Total Takha: ${e.total_takha != null ? e.total_takha : '-'}`
       ].join('\n');
-
       const qr = qrcode(0, 'M');
       qr.addData(qrData);
       qr.make();
-
       const modules = qr.getModuleCount();
-      const boxX = 522;
-      const boxY = 56;
-      const boxSize = 150;
-      const quiet = 3;
+      const boxX = 512, boxY = 20, boxSize = 110, quiet = 3;
       const cell = boxSize / (modules + quiet * 2);
-
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(boxX, boxY, boxSize, boxSize);
-      ctx.fillStyle = '#0b1220';
+      ctx.fillStyle = '#065f46';
       for (let r = 0; r < modules; r++) {
         for (let c = 0; c < modules; c++) {
           if (qr.isDark(r, c)) {
@@ -1649,17 +1686,18 @@ function buildInwardBadgeCanvas(e) {
           }
         }
       }
-      ctx.textAlign = 'center';
-      put('SCAN ME', boxX + boxSize / 2, 228, 'bold 16px Arial', '#6ee7b7');
-      ctx.textAlign = 'left';
     }
   } catch (err) {
     console.error('QR generate error:', err);
   }
 
-  ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+  // Headings after the header
+  put(firmName, 32, 212, 'bold 30px Arial', '#111827', 560);
+  put('INWARD ENTRY', 32, 260, 'bold 25px Arial', '#047857');
+
+  ctx.strokeStyle = '#e5e7eb';
   ctx.lineWidth = 2;
-  ctx.strokeRect(40, 250, 640, 650);
+  ctx.strokeRect(24, 288, 590, 636);
 
   const rows = [
     ['Inward No', e.inward_no],
@@ -1674,24 +1712,24 @@ function buildInwardBadgeCanvas(e) {
     ['Total Takha', e.total_takha]
   ];
 
-  let y = 312;
-  rows.forEach(([label, value], i) => {
+  let y = 340;
+  rows.forEach(([label, value]) => {
     const isTotal = label === 'Total Takha';
     if (isTotal) {
-      ctx.fillStyle = 'rgba(16,185,129,0.14)';
-      ctx.fillRect(60, y - 40, 600, 74);
+      ctx.fillStyle = '#d1fae5';
+      ctx.fillRect(40, y - 38, 558, 70);
     }
-    put(label, 66, y, '22px Arial', '#9ca3af');
-    put(value, 280, y, isTotal ? 'bold 32px Arial' : 'bold 25px Arial', isTotal ? '#34d399' : '#ffffff', 360);
-    y += isTotal ? 80 : 58;
+    put(label, 44, y, '20px Arial', '#4b5563');
+    put(value, 250, y, isTotal ? 'bold 30px Arial' : 'bold 23px Arial', isTotal ? '#065f46' : '#111827', 330);
+    y += isTotal ? 80 : 56;
   });
 
-  ctx.fillStyle = 'rgba(255,255,255,0.10)';
-  ctx.fillRect(40, 930, 640, 1);
-
-  put('Original Brand - License Protected', 56, 970, '18px Arial', '#6b7280');
+  ctx.fillStyle = '#e5e7eb';
+  ctx.fillRect(24, 952, 590, 1);
+  put('Original Brand - License Protected', 32, 988, '16px Arial', '#6b7280');
   return canvas;
 }
+
 
 window.shareInwardOnWhatsApp = async function(id) {
   const e = inwardEntryCache.find((x) => x.id === id);
@@ -1705,8 +1743,10 @@ window.shareInwardOnWhatsApp = async function(id) {
   const fileName = `inward-${e.inward_no || 'entry'}.png`;
   const waText = `*Packing Orbit — ${(currentUser && currentUser.firmName) || '—'}*\nInward: ${e.inward_no || '—'}\nBales: ${e.bale_numbers || '—'} | Total Takha: ${e.total_takha != null ? e.total_takha : '—'}`;
 
-  canvas.toBlob(async (blob) => {
-    if (!blob) { alert('Image ban nahi payi.'); return; }
+  canvas.toBlob(async (rawBlob) => {
+    if (!rawBlob) { alert('Image ban nahi payi.'); return; }
+    // Standard 638x1011 px portrait PNG with 300 DPI metadata
+    const blob = await pngWithDpi(rawBlob, 300);
 
     // APK me native bridge: image directly customer ke WhatsApp chat me attach hoti hai
     if (window.PackingOrbitNative && typeof window.PackingOrbitNative.shareImageToWhatsApp === 'function') {

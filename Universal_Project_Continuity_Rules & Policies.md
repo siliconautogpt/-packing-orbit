@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.26.2` (CI Fix — Preinstalled Android SDK)
+- **Current Version:** `v0.27.0` (Badge Standard Format — 638x1011 px / 300 DPI)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -267,10 +267,24 @@ Packing Orbit/
 | `v0.26.0` | **Completed** | APK local assets mode + API base to phone server + cleartext traffic — no hosting needed for direct customer image share, CSS/JS v56 | 2026-11-26 |
 | `v0.26.1` | **Completed** | Clarified local APK stage vs cloud/VPS buyer stage in Section 11.9 | 2026-11-26 |
 | `v0.26.2` | **Completed** | GitHub Actions fix — use preinstalled Android SDK, remove setup-android action | 2026-11-26 |
+| `v0.27.0` | **Completed** | Badge 638x1011 px 300 DPI white theme, colored header with white brand text, CSS/JS v57 | 2026-11-26 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-26 19:55:32 IST] - v0.27.0
+- **Session:** Badge Standard Format — 638x1011 px / 300 DPI / White Theme.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Badge canvas resized to standard portrait **638 x 1011 px** (300 DPI print size ~2.12 x 3.37 inch).
+  - White background with light gray card border; colored header band (`#065f46`) with **white brand text** "PACKING ORBIT" + tagline; firm name and "INWARD ENTRY" headings follow below the header in dark text.
+  - QR retained at header top-right (white box), adapted to 110px.
+  - Added `pngWithDpi(blob, 300)` — injects PNG `pHYs` chunk (11811 px/m) with CRC32 so the exported PNG carries **300 DPI metadata**.
+  - Same DPI-aware blob is used for native APK share (base64) and Web Share file.
+  - Cache-busted `style.css?v=57` / `app.js?v=57`; package.json `0.27.0`.
+  - Updated DB `system_info.version` to `v0.27.0`.
+  - Bumped version to `v0.27.0`.
 
 ### [2026-11-26 17:21:57 IST] - v0.26.2
 - **Session:** GitHub Actions APK Build — CI Fix.
