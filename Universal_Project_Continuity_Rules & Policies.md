@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.27.4` (Badge — No Caption, Centered, Watermark)
+- **Current Version:** `v0.27.5` (Inward Date DD-MM-YYYY + Compact Badge Rows)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -272,10 +272,23 @@ Packing Orbit/
 | `v0.27.2` | **Completed** | Badge header gap minimal, QR 140px standard black at top-right, CSS/JS v59 | 2026-11-26 |
 | `v0.27.3` | **Completed** | Header gap 22px, QR 200px stretched left/down, CSS/JS v60 | 2026-11-26 |
 | `v0.27.4` | **Completed** | Share caption removed, centered headings/footer, licensed-firm watermark, CSS/JS v61 | 2026-11-26 |
+| `v0.27.5` | **Completed** | Inward date `DD-MM-YYYY`, reduced badge line spacing, wider value column, CSS/JS v62 | 2026-11-26 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-26 23:23:13 IST] - v0.27.5
+- **Session:** Inward Date Format + Badge Line Spacing.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - `getISTInwardDateTime()` ab date ko `DD-MM-YYYY` me return karta hai (hyphen ke saath), time 12-hour AM/PM waise hi. Verified: `26-11-2026 11:24:18 PM`.
+  - Badge rows ki line spacing kam ki: normal step 52 -> 44, total row 76 -> 66; total-highlight box bhi chhota (70 -> 60).
+  - Value column ko x=240, maxWidth=360 kiya taake lambi Bale Numbers list horizontally shrink na ho.
+  - Card height 520, separator/footer upar shift (895 / 935) taake 638x1011 me clean fit.
+  - Cache-busted `style.css?v=62` / `app.js?v=62`; package.json `0.27.5`.
+  - Updated DB `system_info.version` to `v0.27.5`.
+  - Bumped version to `v0.27.5`.
 
 ### [2026-11-26 21:36:33 IST] - v0.27.4
 - **Session:** Badge — No Caption, Centered Headings, Firm Watermark.

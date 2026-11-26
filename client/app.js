@@ -1722,7 +1722,7 @@ function buildInwardBadgeCanvas(e) {
 
   ctx.strokeStyle = '#e5e7eb';
   ctx.lineWidth = 2;
-  ctx.strokeRect(24, 330, 590, 590);
+  ctx.strokeRect(24, 330, 590, 520);
 
   const rows = [
     ['Inward No', e.inward_no],
@@ -1742,17 +1742,17 @@ function buildInwardBadgeCanvas(e) {
     const isTotal = label === 'Total Takha';
     if (isTotal) {
       ctx.fillStyle = '#d1fae5';
-      ctx.fillRect(40, y - 38, 558, 70);
+      ctx.fillRect(40, y - 32, 558, 60);
     }
     put(label, 44, y, '20px Arial', '#4b5563');
-    put(value, 250, y, isTotal ? 'bold 30px Arial' : 'bold 23px Arial', isTotal ? '#065f46' : '#111827', 330);
-    y += isTotal ? 76 : 52;
+    put(value, 240, y, isTotal ? 'bold 30px Arial' : 'bold 23px Arial', isTotal ? '#065f46' : '#111827', 360);
+    y += isTotal ? 66 : 44;
   });
 
   ctx.fillStyle = '#e5e7eb';
-  ctx.fillRect(24, 945, 590, 1);
+  ctx.fillRect(24, 895, 590, 1);
   ctx.textAlign = 'center';
-  put('Original Brand - License Protected', 319, 982, '16px Arial', '#6b7280');
+  put('Original Brand - License Protected', 319, 935, '16px Arial', '#6b7280');
   ctx.textAlign = 'left';
   ctx.restore();
   return canvas;

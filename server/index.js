@@ -74,7 +74,7 @@ function getISTInwardDateTime() {
   const hh = String(h).padStart(2, '0');
   const mi = String(ist.getUTCMinutes()).padStart(2, '0');
   const ss = String(ist.getUTCSeconds()).padStart(2, '0');
-  return `${dd}${mm}${yyyy} ${hh}:${mi}:${ss} ${ampm}`;
+  return `${dd}-${mm}-${yyyy} ${hh}:${mi}:${ss} ${ampm}`;
 }
 
 function parseJsonBody(req) {
