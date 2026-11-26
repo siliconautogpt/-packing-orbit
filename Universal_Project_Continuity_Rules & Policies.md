@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.26.1` (Local APK Stage + Cloud/VPS Buyer Stage Clarified)
+- **Current Version:** `v0.26.2` (CI Fix — Preinstalled Android SDK)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -266,10 +266,21 @@ Packing Orbit/
 | `v0.25.9` | **Completed** | No download, image-only share — native APK bridge first, Web Share image fallback, text-only wa.me removed, CSS/JS v55 | 2026-11-26 |
 | `v0.26.0` | **Completed** | APK local assets mode + API base to phone server + cleartext traffic — no hosting needed for direct customer image share, CSS/JS v56 | 2026-11-26 |
 | `v0.26.1` | **Completed** | Clarified local APK stage vs cloud/VPS buyer stage in Section 11.9 | 2026-11-26 |
+| `v0.26.2` | **Completed** | GitHub Actions fix — use preinstalled Android SDK, remove setup-android action | 2026-11-26 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-26 17:21:57 IST] - v0.26.2
+- **Session:** GitHub Actions APK Build — CI Fix.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - First APK workflow run (#1) failed at step **"Setup Android SDK"** (`android-actions/setup-android@v3`).
+  - Fix: removed that action — GitHub `ubuntu-latest` runners already include Android SDK. Added job env `ANDROID_HOME=/usr/local/lib/android/sdk` + a debug step listing installed platforms.
+  - Updated `package.json` version to `0.26.2`; DB `system_info.version` to `v0.26.2`.
+  - Next: push updated workflow from Termux, re-run Actions (or push tag `v0.26.2`) to build APK.
+  - Bumped version to `v0.26.2`.
 
 ### [2026-11-26 14:02:30 IST] - v0.26.1
 - **Session:** Clarification — Local APK Mode vs Cloud/VPS Buyer Mode.
