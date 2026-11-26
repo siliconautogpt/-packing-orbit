@@ -1667,9 +1667,9 @@ function buildInwardBadgeCanvas(e) {
 
   // Header band with white brand text
   ctx.fillStyle = '#065f46';
-  ctx.fillRect(0, 0, 638, 150);
-  put('PACKING ORBIT', 32, 62, 'bold 30px Arial', '#ffffff');
-  put('Original Brand - License Protected', 32, 104, '16px Arial', '#d1fae5');
+  ctx.fillRect(0, 0, 638, 180);
+  put('PACKING ORBIT', 32, 60, 'bold 30px Arial', '#ffffff');
+  put('Original Brand - License Protected', 32, 88, '15px Arial', '#d1fae5');
 
   // QR — unique for this record, top-right inside header
   try {
@@ -1687,11 +1687,11 @@ function buildInwardBadgeCanvas(e) {
       qr.addData(qrData);
       qr.make();
       const modules = qr.getModuleCount();
-      const boxX = 512, boxY = 20, boxSize = 110, quiet = 3;
+      const boxX = 480, boxY = 20, boxSize = 140, quiet = 3;
       const cell = boxSize / (modules + quiet * 2);
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(boxX, boxY, boxSize, boxSize);
-      ctx.fillStyle = '#065f46';
+      ctx.fillStyle = '#000000';
       for (let r = 0; r < modules; r++) {
         for (let c = 0; c < modules; c++) {
           if (qr.isDark(r, c)) {
@@ -1705,12 +1705,12 @@ function buildInwardBadgeCanvas(e) {
   }
 
   // Headings after the header
-  put(firmName, 32, 212, 'bold 30px Arial', '#111827', 560);
-  put('INWARD ENTRY', 32, 260, 'bold 25px Arial', '#047857');
+  put(firmName, 32, 228, 'bold 30px Arial', '#111827', 440);
+  put('INWARD ENTRY', 32, 276, 'bold 25px Arial', '#047857');
 
   ctx.strokeStyle = '#e5e7eb';
   ctx.lineWidth = 2;
-  ctx.strokeRect(24, 288, 590, 636);
+  ctx.strokeRect(24, 300, 590, 624);
 
   const rows = [
     ['Inward No', e.inward_no],
@@ -1725,7 +1725,7 @@ function buildInwardBadgeCanvas(e) {
     ['Total Takha', e.total_takha]
   ];
 
-  let y = 340;
+  let y = 348;
   rows.forEach(([label, value]) => {
     const isTotal = label === 'Total Takha';
     if (isTotal) {
@@ -1734,12 +1734,12 @@ function buildInwardBadgeCanvas(e) {
     }
     put(label, 44, y, '20px Arial', '#4b5563');
     put(value, 250, y, isTotal ? 'bold 30px Arial' : 'bold 23px Arial', isTotal ? '#065f46' : '#111827', 330);
-    y += isTotal ? 80 : 56;
+    y += isTotal ? 78 : 54;
   });
 
   ctx.fillStyle = '#e5e7eb';
-  ctx.fillRect(24, 952, 590, 1);
-  put('Original Brand - License Protected', 32, 988, '16px Arial', '#6b7280');
+  ctx.fillRect(24, 950, 590, 1);
+  put('Original Brand - License Protected', 32, 985, '16px Arial', '#6b7280');
   ctx.restore();
   return canvas;
 }

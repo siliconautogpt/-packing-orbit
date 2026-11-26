@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.27.1` (Badge Round Corners + Format Confirmation)
+- **Current Version:** `v0.27.2` (Badge Header Gap + Larger Black QR)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -269,10 +269,23 @@ Packing Orbit/
 | `v0.26.2` | **Completed** | GitHub Actions fix — use preinstalled Android SDK, remove setup-android action | 2026-11-26 |
 | `v0.27.0` | **Completed** | Badge 638x1011 px 300 DPI white theme, colored header with white brand text, CSS/JS v57 | 2026-11-26 |
 | `v0.27.1` | **Completed** | Badge rounded corners (radius 28), CSS/JS v58 | 2026-11-26 |
+| `v0.27.2` | **Completed** | Badge header gap minimal, QR 140px standard black at top-right, CSS/JS v59 | 2026-11-26 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-26 21:06:58 IST] - v0.27.2
+- **Session:** Badge Header + QR Refinement.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Header gap reduced: brand "PACKING ORBIT" at y=60, subhead "Original Brand - License Protected" at y=88 (was 104), font 15px.
+  - Header band height increased to 180px to accommodate a larger QR.
+  - QR enlarged from 110px to **140px** at top-right (x=480, y=20); module colour changed to **standard black (#000000)** as requested.
+  - Headings/card/rows shifted down slightly (firm y=228, INWARD ENTRY y=276, card y=300 h=624, rows start 348) so nothing overlaps within 638x1011.
+  - Cache-busted `style.css?v=59` / `app.js?v=59`; package.json `0.27.2`.
+  - Updated DB `system_info.version` to `v0.27.2`.
+  - Bumped version to `v0.27.2`.
 
 ### [2026-11-26 20:46:16 IST] - v0.27.1
 - **Session:** Badge Round Corners + Format Confirmation.
