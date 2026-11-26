@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Packing Orbit - a packing automation</title>
+  <link rel="stylesheet" href="style.css?v=56">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-container">
+      <div class="header-left">
+        <!-- Sidebar Toggle (Only functional when logged in) -->
+        <button class="menu-toggle-btn" id="menuToggleBtn" aria-label="Toggle Navigation Menu">
+          <svg class="menu-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <div class="brand-group">
+          <div class="logo-blank-space" title="Logo Placeholder">
+            <div class="logo-slot-inner">
+              <span class="logo-indicator"></span>
+            </div>
+          </div>
+
+          <div class="brand-info">
+            <h1 class="brand-name" id="appName">Packing Orbit</h1>
+            <p class="brand-tagline" id="appTagline">a packing automation</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Header Actions (Clean & Minimal: Single State Indicator) -->
+      <div class="header-right">
+        <div id="authHeaderContainer">
+          <!-- Populated by JS: Simple Live dot when guest, User Pill when logged in -->
+          <div class="header-status">
+            <span class="status-dot"></span>
+            <span class="status-label" id="systemStatus">Live</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HEADER TABS MENU (Below Header) -->
+    <nav class="header-tabs" id="headerTabs" aria-label="Main tabs">
+      <button class="header-tab active" data-tab="home" onclick="switchTab('home')">Home</button>
+      <button class="header-tab" data-tab="download" onclick="switchTab('download')">Download</button>
+      <button class="header-tab" data-tab="pricing" onclick="switchTab('pricing')">Pricing</button>
+      <button class="header-tab" data-tab="help" onclick="switchTab('help')">Help</button>
+      <button class="header-tab" data-tab="contacts" onclick="switchTab('contacts')">Contacts</button>
+    </nav>
+  </header>
+
+  <!-- APP LAYOUT -->
+  <div class="app-layout">
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+    <!-- LEFT SIDE MENU BAR / SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-title">Navigation</span>
+        <button class="sidebar-close-btn" id="sidebarCloseBtn" aria-label="Close Sidebar">&times;</button>
+      </div>
+
+      <nav class="sidebar-nav" id="sidebarNav">
+        <ul class="nav-list" id="navList">
+          <li class="nav-item active" data-menu="dashboard">
+            <a href="#dashboard" class="nav-link">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+              </span>
+              <span class="nav-label">Dashboard</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="quick-status">
+          <span class="dot-online"></span>
+          <span class="quick-text" id="sidebarUserRoleText">Malegaon Cluster</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN VIEWPORT -->
+    <main class="main-viewport">
+      <!-- 1. MANDATORY LOGIN VIEW (SHOWN BY DEFAULT ON EVERY LAUNCH) -->
+      <div class="auth-gate-container" id="authGateContainer">
+        <div class="auth-card">
+          <div class="auth-card-header">
+            <div class="auth-shield-icon">
+              <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <h2 class="auth-title">Sign In to Packing Orbit</h2>
+            <p class="auth-subtitle">Admins, Packing Labours aur Weavers ka Unified Portal</p>
+          </div>
+
+          <form id="mainLoginForm" class="modal-form">
+            <!-- 0. Firm / Paid License Selection (First) -->
+            <div class="form-group">
+              <label class="form-label">Select Firm (Paid License) *</label>
+              <div class="custom-select" id="firmSelect">
+                <div class="custom-select-trigger" id="firmSelectTrigger">
+                  <span class="select-placeholder" id="firmSelectPlaceholder">Loading firms...</span>
+                  <svg class="select-arrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </div>
+                <div class="custom-select-options" id="firmSelectOptions">
+                  <!-- Populated by JS from active firm licenses -->
+                </div>
+              </div>
+              <p class="form-hint" id="firmSelectHint">Login sirf active licensed firm ke liye allowed hai.</p>
+            </div>
+
+            <!-- 1. Quick Account Select Dropdown (Second) — Custom, stays within form bounds -->
+            <div class="form-group">
+              <label for="quickAccountSelect" class="form-label">Select Account (Quick Login)</label>
+              <div class="custom-select" id="customAccountSelect">
+                <div class="custom-select-trigger" id="customSelectTrigger">
+                  <span class="select-placeholder">-- Select Admin or Labour --</span>
+                  <svg class="select-arrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </div>
+                <div class="custom-select-options" id="customSelectOptions">
+                  <div class="select-optgroup">Admins (Password: admin123)</div>
+                  <div class="select-option" data-identifier="admin" data-password="admin123" data-role="admin">admin — Firm Owner (Main Admin)</div>
+                  <div class="select-option" data-identifier="admin1" data-password="admin123" data-role="admin">admin1 — Haji Sahab (Owner / Admin 1)</div>
+                  <div class="select-option" data-identifier="admin2" data-password="admin123" data-role="admin">admin2 — Munim Ji (Manager / Admin 2)</div>
+                  <div class="select-option" data-identifier="admin3" data-password="admin123" data-role="admin">admin3 — Partner (Admin 3)</div>
+                  <div class="select-option" data-identifier="admin4" data-password="admin123" data-role="admin">admin4 — Supervisor (Admin 4)</div>
+                  <div class="select-option" data-identifier="admin5" data-password="admin123" data-role="admin">admin5 — Accounts Head (Admin 5)</div>
+                  <div class="select-optgroup">Packing Labours</div>
+                  <div class="select-option" data-identifier="9309384084" data-password="4567" data-role="employee">9309384084 — Shahzad Raja</div>
+                  <div class="select-option" data-identifier="9800000001" data-password="1234" data-role="employee">9800000001 — Babu Lal</div>
+                  <div class="select-option" data-identifier="9800000002" data-password="1234" data-role="employee">9800000002 — Irfan Bhai</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Mobile Number or Username -->
+            <div class="form-group">
+              <label for="mainLoginIdentifier" class="form-label">Mobile Number or Username</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <input type="text" id="mainLoginIdentifier" class="form-input" placeholder="e.g. admin or 9309384084" required autocomplete="username">
+              </div>
+            </div>
+
+            <!-- 3. Password / 4-digit PIN -->
+            <div class="form-group">
+              <label for="mainLoginPassword" class="form-label">Password / 4-digit PIN</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <input type="password" id="mainLoginPassword" class="form-input" placeholder="Enter password or PIN" required autocomplete="current-password">
+              </div>
+            </div>
+
+            <div class="login-error-msg" id="mainLoginErrorMsg"></div>
+
+            <button type="submit" class="btn-primary-block" id="mainLoginSubmitBtn">
+              <span>Login to Account</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- 2. PRICING PAGE (VISIBLE TO EVERYONE FROM HEADER) -->
+      <section class="pricing-page" id="pricingPage" style="display: none;">
+        <div class="pricing-topbar">
+          <button class="pricing-back-btn" id="pricingBackBtn" onclick="closePricingPage()">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Back</span>
+          </button>
+          <span class="pricing-topbar-tag">Malegaon Packing Firms</span>
+        </div>
+
+        <div class="pricing-hero">
+          <h2 class="pricing-hero-title">Packing Orbit <span class="pricing-hero-accent">Pricing</span></h2>
+          <p class="pricing-hero-sub">
+            Lifetime software license + har saal AMC (Annual Maintenance Charges).
+            Ek hi baar license, phir saalana support &amp; updates.
+          </p>
+        </div>
+
+        <div class="pricing-grid">
+          <!-- LIFETIME LICENSE -->
+          <div class="pricing-card pricing-card-featured">
+            <div class="pricing-card-badge">One-Time</div>
+            <h3 class="pricing-card-title">Lifetime Subscription</h3>
+            <p class="pricing-card-desc">Software lifetime ke liye aapki firm ka — koi monthly fee nahi.</p>
+            <div class="pricing-price-row">
+              <span class="pricing-price" id="pricingLifetimePrice">₹XX,XXX</span>
+              <span class="pricing-price-note">one-time</span>
+            </div>
+            <ul class="pricing-features">
+              <li>Lifetime software license (firm-wise)</li>
+              <li>Admin + Packing Labour login setup</li>
+              <li>Core Taka / Bale packing workflow</li>
+              <li>Local SQLite data — aapka data aapke paas</li>
+              <li>Free initial setup &amp; onboarding</li>
+            </ul>
+            <button class="btn-primary-block pricing-cta" onclick="contactPricing()">Get Lifetime Quote</button>
+          </div>
+
+          <!-- ANNUAL AMC -->
+          <div class="pricing-card">
+            <div class="pricing-card-badge badge-amc">Recurring</div>
+            <h3 class="pricing-card-title">Annual AMC</h3>
+            <p class="pricing-card-desc">Lifetime license ke baad har saal maintenance &amp; support ke liye.</p>
+            <div class="pricing-price-row">
+              <span class="pricing-price" id="pricingAmcPrice">₹X,XXX</span>
+              <span class="pricing-price-note">/ year</span>
+            </div>
+            <ul class="pricing-features">
+              <li>Priority technical support</li>
+              <li>Bug fixes &amp; feature updates</li>
+              <li>Remote assistance (call / WhatsApp)</li>
+              <li>Backup &amp; data safety guidance</li>
+              <li>Annual renewal — Year 2 se applicable</li>
+            </ul>
+            <button class="btn-primary-block pricing-cta pricing-cta-outline" onclick="contactPricing()">Ask AMC Details</button>
+          </div>
+        </div>
+
+        <div class="pricing-note">
+          <strong>Note:</strong> Lifetime license one-time payment hai. AMC har saal renewal zaroori hai —
+          isme support, updates aur maintenance cover hota hai. Final rates firm size ke hisaab se
+          customize kiye ja sakte hain.
+        </div>
+
+        <div class="pricing-contact">
+          <span class="pricing-contact-label">Quotation / Demo ke liye contact karein:</span>
+          <a class="pricing-contact-link" id="pricingContactLink" href="tel:+91XXXXXXXXXX">
+            <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            <span id="pricingContactPhone">+91 XXXXX XXXXX</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- 2.5 LEDGER PAGE (PLACEHOLDER) -->
+      <section class="info-page" id="ledgerPage" style="display: none;">
+        <div class="info-page-card">
+          <div class="info-page-icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              <line x1="9" y1="7" x2="16" y2="7"></line>
+              <line x1="9" y1="11" x2="16" y2="11"></line>
+            </svg>
+          </div>
+          <h2 class="info-page-title">Ledger</h2>
+          <p class="info-page-sub">Firm ka hisaab-kitab, daily entries aur payments ka ledger yahan develop hoga.</p>
+          <span class="info-badge">Coming Soon</span>
+          <button class="btn-secondary info-back-btn" onclick="switchTab('home')">← Back to Home</button>
+        </div>
+      </section>
+
+      <!-- 2.5.1 LEDGER > CREATE (Admin only) -->
+      <section class="info-page" id="ledgerCreatePage" style="display: none;">
+        <div class="info-page-card ledger-create-card">
+          <div class="info-page-icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </div>
+          <h2 class="info-page-title">Ledger — Create</h2>
+          <p class="info-page-sub">Firm ke registered customer ki nayi ledger entry banayein.</p>
+
+          <form id="ledgerCreateForm" class="ledger-form" autocomplete="off">
+            <div class="form-group">
+              <label class="form-label">Customer (Mobile — Party / Weaver) *</label>
+              <div class="custom-select" id="ledgerCustomerSelect">
+                <div class="custom-select-trigger" id="ledgerCustomerTrigger">
+                  <span class="select-placeholder" id="ledgerCustomerPlaceholder">Customer select karein...</span>
+                  <svg class="select-arrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </div>
+                <div class="custom-select-options ledger-customer-options" id="ledgerCustomerOptions">
+                  <input type="text" id="ledgerCustomerSearch" class="ledger-customer-search" placeholder="Mobile ya party name search..." autocomplete="off">
+                  <div id="ledgerCustomerList"></div>
+                </div>
+              </div>
+              <p class="form-hint" id="ledgerCustomerHint">Sirf is firm ke registered customers dikhte hain.</p>
+            </div>
+
+            <div class="form-group">
+              <label for="ledgerCustomerCode" class="form-label">Customer Code *</label>
+              <input type="text" id="ledgerCustomerCode" class="form-input-plain" placeholder="e.g. CUST-001" maxlength="40" required>
+            </div>
+
+            <div class="form-group">
+              <label for="ledgerToken" class="form-label">Token *</label>
+              <input type="text" id="ledgerToken" class="form-input-plain" placeholder="Token number" maxlength="40" required>
+            </div>
+
+            <div class="form-group">
+              <label for="ledgerType" class="form-label">Type *</label>
+              <select id="ledgerType" class="form-input-plain" required>
+                <option value="">-- Type select karein --</option>
+                <option value="Cotton">Cotton</option>
+                <option value="Roti">Roti</option>
+                <option value="PC">PC</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="ledgerQuality" class="form-label">Quality *</label>
+              <input type="text" id="ledgerQuality" class="form-input-plain" placeholder="e.g. Fine / Medium" maxlength="80" required>
+            </div>
+
+            <div class="form-group">
+              <label for="ledgerTakhaBales" class="form-label">No. of Takha / Bales *</label>
+              <input type="number" id="ledgerTakhaBales" class="form-input-plain" placeholder="e.g. 12" min="1" step="1" required>
+            </div>
+
+            <div class="login-error-msg" id="ledgerErrorMsg"></div>
+
+            <div class="modal-btn-row">
+              <button type="button" class="btn-secondary" onclick="switchTab('ledger')">← Back to Ledger</button>
+              <button type="submit" class="btn-primary">Create Ledger Entry</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- 2.5.2 LEDGER > EDIT / ALTER -->
+      <section class="info-page" id="ledgerEditPage" style="display: none;">
+        <div class="info-page-card ledger-list-card">
+          <div class="info-page-icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </div>
+          <h2 class="info-page-title">Ledger — Edit / Alter</h2>
+          <p class="info-page-sub">Firm ki ledger entries dekhein aur edit karein.</p>
+
+          <div id="ledgerEditList" class="table-responsive ledger-list">
+            <p style="color:#9ca3af;">Entries load ho rahi hain...</p>
+          </div>
+
+          <div id="ledgerEditFormWrap" style="display: none; margin-top: 1.25rem;">
+            <h3 class="admin-card-title">Edit Ledger Entry</h3>
+            <form id="ledgerEditForm" class="ledger-form" autocomplete="off">
+              <input type="hidden" id="editLedgerId">
+              <div class="form-group">
+                <label class="form-label">Customer (Mobile — Party / Weaver) *</label>
+                <div class="custom-select" id="editLedgerCustomerSelect">
+                  <div class="custom-select-trigger" id="editLedgerCustomerTrigger">
+                    <span class="select-placeholder" id="editLedgerCustomerPlaceholder">Customer select karein...</span>
+                    <svg class="select-arrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </div>
+                  <div class="custom-select-options ledger-customer-options" id="editLedgerCustomerOptions">
+                    <input type="text" id="editLedgerCustomerSearch" class="ledger-customer-search" placeholder="Mobile ya party name search..." autocomplete="off">
+                    <div id="editLedgerCustomerList"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="editLedgerCustomerCode" class="form-label">Customer Code *</label>
+                <input type="text" id="editLedgerCustomerCode" class="form-input-plain" maxlength="40" required>
+              </div>
+              <div class="form-group">
+                <label for="editLedgerToken" class="form-label">Token *</label>
+                <input type="text" id="editLedgerToken" class="form-input-plain" maxlength="40" required>
+              </div>
+              <div class="form-group">
+                <label for="editLedgerType" class="form-label">Type *</label>
+                <select id="editLedgerType" class="form-input-plain" required>
+                  <option value="">-- Type select karein --</option>
+                  <option value="Cotton">Cotton</option>
+                  <option value="Roti">Roti</option>
+                  <option value="PC">PC</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="editLedgerQuality" class="form-label">Quality *</label>
+                <input type="text" id="editLedgerQuality" class="form-input-plain" maxlength="80" required>
+              </div>
+              <div class="form-group">
+                <label for="editLedgerTakhaBales" class="form-label">No. of Takha / Bales *</label>
+                <input type="number" id="editLedgerTakhaBales" class="form-input-plain" min="1" step="1" required>
+              </div>
+              <div class="login-error-msg" id="editLedgerErrorMsg"></div>
+              <div class="modal-btn-row">
+                <button type="button" class="btn-secondary" id="editLedgerCancelBtn">Cancel</button>
+                <button type="submit" class="btn-primary">Save Changes</button>
+              </div>
+            </form>
+          </div>
+
+          <button class="btn-secondary info-back-btn" onclick="switchTab('ledger')">← Back to Ledger</button>
+        </div>
+      </section>
+
+      <!-- 2.5.3 LEDGER > DELETE -->
+      <section class="info-page" id="ledgerDeletePage" style="display: none;">
+        <div class="info-page-card ledger-list-card">
+          <div class="info-page-icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </div>
+          <h2 class="info-page-title">Ledger — Delete</h2>
+          <p class="info-page-sub">Firm ki ledger entries dekhein aur delete karein.</p>
+
+          <div id="ledgerDeleteList" class="table-responsive ledger-list">
+            <p style="color:#9ca3af;">Entries load ho rahi hain...</p>
+          </div>
+
+          <button class="btn-secondary info-back-btn" onclick="switchTab('ledger')">← Back to Ledger</button>
+        </div>
+      </section>
+
+      <!-- 2.6 INWARD ENTRY (Admin + Employee) -->
+      <section class="info-page" id="inwardPage" style="display: none;">
+        <div class="info-page-card ledger-create-card">
+          <div class="info-page-icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none">
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <path d="M5 21h14"></path>
+            </svg>
+          </div>
+          <h2 class="info-page-title">Inward</h2>
+          <p class="info-page-sub">Ledger Create se customer details choose karke inward entry karein.</p>
+
+          <form id="inwardForm" class="ledger-form" autocomplete="off">
+            <div class="form-group">
+              <label class="form-label">1. Register Customer Name *</label>
+              <div class="custom-select" id="inwardCustomerSelect">
+                <div class="custom-select-trigger" id="inwardCustomerTrigger">
+                  <span class="select-placeholder" id="inwardCustomerPlaceholder">Customer select karein...</span>
+                  <svg class="select-arrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="custom-select-options ledger-customer-options" id="inwardCustomerOptions">
+                  <input type="text" id="inwardCustomerSearch" class="ledger-customer-search" placeholder="Mobile ya party name search..." autocomplete="off">
+                  <div id="inwardCustomerList"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">2. Customer Code *</label>
+              <div class="custom-select" id="inwardCodeSelect">
+                <div class="custom-select-trigger" id="inwardCodeTrigger">
+                  <span class="select-placeholder" id="inwardCodePlaceholder">Pehle customer select karein</span>
+                  <svg class="select-arrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="custom-select-options ledger-customer-options" id="inwardCodeOptions">
+                  <input type="text" id="inwardCodeSearch" class="ledger-customer-search" placeholder="Code search..." autocomplete="off">
+                  <div id="inwardCodeList"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">3. Token *</label>
+              <div class="custom-select" id="inwardTokenSelect">
+                <div class="custom-select-trigger" id="inwardTokenTrigger">
+                  <span class="select-placeholder" id="inwardTokenPlaceholder">Pehle code select karein</span>
+                  <svg class="select-arrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="custom-select-options ledger-customer-options" id="inwardTokenOptions">
+                  <input type="text" id="inwardTokenSearch" class="ledger-customer-search" placeholder="Token search..." autocomplete="off">
+                  <div id="inwardTokenList"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">4. Type *</label>
+              <div class="custom-select" id="inwardTypeSelect">
+                <div class="custom-select-trigger" id="inwardTypeTrigger">
+                  <span class="select-placeholder" id="inwardTypePlaceholder">Pehle token select karein</span>
+                  <svg class="select-arrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="custom-select-options ledger-customer-options" id="inwardTypeOptions">
+                  <input type="text" id="inwardTypeSearch" class="ledger-customer-search" placeholder="Type search..." autocomplete="off">
+                  <div id="inwardTypeList"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">5. Quality *</label>
+              <div class="custom-select" id="inwardQualitySelect">
+                <div class="custom-select-trigger" id="inwardQualityTrigger">
+                  <span class="select-placeholder" id="inwardQualityPlaceholder">Pehle type select karein</span>
+                  <svg class="select-arrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="custom-select-options ledger-customer-options" id="inwardQualityOptions">
+                  <input type="text" id="inwardQualitySearch" class="ledger-customer-search" placeholder="Quality search..." autocomplete="off">
+                  <div id="inwardQualityList"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Bale Numbers * (minimum 1, maximum 30)</label>
+              <div id="inwardBaleRows">
+                <div class="bale-row">
+                  <input type="text" inputmode="numeric" class="form-input-plain inward-bale-input" placeholder="Bale 1" maxlength="12">
+                  <button type="button" class="btn-action-remove bale-remove" title="Remove">&times;</button>
+                </div>
+              </div>
+              <button type="button" class="btn-secondary" id="inwardAddBaleBtn">+ Add Bale</button>
+              <p class="form-hint" id="inwardBaleCount">1 / 30 bales</p>
+            </div>
+
+            <div class="form-group">
+              <label for="inwardTotalTakhaInput" class="form-label">Total Takha</label>
+              <input type="text" id="inwardTotalTakhaInput" class="form-input-plain" value="0" readonly style="font-weight:700;">
+            </div>
+
+            <div id="inwardResult" class="inward-result" style="display: none;">
+              <p><strong>Inward No:</strong> <span id="inwardNoValue">—</span></p>
+              <p><strong>Date &amp; Time (DDMMYYYY, AM/PM):</strong> <span id="inwardAtValue">—</span></p>
+              <button type="button" class="btn-primary" id="shareNewInwardBtn" style="margin-top:0.5rem;">Share Image Badge</button>
+            </div>
+
+            <div class="login-error-msg" id="inwardErrorMsg"></div>
+
+            <div class="modal-btn-row">
+              <button type="button" class="btn-secondary" onclick="switchTab('home')">← Back to Home</button>
+              <button type="submit" class="btn-primary">Save Inward Entry</button>
+            </div>
+          </form>
+
+          <div id="inwardListWrap" style="margin-top: 1.5rem;">
+            <h3 class="admin-card-title">Saved Inward Entries</h3>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead><tr><th>Inward No.</th><th>Date &amp; Time</th><th>Customer</th><th>Code</th><th>Token</th><th>Bales</th><th>Total Takha</th><th>Bale Numbers</th><th>Share</th></tr></thead>
+                <tbody id="inwardListBody">
+                  <tr><td colspan="9" style="text-align:center; color:#9ca3af;">Loading inward entries...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2.7 OUTWARD PAGE (PLACEHOLDER) -->
+      <section class="info-page" id="outwardPage" style="display: none;">
+        <div class="info-page-card">
+          <div class="info-page-icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none">
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+              <polyline points="7 8 12 3 17 8"></polyline>
+              <path d="M5 21h14"></path>
+            </svg>
+          </div>
+          <h2 class="info-page-title">Outward</h2>
+          <p class="info-page-sub">Firm se jaane wale bale / material ki outward entry yahan develop hogi.</p>
+          <span class="info-badge">Coming Soon</span>
+          <button class="btn-secondary info-back-btn" onclick="switchTab('home')">← Back to Home</button>
+        </div>
+      </section>
+
+      <!-- 3. DOWNLOAD PAGE (PLACEHOLDER) -->
+      <section class="info-page" id="downloadPage" style="display: none;">
+        <div class="info-page-card">
+          <div class="info-page-icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </div>
+          <h2 class="info-page-title">Download</h2>
+          <p class="info-page-sub">Packing Orbit ka desktop app / installer aur user guide yahan se download kar sakte hain.</p>
+          <span class="info-badge">Coming Soon</span>
+          <button class="btn-secondary info-back-btn" onclick="switchTab('home')">← Back to Home</button>
+        </div>
+      </section>
+
+      <!-- 4. HELP PAGE (PLACEHOLDER) -->
+      <section class="info-page" id="helpPage" style="display: none;">
+        <div class="info-page-card">
+          <div class="info-page-icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </div>
+          <h2 class="info-page-title">Help</h2>
+          <p class="info-page-sub">Setup guide, FAQ, Taka/Bale packing workflow help aur troubleshooting yahan milega.</p>
+          <span class="info-badge">Coming Soon</span>
+          <button class="btn-secondary info-back-btn" onclick="switchTab('home')">← Back to Home</button>
+        </div>
+      </section>
+
+      <!-- 5. CONTACTS PAGE -->
+      <section class="info-page" id="contactsPage" style="display: none;">
+        <div class="info-page-card">
+          <div class="info-page-icon">
+            <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+          </div>
+          <h2 class="info-page-title">Contacts</h2>
+          <p class="info-page-sub">Sales, support aur AMC renewal ke liye humse raabta karein.</p>
+          <div class="info-contact-list">
+            <a class="info-contact-row" id="contactsPhoneLink" href="tel:+91XXXXXXXXXX">
+              <span class="info-contact-label">Phone / WhatsApp</span>
+              <span class="info-contact-value" id="contactsPhoneValue">+91 XXXXX XXXXX</span>
+            </a>
+            <a class="info-contact-row" id="contactsEmailLink" href="mailto:support@packingorbit.in">
+              <span class="info-contact-label">Email</span>
+              <span class="info-contact-value" id="contactsEmailValue">support@packingorbit.in</span>
+            </a>
+            <div class="info-contact-row">
+              <span class="info-contact-label">Location</span>
+              <span class="info-contact-value">Malegaon, Nashik, Maharashtra</span>
+            </div>
+          </div>
+          <button class="btn-secondary info-back-btn" onclick="switchTab('home')">← Back to Home</button>
+        </div>
+      </section>
+
+      <!-- 6. PROTECTED DASHBOARD VIEW (ONLY VISIBLE AFTER SUCCESSFUL LOGIN) -->
+      <div class="dashboard-wrapper" id="protectedDashboard" style="display: none;">
+        <!-- RUNNING FIRM HEADING (top of dashboard, above user banner) -->
+        <h2 class="firm-run-status" id="firmRunStatus" style="display: none;">
+          <span class="firm-run-dot"></span>
+          <strong class="firm-run-name" id="firmRunName">—</strong>
+          <span class="firm-run-type" id="firmRunType" style="display: none;"></span>
+        </h2>
+
+        <!-- FIRM OWNER (MAIN ADMIN) BANNER REMOVED AS REQUESTED — Dashboard clean now -->
+
+        <!-- ADMIN CONTROL PANEL is accessed from the left sidebar (admin only) -->
+
+        <!-- ADMIN CONTROL PANEL PAGE (All three admin cards live here) -->
+        <section class="admin-control-panel-page" id="adminControlPanelPage" style="display: none;">
+          <div class="admin-control-panel-header">
+            <button class="pricing-back-btn" onclick="closeAdminControlPanel()">← Back to Dashboard</button>
+            <h2 class="admin-control-panel-title">Admin Control Panel</h2>
+          </div>
+
+          <div class="admin-panel-section">
+          <!-- Labour Staff Management Card (Capacity: Max 3 Active) -->
+          <div class="admin-card collapsible-card" id="labourCard">
+            <div class="admin-card-header card-header-clickable" onclick="toggleCard('labourCard', event)">
+              <div class="header-left">
+                <h3 class="admin-card-title">Labour Staff Management (Bale Packing Labours)</h3>
+                <p class="admin-card-sub">Active Capacity: <span id="labourCountBadge" class="count-pill">0 / 3 Active</span></p>
+              </div>
+              <div class="header-actions">
+                <button class="btn-add-labour" id="addLabourModalOpenBtn" onclick="event.stopPropagation();">+ Add Labour</button>
+                <svg class="card-toggle-arrow" id="labourCardArrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
+            <div class="card-content" id="labourCardContent">
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Labour Name</th>
+                      <th>Mobile (PIN)</th>
+                      <th>Job Status</th>
+                      <th>Admin Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="labourTableBody">
+                    <!-- Populated by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Login Audit Activity Logs Card (IST Timestamps) -->
+          <div class="admin-card collapsible-card" id="auditCard" style="margin-top: 1rem;">
+            <div class="admin-card-header card-header-clickable" onclick="toggleCard('auditCard', event)">
+              <div class="header-left">
+                <h3 class="admin-card-title">User Login Audit Logs (IST Time)</h3>
+                <p class="admin-card-sub">Real-time tracking of all Admins, Labours & Customers logins</p>
+              </div>
+              <div class="header-actions">
+                <button class="btn-refresh-logs" id="refreshLogsBtn" onclick="event.stopPropagation();">↻ Refresh</button>
+                <svg class="card-toggle-arrow" id="auditCardArrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
+            <div class="card-content" id="auditCardContent">
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>User / Party</th>
+                      <th>Role</th>
+                      <th>Login Date & Time (IST)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="loginLogsTableBody">
+                    <!-- Populated by JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Firm & License Management Card (Owner / Testing / Lifetime) -->
+          <div class="admin-card collapsible-card" id="firmCard" style="margin-top: 1rem;">
+            <div class="admin-card-header card-header-clickable" onclick="toggleCard('firmCard', event)">
+              <div class="header-left">
+                <h3 class="admin-card-title">Firm &amp; License Management</h3>
+                <p class="admin-card-sub">Owner &amp; Testing firms FREE (₹0) · Brand permanently locked</p>
+              </div>
+              <div class="header-actions">
+                <button class="btn-add-labour" id="createFirmModalOpenBtn" onclick="event.stopPropagation();">+ Create Firm</button>
+                <button class="btn-add-labour" id="registerCustomerModalOpenBtn" onclick="event.stopPropagation();">+ Register Customer</button>
+                <svg class="card-toggle-arrow" id="firmCardArrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
+            <div class="card-content" id="firmCardContent">
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Firm / Owner</th>
+                      <th>License Type</th>
+                      <th>License Key</th>
+                      <th>Fees / AMC</th>
+                      <th>Status</th>
+                      <th>License Copy</th>
+                    </tr>
+                  </thead>
+                  <tbody id="firmTableBody">
+                    <tr><td colspan="6" style="text-align:center; color:#9ca3af;">Loading firm licenses...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- FIRM CUSTOMERS (Admin-registered, PIN visible to Admin) -->
+              <div id="customerListWrap" style="margin-top: 1.25rem;">
+                <h4 class="admin-card-title">Firm Customers (Admin Registered)</h4>
+                <div class="table-responsive">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Login ID (Mobile)</th>
+                        <th>Party / Weaver</th>
+                        <th>Firm</th>
+                        <th>PIN (Admin View)</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="customerListBody">
+                      <tr><td colspan="6" style="text-align:center; color:#9ca3af;">Loading customers...</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Transportation Details Card (Outward requirements) -->
+          <div class="admin-card collapsible-card" id="transportCard" style="margin-top: 1rem;">
+            <div class="admin-card-header card-header-clickable" onclick="toggleCard('transportCard', event)">
+              <div class="header-left">
+                <h3 class="admin-card-title">Transportation Details (Outward)</h3>
+                <p class="admin-card-sub">Outward bale dispatch ke liye transport register karein</p>
+              </div>
+              <div class="header-actions">
+                <button class="btn-add-labour" id="addTransportModalOpenBtn" onclick="event.stopPropagation();">+ Add Transport</button>
+                <svg class="card-toggle-arrow" id="transportCardArrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
+            <div class="card-content" id="transportCardContent">
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Transport Name</th>
+                      <th>Mobile</th>
+                      <th>Vehicle No.</th>
+                      <th>GSTIN</th>
+                      <th>Address</th>
+                    </tr>
+                  </thead>
+                  <tbody id="transportTableBody">
+                    <tr><td colspan="5" style="text-align:center; color:#9ca3af;">Loading transports...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        </section>
+
+        <!-- LABOUR / EMPLOYEE VIEW (When Labour logs in) -->
+        <div class="labour-panel-section" id="labourControlSection" style="display: none;">
+          <div class="admin-card">
+            <h3 class="admin-card-title">👷 Packing & Baling Operations</h3>
+            <p class="admin-card-sub">Grey Cloth Taka folding, meter checking aur Bale (Ganth) packing workflow yahan se operate hoga.</p>
+          </div>
+        </div>
+
+        <!-- Clean Status Bar -->
+        <div class="stats-card">
+          <div class="stat-item">
+            <span class="stat-label">Active View</span>
+            <span class="stat-value" id="currentViewName">Dashboard</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-label">System Version</span>
+            <span class="stat-value" id="systemVersion">v0.5.0</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-label">Database</span>
+            <span class="stat-value">SQLite (WAL)</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- PERMANENT ORIGINAL BRAND FOOTER (non-removable) -->
+  <footer class="brand-footer">
+    <span>Powered by <strong id="brandFooterName">Packing Orbit</strong></span>
+    <span class="brand-footer-sep">·</span>
+    <span>Original Brand — License Protected</span>
+  </footer>
+
+  <!-- ADMIN ONLY: ADD NEW LABOUR MODAL -->
+  <div class="modal-backdrop" id="addLabourModal">
+    <div class="modal-dialog-box">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 class="modal-title">Naya Packing Labour Add Karein</h3>
+          <p class="modal-sub">Labour team limit: Maximum 3 active packing labours</p>
+        </div>
+        <button class="modal-close-btn" id="addLabourModalCloseBtn" aria-label="Close">&times;</button>
+      </div>
+
+      <form id="addLabourForm" class="modal-form">
+        <div class="form-group">
+          <label for="labourName" class="form-label">Labour Ka Naam</label>
+          <input type="text" id="labourName" class="form-input-plain" placeholder="e.g. Aslam Bhai (Baling)" required>
+        </div>
+
+        <div class="form-group">
+          <label for="labourMobile" class="form-label">Mobile Number (Login ID)</label>
+          <input type="tel" id="labourMobile" class="form-input-plain" placeholder="e.g. 9812345678" required>
+        </div>
+
+        <div class="form-group">
+          <label for="labourPin" class="form-label">Simple 4-digit PIN</label>
+          <input type="text" id="labourPin" class="form-input-plain" placeholder="e.g. 1234" maxlength="6" required>
+        </div>
+
+        <div class="login-error-msg" id="labourErrorMsg"></div>
+
+        <div class="modal-btn-row">
+          <button type="button" class="btn-secondary" id="addLabourCancelBtn">Cancel / Back</button>
+          <button type="submit" class="btn-primary">Save & Add Labour</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADMIN ONLY: CREATE FIRM / LICENSE MODAL -->
+  <div class="modal-backdrop" id="createFirmModal">
+    <div class="modal-dialog-box">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 class="modal-title">Create Firm &amp; License</h3>
+          <p class="modal-sub">Owner &amp; Testing firms are free (₹0) · Brand permanently locked</p>
+        </div>
+        <button class="modal-close-btn" id="createFirmModalCloseBtn" aria-label="Close">&times;</button>
+      </div>
+
+      <form id="createFirmForm" class="modal-form" autocomplete="off">
+        <div class="form-group">
+          <label for="firmName" class="form-label">Firm Name *</label>
+          <input type="text" id="firmName" class="form-input-plain" placeholder="e.g. Rahman Packing Works" maxlength="80" required>
+        </div>
+
+        <div class="form-group">
+          <label for="firmOwnerName" class="form-label">Owner / Authorized Person *</label>
+          <input type="text" id="firmOwnerName" class="form-input-plain" placeholder="e.g. Abdul Rahman" maxlength="80" required>
+        </div>
+
+        <div class="form-group">
+          <label for="firmMobile" class="form-label">Mobile Number (10 digit) *</label>
+          <input type="tel" id="firmMobile" class="form-input-plain" placeholder="e.g. 9812345678" maxlength="10" required>
+        </div>
+
+        <div class="form-group">
+          <label for="firmEmail" class="form-label">Email (optional)</label>
+          <input type="email" id="firmEmail" class="form-input-plain" placeholder="e.g. owner@firm.com" maxlength="100">
+        </div>
+
+        <div class="form-group">
+          <label for="firmAddress" class="form-label">Address (optional)</label>
+          <input type="text" id="firmAddress" class="form-input-plain" placeholder="Shop / Godown address" maxlength="150">
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="firmCity" class="form-label">City</label>
+            <input type="text" id="firmCity" class="form-input-plain" value="Malegaon" maxlength="60">
+          </div>
+          <div class="form-group">
+            <label for="firmGstin" class="form-label">GSTIN (optional)</label>
+            <input type="text" id="firmGstin" class="form-input-plain" placeholder="27XXXXXXXXXXX" maxlength="15">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="firmLicenseType" class="form-label">License Type *</label>
+          <select id="firmLicenseType" class="form-input-plain" required>
+            <option value="owner">Owner Firm — Free of Charge (₹0)</option>
+            <option value="testing">Testing Firm — Free of Charge (₹0)</option>
+            <option value="lifetime">Lifetime Purchased — Paid</option>
+          </select>
+        </div>
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="firmLicenseFee" class="form-label">License Fee (₹)</label>
+            <input type="number" id="firmLicenseFee" class="form-input-plain" value="0" min="0" step="1" disabled>
+          </div>
+          <div class="form-group">
+            <label for="firmAmcFee" class="form-label">Annual AMC (₹)</label>
+            <input type="number" id="firmAmcFee" class="form-input-plain" value="0" min="0" step="1" disabled>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="firmAmcDueDate" class="form-label">Next AMC Due Date (optional)</label>
+          <input type="date" id="firmAmcDueDate" class="form-input-plain">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Original Brand (Permanent)</label>
+          <div class="brand-lock-field">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span id="firmBrandName">Packing Orbit</span>
+            <span class="brand-lock-tag">LOCKED</span>
+          </div>
+          <p class="form-hint">Yeh brand name license copy aur application par permanently rahega — change nahi ho sakta.</p>
+        </div>
+
+        <div class="form-group">
+          <label for="firmNotes" class="form-label">Internal Notes (optional)</label>
+          <input type="text" id="firmNotes" class="form-input-plain" placeholder="e.g. Demo ke liye testing firm" maxlength="150">
+        </div>
+
+        <label class="form-confirm-row">
+          <input type="checkbox" id="firmConfirmBrand" required>
+          <span>Main confirm karta hoon ke <strong>Packing Orbit</strong> brand license copy par permanently rahega.</span>
+        </label>
+
+        <div class="login-error-msg" id="firmErrorMsg"></div>
+
+        <div class="modal-btn-row">
+          <button type="button" class="btn-secondary" id="createFirmCancelBtn">Cancel / Back</button>
+          <button type="submit" class="btn-primary">Create Firm License</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- REGISTER FIRM CUSTOMER MODAL (Admin only — banking-style, PIN auto-generated) -->
+  <div class="modal-backdrop" id="registerCustomerModal">
+    <div class="modal-dialog-box">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 class="modal-title">Register Firm Customer</h3>
+          <p class="modal-sub">Sirf Admin register kar sakta hai · Mobile hi Login ID hoga</p>
+        </div>
+        <button class="modal-close-btn" id="registerCustomerModalCloseBtn" aria-label="Close">&times;</button>
+      </div>
+
+      <form id="registerCustomerForm" class="modal-form" autocomplete="off">
+        <div class="form-group">
+          <label for="customerMobile" class="form-label">Customer Mobile Number (10 digit) *</label>
+          <input type="tel" id="customerMobile" class="form-input-plain" placeholder="e.g. 9812345678" maxlength="10" required>
+        </div>
+        <div class="form-group">
+          <label for="customerPartyName" class="form-label">Party / Weaver Name (optional)</label>
+          <input type="text" id="customerPartyName" class="form-input-plain" placeholder="e.g. Ramesh Kumar" maxlength="80">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Licensed Firm</label>
+          <div class="brand-lock-field">
+            <span id="customerFirmName">—</span>
+            <span class="brand-lock-tag">LICENSED</span>
+          </div>
+          <p class="form-hint">Customer isi firm se linked hoga. PIN system khud generate karega aur admin list mein dekh sakta hai.</p>
+        </div>
+
+        <div class="login-error-msg" id="customerErrorMsg"></div>
+
+        <div class="modal-btn-row">
+          <button type="button" class="btn-secondary" id="registerCustomerCancelBtn">Cancel / Back</button>
+          <button type="submit" class="btn-primary">Register &amp; Generate PIN</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD TRANSPORT MODAL (Outward transportation detail) -->
+  <div class="modal-backdrop" id="addTransportModal">
+    <div class="modal-dialog-box">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 class="modal-title">Add Transport</h3>
+          <p class="modal-sub">Outward dispatch ke liye transport detail save karein</p>
+        </div>
+        <button class="modal-close-btn" id="addTransportModalCloseBtn" aria-label="Close">&times;</button>
+      </div>
+
+      <form id="addTransportForm" class="modal-form" autocomplete="off">
+        <div class="form-group">
+          <label for="transportName" class="form-label">Transport Name *</label>
+          <input type="text" id="transportName" class="form-input-plain" placeholder="e.g. Patel Transport" maxlength="80" required>
+        </div>
+        <div class="form-group">
+          <label for="transportMobile" class="form-label">Mobile Number (10 digit) *</label>
+          <input type="tel" id="transportMobile" class="form-input-plain" placeholder="e.g. 9812345678" maxlength="10" required>
+        </div>
+        <div class="form-group">
+          <label for="transportVehicle" class="form-label">Vehicle Number</label>
+          <input type="text" id="transportVehicle" class="form-input-plain" placeholder="e.g. MH-41-AB-1234" maxlength="20">
+        </div>
+        <div class="form-group">
+          <label for="transportGstin" class="form-label">GSTIN (optional)</label>
+          <input type="text" id="transportGstin" class="form-input-plain" placeholder="27XXXXXXXXXXX" maxlength="15">
+        </div>
+        <div class="form-group">
+          <label for="transportAddress" class="form-label">Address (optional)</label>
+          <input type="text" id="transportAddress" class="form-input-plain" placeholder="Transport office / godown address" maxlength="150">
+        </div>
+
+        <div class="brand-lock-field">
+          <span>Firm: <strong id="transportFirmName">—</strong></span>
+        </div>
+
+        <div class="login-error-msg" id="transportErrorMsg"></div>
+
+        <div class="modal-btn-row">
+          <button type="button" class="btn-secondary" id="addTransportCancelBtn">Cancel / Back</button>
+          <button type="submit" class="btn-primary">Add Transport</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- EDIT FIRM CUSTOMER MODAL (Admin only) -->
+  <div class="modal-backdrop" id="editCustomerModal">
+    <div class="modal-dialog-box">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 class="modal-title">Edit / Alter Customer</h3>
+          <p class="modal-sub">Firm ke registered customer ki details badalein</p>
+        </div>
+        <button class="modal-close-btn" id="editCustomerCloseBtn" aria-label="Close">&times;</button>
+      </div>
+
+      <form id="editCustomerForm" class="modal-form" autocomplete="off">
+        <input type="hidden" id="editCustomerId">
+        <div class="form-group">
+          <label for="editCustomerMobile" class="form-label">Mobile Number / Login ID (10 digit) *</label>
+          <input type="tel" id="editCustomerMobile" class="form-input-plain" maxlength="10" required>
+        </div>
+        <div class="form-group">
+          <label for="editCustomerParty" class="form-label">Party / Weaver Name *</label>
+          <input type="text" id="editCustomerParty" class="form-input-plain" maxlength="80" required>
+        </div>
+        <div class="form-group">
+          <label for="editCustomerPin" class="form-label">PIN (4-6 digit, blank = unchanged)</label>
+          <input type="text" id="editCustomerPin" class="form-input-plain" maxlength="6" placeholder="Blank chhodlein to purana PIN rahega">
+        </div>
+        <div class="login-error-msg" id="editCustomerErrorMsg"></div>
+        <div class="modal-btn-row">
+          <button type="button" class="btn-secondary" id="editCustomerCancelBtn">Cancel / Back</button>
+          <button type="submit" class="btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- LICENSE COPY / CERTIFICATE MODAL -->
+  <div class="modal-backdrop" id="licenseCertificateModal">
+    <div class="modal-dialog-box modal-dialog-wide">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h3 class="modal-title">License Copy</h3>
+          <p class="modal-sub">Packing Orbit original brand — permanent &amp; non-transferable</p>
+        </div>
+        <button class="modal-close-btn" id="licenseCertificateCloseBtn" aria-label="Close">&times;</button>
+      </div>
+
+      <div id="licenseCertificateArea" class="license-certificate">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="modal-btn-row no-print">
+        <button type="button" class="btn-secondary" id="licenseCertificateCloseBtn2">Close</button>
+        <button type="button" class="btn-primary" id="licenseCertificatePrintBtn">Print / Save PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="qrcode.js?v=1"></script>
+  <script src="app.js?v=56"></script>
+</body>
+</html>

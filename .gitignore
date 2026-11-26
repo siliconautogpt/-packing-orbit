@@ -1,0 +1,21 @@
+node_modules/
+npm-debug.log*
+pnpm-debug.log*
+
+# Android build outputs
+android/.gradle/
+android/local.properties
+android/app/build/
+android/build/
+*.apk
+*.aab
+
+# Local database (customer data — never push to GitHub)
+database/*.db
+database/*.db-shm
+database/*.db-wal
+
+# IDE / OS
+.idea/
+*.iml
+.DS_Store
