@@ -1724,7 +1724,8 @@ function buildInwardBadgeCanvas(e) {
   ctx.lineWidth = 2;
   ctx.strokeRect(24, 330, 590, 520);
 
-  const rows = [
+  // Compact rows — minimal line spacing
+  const compactRows = [
     ['Inward No', e.inward_no],
     ['Date & Time', e.inward_at],
     ['Customer', e.party_name],
@@ -1732,22 +1733,33 @@ function buildInwardBadgeCanvas(e) {
     ['Customer Code', e.customer_code],
     ['Token', e.token],
     ['Quality', e.quality],
-    ['Bales', e.bale_numbers],
-    ['Bale Numbers', (e.bales || []).join(', ')],
-    ['Total Takha', e.total_takha]
+    ['Bales', e.bale_numbers]
   ];
 
-  let y = 374;
-  rows.forEach(([label, value]) => {
-    const isTotal = label === 'Total Takha';
-    if (isTotal) {
-      ctx.fillStyle = '#d1fae5';
-      ctx.fillRect(40, y - 32, 558, 60);
-    }
-    put(label, 44, y, '20px Arial', '#4b5563');
-    put(value, 240, y, isTotal ? 'bold 30px Arial' : 'bold 23px Arial', isTotal ? '#065f46' : '#111827', 360);
-    y += isTotal ? 66 : 44;
+  let y = 368;
+  compactRows.forEach(([label, value]) => {
+    put(label, 44, y, '19px Arial', '#4b5563');
+    put(value, 240, y, 'bold 22px Arial', '#111827', 360);
+    y += 34;
   });
+
+  // Bale Numbers — split into two clear, larger lines using the free space below
+  const bales = (e.bales || []).map(String);
+  const half = Math.ceil(bales.length / 2);
+  const baleLine1 = bales.slice(0, half).join(', ');
+  const baleLine2 = bales.slice(half).join(', ');
+
+  put('Bale Numbers', 44, 656, '19px Arial', '#4b5563');
+  put(baleLine1, 44, 696, 'bold 26px Arial', '#111827', 550);
+  if (baleLine2) put(baleLine2, 44, 736, 'bold 26px Arial', '#111827', 550);
+
+  // Total Takha
+  ctx.fillStyle = '#d1fae5';
+  ctx.fillRect(40, 776, 558, 60);
+  put('Total Takha', 44, 816, '20px Arial', '#4b5563');
+  ctx.textAlign = 'right';
+  put(e.total_takha != null ? e.total_takha : '—', 590, 816, 'bold 30px Arial', '#065f46', 200);
+  ctx.textAlign = 'left';
 
   ctx.fillStyle = '#e5e7eb';
   ctx.fillRect(24, 895, 590, 1);
