@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.27.0` (Badge Standard Format — 638x1011 px / 300 DPI)
+- **Current Version:** `v0.27.1` (Badge Round Corners + Format Confirmation)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -268,10 +268,22 @@ Packing Orbit/
 | `v0.26.1` | **Completed** | Clarified local APK stage vs cloud/VPS buyer stage in Section 11.9 | 2026-11-26 |
 | `v0.26.2` | **Completed** | GitHub Actions fix — use preinstalled Android SDK, remove setup-android action | 2026-11-26 |
 | `v0.27.0` | **Completed** | Badge 638x1011 px 300 DPI white theme, colored header with white brand text, CSS/JS v57 | 2026-11-26 |
+| `v0.27.1` | **Completed** | Badge rounded corners (radius 28), CSS/JS v58 | 2026-11-26 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-26 20:46:16 IST] - v0.27.1
+- **Session:** Badge Round Corners + Format Confirmation.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - User ne bataya ki purane APK me dark theme dikha — likely v0.26.2 APK chal raha tha (v0.27.0 release available tha).
+  - Badge me **rounded corners** add kiye (radius 28) — canvas ko rounded path se clip karke saara content (header, rows, footer) usi shape me draw hota hai.
+  - 638x1011 px portrait, 300 DPI pHYs metadata, white background, dark-green header with white brand text — sab v0.27.0 se hai, is version me corners bhi.
+  - Cache-busted `style.css?v=58` / `app.js?v=58`; package.json `0.27.1`.
+  - Updated DB `system_info.version` to `v0.27.1`.
+  - Bumped version to `v0.27.1`.
 
 ### [2026-11-26 19:55:32 IST] - v0.27.0
 - **Session:** Badge Standard Format — 638x1011 px / 300 DPI / White Theme.

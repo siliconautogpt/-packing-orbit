@@ -1640,6 +1640,19 @@ function buildInwardBadgeCanvas(e) {
   canvas.height = 1011;
   const ctx = canvas.getContext('2d');
 
+  // Rounded-corner card — everything below is clipped to this shape
+  const radius = 28;
+  ctx.clearRect(0, 0, 638, 1011);
+  ctx.beginPath();
+  ctx.moveTo(radius, 0);
+  ctx.arcTo(638, 0, 638, 1011, radius);
+  ctx.arcTo(638, 1011, 0, 1011, radius);
+  ctx.arcTo(0, 1011, 0, 0, radius);
+  ctx.arcTo(0, 0, 638, 0, radius);
+  ctx.closePath();
+  ctx.save();
+  ctx.clip();
+
   // White background
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, 638, 1011);
@@ -1727,6 +1740,7 @@ function buildInwardBadgeCanvas(e) {
   ctx.fillStyle = '#e5e7eb';
   ctx.fillRect(24, 952, 590, 1);
   put('Original Brand - License Protected', 32, 988, '16px Arial', '#6b7280');
+  ctx.restore();
   return canvas;
 }
 
