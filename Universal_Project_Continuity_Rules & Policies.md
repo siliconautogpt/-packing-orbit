@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.27.2` (Badge Header Gap + Larger Black QR)
+- **Current Version:** `v0.27.3` (Badge — Tighter Header + 200px QR)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -270,10 +270,23 @@ Packing Orbit/
 | `v0.27.0` | **Completed** | Badge 638x1011 px 300 DPI white theme, colored header with white brand text, CSS/JS v57 | 2026-11-26 |
 | `v0.27.1` | **Completed** | Badge rounded corners (radius 28), CSS/JS v58 | 2026-11-26 |
 | `v0.27.2` | **Completed** | Badge header gap minimal, QR 140px standard black at top-right, CSS/JS v59 | 2026-11-26 |
+| `v0.27.3` | **Completed** | Header gap 22px, QR 200px stretched left/down, CSS/JS v60 | 2026-11-26 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-26 21:23:22 IST] - v0.27.3
+- **Session:** Badge — Tighter Header Gap + Much Larger QR.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Header gap reduced further: brand baseline y=58, subhead baseline y=80 (22px gap).
+  - QR enlarged from 140px to **200px**, anchored top-right (x=414, y=20) — stretches left and down into the empty header area. Header height 180 -> 240.
+  - QR colour remains standard black (#000000).
+  - Headings/card/rows shifted to fit 638x1011: firm y=270, INWARD ENTRY y=312, card y=330 h=590, rows start 374.
+  - Cache-busted `style.css?v=60` / `app.js?v=60`; package.json `0.27.3`.
+  - Updated DB `system_info.version` to `v0.27.3`.
+  - Bumped version to `v0.27.3`.
 
 ### [2026-11-26 21:06:58 IST] - v0.27.2
 - **Session:** Badge Header + QR Refinement.
