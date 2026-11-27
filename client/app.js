@@ -1732,8 +1732,7 @@ function buildInwardBadgeCanvas(e) {
     ['Mobile', e.mobile],
     ['Customer Code', e.customer_code],
     ['Token', e.token],
-    ['Quality', e.quality],
-    ['Bales', e.bale_numbers]
+    ['Quality', e.quality]
   ];
 
   let y = 368;
@@ -1753,18 +1752,26 @@ function buildInwardBadgeCanvas(e) {
   put(baleLine1, 240, 640, 'bold 26px Arial', '#111827', 350);
   if (baleLine2) put(baleLine2, 240, 678, 'bold 26px Arial', '#111827', 350);
 
+  // Bales — light cyan patch (just above Total Takha)
+  ctx.fillStyle = '#cffafe';
+  ctx.fillRect(40, 710, 558, 60);
+  put('Bales', 44, 750, '20px Arial', '#4b5563');
+  ctx.textAlign = 'right';
+  put(e.bale_numbers != null ? e.bale_numbers : '—', 590, 750, 'bold 30px Arial', '#0e7490', 200);
+  ctx.textAlign = 'left';
+
   // Total Takha
   ctx.fillStyle = '#d1fae5';
-  ctx.fillRect(40, 750, 558, 60);
-  put('Total Takha', 44, 790, '20px Arial', '#4b5563');
+  ctx.fillRect(40, 780, 558, 60);
+  put('Total Takha', 44, 820, '20px Arial', '#4b5563');
   ctx.textAlign = 'right';
-  put(e.total_takha != null ? e.total_takha : '—', 590, 790, 'bold 30px Arial', '#065f46', 200);
+  put(e.total_takha != null ? e.total_takha : '—', 590, 820, 'bold 30px Arial', '#065f46', 200);
   ctx.textAlign = 'left';
 
   ctx.fillStyle = '#e5e7eb';
-  ctx.fillRect(24, 855, 590, 1);
+  ctx.fillRect(24, 875, 590, 1);
   ctx.textAlign = 'center';
-  put('Original Brand - License Protected', 319, 895, '16px Arial', '#6b7280');
+  put('Original Brand - License Protected', 319, 915, '16px Arial', '#6b7280');
   ctx.textAlign = 'left';
   ctx.restore();
   return canvas;

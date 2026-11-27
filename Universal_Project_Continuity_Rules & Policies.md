@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.27.7` (Badge — Bales Gap Reduced + Bale Values Aligned)
+- **Current Version:** `v0.27.8` (Badge — Cyan Bales Row Above Total Takha)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -275,10 +275,22 @@ Packing Orbit/
 | `v0.27.5` | **Completed** | Inward date `DD-MM-YYYY`, reduced badge line spacing, wider value column, CSS/JS v62 | 2026-11-26 |
 | `v0.27.6` | **Completed** | Badge minimal field spacing, bale numbers in two clear lines at bold 26px, CSS/JS v63 | 2026-11-27 |
 | `v0.27.7` | **Completed** | Reduced Bales→Bale Numbers gap, bale values aligned at x=240, CSS/JS v64 | 2026-11-27 |
+| `v0.27.8` | **Completed** | Bales highlight row (cyan) above Total Takha with right-aligned output, CSS/JS v65 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 07:53:18 IST] - v0.27.8
+- **Session:** Badge — Bales Highlight Row Above Total Takha.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - "Bales" removed from the compact 8-field list and placed just above Total Takha as its own highlight row.
+  - Bales row uses a **light cyan patch** (`#cffafe`) with cyan value text (`#0e7490`), output right-aligned like Total Takha.
+  - Total Takha patch shifted down to y=780..840; separator/footer moved to 875/915 so nothing overlaps in 638x1011.
+  - Cache-busted `style.css?v=65` / `app.js?v=65`; package.json `0.27.8`.
+  - Updated DB `system_info.version` to `v0.27.8`.
+  - Bumped version to `v0.27.8`.
 
 ### [2026-11-27 07:39:00 IST] - v0.27.7
 - **Session:** Badge — Bales Gap + Bale Numbers Alignment.
