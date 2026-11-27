@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.28.3` (Badge — Real JPG Signature Integrated)
+- **Current Version:** `v0.28.5` (Badge — Signatory at Bottom-Right Corner)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -281,10 +281,31 @@ Packing Orbit/
 | `v0.28.1` | **Completed** | Tiny low-contrast scribble signature, Authorised Signatory at box bottom-right, CSS/JS v68 | 2026-11-27 |
 | `v0.28.2` | **Completed** | Scribble removed; firm [Admin1] placeholder + optional client/signature.jpg image + Authorised Signatory, CSS/JS v69 | 2026-11-27 |
 | `v0.28.3` | **Completed** | Real handwritten JPG signature integrated in badge with aspect ratio, CSS/JS v70 | 2026-11-27 |
+| `v0.28.4` | **Completed** | Badge Quality field shows Type + Quality combined (e.g. PC 62 x 42), CSS/JS v71 | 2026-11-27 |
+| `v0.28.5` | **Completed** | Signatory stamping shifted to outer box bottom-right corner, CSS/JS v72 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 09:03:33 IST] - v0.28.5
+- **Session:** Badge — Signatory to Bottom-Right Corner.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Signatory stamping block (firm placeholder + real JPG signature + Authorised Signatory) shifted to the extreme bottom-right of the outer box: right edge x=606 (8px inside), heading baseline y=918 (12px above box bottom 930).
+  - Signature image and placeholder line follow the same right-aligned corner position.
+  - Cache-busted `style.css?v=72` / `app.js?v=72`; package.json `0.28.5`.
+  - Updated DB `system_info.version` to `v0.28.5`.
+  - Bumped version to `v0.28.5`.
+
+### [2026-11-27 09:00:13 IST] - v0.28.4
+- **Session:** Badge — Quality + Type Concatenation.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Badge me Quality field ki value ab Type ke saath concatenate ho kar dikhti hai: `PC 62 x 42` / `PC 62 x 58` (pehle sirf `62 x 42` tha).
+  - Cache-busted `style.css?v=71` / `app.js?v=71`; package.json `0.28.4`.
+  - Updated DB `system_info.version` to `v0.28.4`.
+  - Bumped version to `v0.28.4`.
 
 ### [2026-11-27 08:50:54 IST] - v0.28.3
 - **Session:** Real JPG Signature Integrated.

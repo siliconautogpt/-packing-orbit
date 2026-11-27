@@ -1744,7 +1744,7 @@ function buildInwardBadgeCanvas(e) {
     ['Mobile', e.mobile],
     ['Customer Code', e.customer_code],
     ['Token', e.token],
-    ['Quality', e.quality]
+    ['Quality', `${e.type || ''} ${e.quality || ''}`.trim()]
   ];
 
   let y = 368;
@@ -1803,27 +1803,29 @@ function buildInwardBadgeCanvas(e) {
   ctx.fillRect(24, sepY, 590, 1);
 
   // Digital signature + Authorised Signatory placeholder (bottom right)
-  // Bottom-right signatory block — firm placeholder / real JPG signature / heading
-  const signStart = totalPatchY + 78;
+  // Signatory stamping — tucked into the bottom-right corner of the outer box
+  const rightEdge = 606;             // 8px inside box right edge (614)
+  const signHeadingY = 918;          // 12px above box bottom (930)
+  const signImgH = 52;
+  const signImgY = signHeadingY - 64;
 
   ctx.textAlign = 'right';
-  put(`${firmName} [Admin1]`, 600, signStart, '13px Arial', '#4b5563');
+  put(`${firmName} [Admin1]`, rightEdge, signImgY - 8, '13px Arial', '#4b5563');
   ctx.textAlign = 'left';
 
   if (signatureImage && signatureImage.complete && signatureImage.naturalWidth > 0) {
-    // Preserve the image aspect ratio (~1.9:1)
-    ctx.drawImage(signatureImage, 500, signStart + 6, 100, 52);
+    ctx.drawImage(signatureImage, rightEdge - 100, signImgY, 100, signImgH);
   } else {
     ctx.strokeStyle = '#cbd5e1';
     ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.moveTo(500, signStart + 32);
-    ctx.lineTo(600, signStart + 32);
+    ctx.moveTo(rightEdge - 100, signImgY + signImgH / 2);
+    ctx.lineTo(rightEdge, signImgY + signImgH / 2);
     ctx.stroke();
   }
 
   ctx.textAlign = 'right';
-  put('Authorised Signatory', 600, signStart + 74, '13px Arial', '#6b7280');
+  put('Authorised Signatory', rightEdge, signHeadingY, '13px Arial', '#6b7280');
   ctx.textAlign = 'left';
 
   // Brand footer
