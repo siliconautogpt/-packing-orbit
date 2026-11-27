@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.29.0` (Badge — Full-Width Borderless Footer)
+- **Current Version:** `v0.29.1` (Login Page — Header & Tabs Hidden)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -168,7 +168,7 @@ Packing Orbit/
    35. **Fix (v0.10.0):** Firm Owner (Main Admin) banner card removed from dashboard; Logout moved into header pill; logout delegation on `#authHeaderContainer`. Cache-busted `style.css?v=19` / `app.js?v=19`; DB version `v0.10.0`.
    36. **Fix (v0.11.0):** Refresh par logout na ho — silent session restore via `/api/auth/me` (with firm info) added in `initMandatoryAuthGate`; server `/api/auth/me` updated to return firmName/licenseType. Cache-busted `style.css?v=20` / `app.js?v=20`; DB version `v0.11.0`.
    37. **Feature (v0.12.0):** Customer Registration — admin-only `/api/customers/register` (with firm binding), new `/api/admin/customers` list, Admin UI **+ Register Customer** modal + customer list inside Firm & License Management card. Cache-busted `style.css?v=21` / `app.js?v=21`; DB version `v0.12.0`.
-   34. **Fix (v0.9.0):** **Running Firm** heading se pehle wala label ("Running Firm:") hata diya — heading ab sirf green blinking dot + **exact firm name** + license-type badge ke sath dikhta hai. **Licensing** (firm key / fees / AMC summary) ko firm naam ke mutabik thoda chota font size diya (`.license-summary` 0.7rem, `.firm-key-code` 0.66rem). Admin cards ab **sirf** Admin Control Panel (sidebar se) mein hi render hote hain — dashboard par nahi. Cache-busted `style.css?v=18` / `app.js?v=18`; DB version `v0.9.0`.
+   38. **Feature/Polish (v0.13.0 - v0.29.0):** Ledger Create/Edit/Delete + child-record checks; Inward module (searchable dropdowns, bale boxes, DD-MM-YYYY date, auto serial Inward No., Total Takha, WhatsApp direct-share via APK native bridge); Inward/Outward placeholders; Transportation Details (Add Transport); Firm Customer Edit/Alter; Inward Badge final design (638x1011 300 DPI, dark-green header + full-width footer, black QR, hollow bale boxes, cyan Bales + green Total Takha, real JPG signature, 7-point Terms & Conditions). Cache-busted style.css?v=77 / app.js?v=77; DB version v0.29.0.
 - **Exact Resume Point:** Phase 5 - Malegaon Grey Cloth Taka Entry & Bale Packing Workflow.
 
 ---
@@ -288,10 +288,22 @@ Packing Orbit/
 | `v0.28.8` | **Completed** | Condition 7: godown charge applicable for >10 days late dispatch, CSS/JS v75 | 2026-11-27 |
 | `v0.28.9` | **Completed** | Badge footer dark green compact patch with white text, CSS/JS v76 | 2026-11-27 |
 | `v0.29.0` | **Completed** | Footer full-width borderless dark green bar with white text, CSS/JS v77 | 2026-11-27 |
+| `v0.29.1` | **Completed** | Login page header + tab menu hidden; shown again after login, CSS/JS v78 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 12:24:12 IST] - v0.29.1
+- **Session:** Login Page — Header & Tabs Hidden.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Login (unauthenticated) screen me ab **poora header** (`#mainHeader`) aur uske neeche ka **tab menu** (`#headerTabs`) nahi dikhte — dono default `display:none`.
+  - `renderAppUI(user)` me: login hone par dono wapas dikhayi jaati hain (`style.display = ''`), logout/initial state par `none`.
+  - Login ke baad ka UI bilkul waise hi hai jaise pehle tha (header + tabs + sidebar).
+  - Cache-busted `style.css?v=78` / `app.js?v=78`; package.json `0.29.1`.
+  - Updated DB `system_info.version` to `v0.29.1`.
+  - Bumped version to `v0.29.1`.
 
 ### [2026-11-27 09:45:36 IST] - v0.29.0
 - **Session:** Badge — Full-Width Borderless Footer.
@@ -1638,3 +1650,58 @@ Packing Orbit/
 ### 12.6 Note
 - Test customer cleanup: admin DB se delete kar sakta hai; purane/test customers ko affect kiye bina.
 - Is guide ka UI flow v0.16.0 me implement hua; version v0.16.1 me documentation add ki gayi.
+
+---
+
+## 13. Inward Badge — Final Design Specification (v0.29.0)
+
+**Status:** Implemented & documented. Applies to APK build `v0.29.0` and later.
+
+### 13.1 Canvas & Print Format
+- Standard portrait **638 x 1011 px**, exported PNG carries **300 DPI** metadata (`pHYs` chunk injected with CRC32).
+- **Rounded corners** (radius 28) — entire badge clipped to this shape.
+- **White background** with a light gray outer card border.
+
+### 13.2 Header
+- Full-width **dark green** band (`#065f46`) at top.
+- Brand **"PACKING ORBIT"** in **white**, with subhead **"Original Brand - License Protected"** just below it (minimal 22px gap).
+- **QR code 200px** anchored top-right (x=414, y=20), **standard black** modules on white box, unique per inward record (contains firm, Inward No, date/time, customer, mobile, code, token, bales, bale numbers, total takha).
+
+### 13.3 Headings & Rows
+- Firm name and **"INWARD ENTRY"** heading are **center-aligned**; firm name bold 32px.
+- Compact field rows with minimal line spacing (34px):
+  Inward No, Date & Time (`DD-MM-YYYY hh:mm:ss AM/PM`), Customer, Mobile, Customer Code, Token, **Quality shown as Type + Quality** (e.g. `PC 62 x 42`).
+
+### 13.4 Bale Numbers
+- No comma separator — each bale number rendered inside a **hollow rectangle box** (gray outline, centered text), adaptive width (56px / 46px), up to 3 lines.
+
+### 13.5 Highlight Rows
+- **Bales** — light **cyan** patch (`#cffafe`) with cyan value, right-aligned, just above Total Takha.
+- **Total Takha** — light **green** patch (`#d1fae5`), right-aligned. Computed as `bale count × ledger takha_bales`.
+
+### 13.6 Signatory & Terms (bottom area)
+- Bottom-right corner of the outer box:
+  1. `<firm name> [Admin1]` placeholder (e.g. `Hans Packing Firm [Admin1]`)
+  2. **Real signature image** — admin-provided JPG at `client/signature.jpg`, drawn with preserved aspect ratio; fallback placeholder line if file missing.
+  3. **"Authorised Signatory"** heading at the extreme bottom-right.
+- Bottom-left blank area filled with professional **Terms & Conditions** (7 conditions):
+  1. Material **must be** received in good condition.
+  2. Report shortage within 24 hours.
+  3. Quality / rate as per ledger entry.
+  4. Computer-generated inward record.
+  5. Dispatch to transport within 24 hrs of inward.
+  6. Goods risk ceases at our godown only.
+  7. >10 days late dispatch — **godown charge applicable**.
+
+### 13.7 Footer
+- Full-width **dark green** bar (`#065f46`), flush left/right/bottom (borderless), white text: **"Original Brand - License Protected"**.
+
+### 13.8 Sharing
+- **No caption text** is sent to WhatsApp — the badge image carries all details.
+- **No file download** in the share flow.
+- APK native bridge (`PackingOrbitNative.shareImageToWhatsApp`) sends the PNG with `jid=<registered customer number>@s.whatsapp.net` + `EXTRA_STREAM` → **image goes directly to that customer's WhatsApp chat; no contact search, no wrong-recipient risk**.
+- Web browser fallback: Web Share API with image file (contact picker may appear) — browser limitation documented in Section 11.
+
+### 13.9 Inward Number & Date
+- Inward No: `IN-DDMMYYYY-NNNN` (per-day sequential serial, server-generated, unique).
+- Date/Time: `DD-MM-YYYY hh:mm:ss AM/PM` (IST), server-generated.

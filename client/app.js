@@ -1930,6 +1930,8 @@ function renderAppUI(user) {
   const sidebarUserRoleText = document.getElementById('sidebarUserRoleText');
   const labourControlSection = document.getElementById('labourControlSection');
   const firmRunStatus = document.getElementById('firmRunStatus');
+  const mainHeader = document.getElementById('mainHeader');
+  const headerTabs = document.getElementById('headerTabs');
 
   // Any auth state change should return to the Home tab
   ['pricingPage', 'ledgerPage', 'ledgerCreatePage', 'ledgerEditPage', 'ledgerDeletePage', 'inwardPage', 'outwardPage', 'downloadPage', 'helpPage', 'contactsPage', 'adminControlPanelPage'].forEach((id) => {
@@ -1945,7 +1947,11 @@ function renderAppUI(user) {
     authGateContainer.style.display = 'none';
     protectedDashboard.style.display = 'block';
 
-    // Restore sidebar after login (header was never hidden)
+    // Show header + tabs only after login
+    if (mainHeader) mainHeader.style.display = '';
+    if (headerTabs) headerTabs.style.display = '';
+
+    // Restore sidebar after login
     const sidebarEl = document.getElementById('sidebar');
     if (sidebarEl) sidebarEl.style.display = '';
 
@@ -2010,7 +2016,10 @@ function renderAppUI(user) {
     authGateContainer.style.display = 'flex';
     protectedDashboard.style.display = 'none';
 
-    // On login screen: hide ONLY sidebar & backdrop; header stays visible
+    // Login screen: header, tabs, sidebar aur backdrop sab hidden
+    if (mainHeader) mainHeader.style.display = 'none';
+    if (headerTabs) headerTabs.style.display = 'none';
+
     const sidebarEl = document.getElementById('sidebar');
     const sidebarBackdropEl = document.getElementById('sidebarBackdrop');
     if (sidebarEl) sidebarEl.style.display = 'none';
