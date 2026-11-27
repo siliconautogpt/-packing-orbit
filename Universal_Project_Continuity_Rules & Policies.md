@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.29.7` (Login Header 22px + Balanced Sizing)
+- **Current Version:** `v0.29.8` (Login Header — Corners + Max Fit)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -295,10 +295,22 @@ Packing Orbit/
 | `v0.29.5` | **Completed** | Login header half width, full-page-width separator line, firm hint text removed, CSS/JS v82 | 2026-11-27 |
 | `v0.29.6` | **Completed** | Login header height 52px -> 28px (width 175px unchanged), CSS/JS v83 | 2026-11-27 |
 | `v0.29.7` | **Completed** | Login header height 22px, brand/button balanced sizing, left/right corners, CSS/JS v84 | 2026-11-27 |
+| `v0.29.8` | **Completed** | Brand left corner + Subscriptions right corner with max-fit font sizes, CSS/JS v85 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 15:13:29 IST] - v0.29.8
+- **Session:** Login Header — Corners + Max Fit Sizing.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Header me ab `justify-content: flex-start` + brand par `margin-right:auto` aur button par `margin-left:auto` — brand **left corner**, Subscriptions **right corner** (center alignment khatam).
+  - Brand font 0.85rem -> **0.9rem**, button font 0.65rem -> **0.7rem**, padding compact — 22px height me maximum possible size.
+  - Width 175px aur height 22px wahi rahe.
+  - Cache-busted `style.css?v=85` / `app.js?v=85`; package.json `0.29.8`.
+  - Updated DB `system_info.version` to `v0.29.8`.
+  - Bumped version to `v0.29.8`.
 
 ### [2026-11-27 15:03:09 IST] - v0.29.7
 - **Session:** Login Header — 22px Height + Balanced Sizing.

@@ -1,0 +1,5 @@
+Packing Orbit - Latest APK (v0.29.7)
+https://github.com/siliconautogpt/-packing-orbit/releases/download/v0.29.7/app-debug.apk
+
+Release page:
+https://github.com/siliconautogpt/-packing-orbit/releases/tag/v0.29.7

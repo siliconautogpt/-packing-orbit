@@ -1,6 +1,6 @@
 {
   "name": "packing-orbit",
-  "version": "0.29.7",
+  "version": "0.29.8",
   "private": true,
   "description": "Packing Orbit - A Packing Automation System for Malegaon Powerloom Industry",
   "main": "server/index.js",
