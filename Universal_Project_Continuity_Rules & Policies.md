@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.29.3` (Login Card — Clean Professional Look)
+- **Current Version:** `v0.29.4` (Login Header Bar + Subscriptions Button)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -291,10 +291,23 @@ Packing Orbit/
 | `v0.29.1` | **Completed** | Login page header + tab menu hidden; shown again after login, CSS/JS v78 | 2026-11-27 |
 | `v0.29.2` | **Completed** | Packing Orbit brand text moved above login card, card title only "Sign In", CSS/JS v79 | 2026-11-27 |
 | `v0.29.3` | **Completed** | Login lock icon + subtitle removed, thin Sign In font, CSS/JS v80 | 2026-11-27 |
+| `v0.29.4` | **Completed** | Fixed-width login header bar with single separator line and right-corner Subscriptions button, CSS/JS v81 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 14:27:45 IST] - v0.29.4
+- **Session:** Login Header Bar + Subscriptions Button.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Login page ka brand header ab **fixed-width (350px) bar** hai — auth card ke width ke barabar.
+  - Bar me **embedded single line** (`border-bottom`) hai — brand ko card se separate karta hai.
+  - Bar ki height 56px, `align-items:center` — button vertically bilkul center me, na upar na neeche chipka.
+  - **Right corner** me **"Subscriptions"** button — professional blue (`#2563eb`), white text, hover/active states; click par Pricing page khulti hai (`openPricingPage()`).
+  - Cache-busted `style.css?v=81` / `app.js?v=81`; package.json `0.29.4`.
+  - Updated DB `system_info.version` to `v0.29.4`.
+  - Bumped version to `v0.29.4`.
 
 ### [2026-11-27 14:11:34 IST] - v0.29.3
 - **Session:** Login Card — Clean Professional Look.

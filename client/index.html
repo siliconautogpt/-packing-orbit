@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Packing Orbit - a packing automation</title>
-  <link rel="stylesheet" href="style.css?v=80">
+  <link rel="stylesheet" href="style.css?v=81">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
@@ -100,13 +100,16 @@
     <main class="main-viewport">
       <!-- 1. MANDATORY LOGIN VIEW (SHOWN BY DEFAULT ON EVERY LAUNCH) -->
       <div class="auth-gate-container" id="authGateContainer">
-        <!-- Brand above login card -->
-        <div class="login-brand-above">
-          <svg viewBox="0 0 24 24" width="26" height="26" stroke="currentColor" stroke-width="2" fill="none">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          <span id="loginBrandName">Packing Orbit</span>
+        <!-- Login header — fixed width bar with embedded separator line + Subscriptions -->
+        <div class="login-header-bar">
+          <div class="login-brand-above">
+            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span id="loginBrandName">Packing Orbit</span>
+          </div>
+          <button type="button" class="login-subscriptions-btn" onclick="openPricingPage()">Subscriptions</button>
         </div>
 
         <div class="auth-card">
@@ -1164,6 +1167,6 @@
   </div>
 
   <script src="qrcode.js?v=1"></script>
-  <script src="app.js?v=80"></script>
+  <script src="app.js?v=81"></script>
 </body>
 </html>
