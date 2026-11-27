@@ -946,7 +946,7 @@ a.info-contact-row:hover {
   position: relative;
   width: 100%;
   max-width: 420px;
-  height: 24px;
+  height: 44px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -977,14 +977,14 @@ a.info-contact-row:hover {
 }
 
 .login-brand-above svg {
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
 }
 
 .login-brand-above span {
   font-family: var(--font-family-display);
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.01em;
@@ -999,9 +999,9 @@ a.info-contact-row:hover {
   border: 1px solid #3b82f6;
   color: #ffffff;
   font-family: inherit;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  padding: 0.2rem 0.5rem;
+  padding: 0.35rem 0.6rem;
   border-radius: 4px;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.15s ease;

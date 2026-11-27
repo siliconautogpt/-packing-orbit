@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.29.9` (Login Header — Proper Full-Width Design)
+- **Current Version:** `v0.30.0` (Login Header — Vertically Centered + Bigger Brand)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -297,10 +297,23 @@ Packing Orbit/
 | `v0.29.7` | **Completed** | Login header height 22px, brand/button balanced sizing, left/right corners, CSS/JS v84 | 2026-11-27 |
 | `v0.29.8` | **Completed** | Brand left corner + Subscriptions right corner with max-fit font sizes, CSS/JS v85 | 2026-11-27 |
 | `v0.29.9` | **Completed** | Header full-width (420px max), overlap fixed, brand left + Subscriptions right, CSS/JS v86 | 2026-11-27 |
+| `v0.30.0` | **Completed** | Header height 44px, vertical center, brand 1.1rem + 18px icon, CSS/JS v87 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 15:29:18 IST] - v0.30.0
+- **Session:** Login Header — Vertical Center + Bigger Brand.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Header height 24px -> **44px** — brand aur button ab separator line ke paas chipke nahi, balki poori height me **vertically center** (`align-items:center`).
+  - Brand name font 0.95rem -> **1.1rem**, icon 14px -> **18px** — saath me bada aur readable.
+  - Subscriptions button font 0.75rem -> 0.8rem, padding thoda bada.
+  - Width 100% (max 420px) aur full-width separator line waise hi.
+  - Cache-busted `style.css?v=87` / `app.js?v=87`; package.json `0.30.0`.
+  - Updated DB `system_info.version` to `v0.30.0`.
+  - Bumped version to `v0.30.0`.
 
 ### [2026-11-27 15:21:07 IST] - v0.29.9
 - **Session:** Login Header — Proper Full-Width Design (Overlap Fix).
