@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.29.8` (Login Header — Corners + Max Fit)
+- **Current Version:** `v0.29.9` (Login Header — Proper Full-Width Design)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -296,10 +296,24 @@ Packing Orbit/
 | `v0.29.6` | **Completed** | Login header height 52px -> 28px (width 175px unchanged), CSS/JS v83 | 2026-11-27 |
 | `v0.29.7` | **Completed** | Login header height 22px, brand/button balanced sizing, left/right corners, CSS/JS v84 | 2026-11-27 |
 | `v0.29.8` | **Completed** | Brand left corner + Subscriptions right corner with max-fit font sizes, CSS/JS v85 | 2026-11-27 |
+| `v0.29.9` | **Completed** | Header full-width (420px max), overlap fixed, brand left + Subscriptions right, CSS/JS v86 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 15:21:07 IST] - v0.29.9
+- **Session:** Login Header — Proper Full-Width Design (Overlap Fix).
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - **Issue:** 175px width me brand (icon + "Packing Orbit") aur "Subscriptions" button fit nahi karte the — dono center me aa kar overlap kar rahe the.
+  - Fix: header ko **standard app header ki tarah full-width** banaya (`width:100%`, `max-width:420px`, height 24px).
+  - `justify-content: space-between` — brand **left corner**, Subscriptions **right corner**, ab koi overlap nahi.
+  - Font sizes readability ke liye thode bade: brand 0.95rem, button 0.75rem.
+  - Full-page-width separator line (`::after`, 100vw) waise hi.
+  - Cache-busted `style.css?v=86` / `app.js?v=86`; package.json `0.29.9`.
+  - Updated DB `system_info.version` to `v0.29.9`.
+  - Bumped version to `v0.29.9`.
 
 ### [2026-11-27 15:13:29 IST] - v0.29.8
 - **Session:** Login Header — Corners + Max Fit Sizing.
