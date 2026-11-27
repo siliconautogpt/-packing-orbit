@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.29.4` (Login Header Bar + Subscriptions Button)
+- **Current Version:** `v0.29.5` (Login Header Half-Width + Full-Width Line)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -292,10 +292,22 @@ Packing Orbit/
 | `v0.29.2` | **Completed** | Packing Orbit brand text moved above login card, card title only "Sign In", CSS/JS v79 | 2026-11-27 |
 | `v0.29.3` | **Completed** | Login lock icon + subtitle removed, thin Sign In font, CSS/JS v80 | 2026-11-27 |
 | `v0.29.4` | **Completed** | Fixed-width login header bar with single separator line and right-corner Subscriptions button, CSS/JS v81 | 2026-11-27 |
+| `v0.29.5` | **Completed** | Login header half width, full-page-width separator line, firm hint text removed, CSS/JS v82 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 14:39:20 IST] - v0.29.5
+- **Session:** Login Header Size, Full-Width Line, Firm Hint Removal.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Login header bar width **350px -> 175px** (half), height 52px; brand text 0.8rem, icon 16px, Subscriptions button compact (0.6rem) so everything still fits and stays vertically centered.
+  - Separator line ab header bar ke `::after` se **poori page width (100vw)** me — left se right tak, bar ki width par dependent nahi.
+  - Firm select ke neeche wala hint text **"N active firm license available. Login usi firm ke context mein hoga."** aur uska initial hint `<p>` element dono remove kiye (success aur error dono paths).
+  - Cache-busted `style.css?v=82` / `app.js?v=82`; package.json `0.29.5`.
+  - Updated DB `system_info.version` to `v0.29.5`.
+  - Bumped version to `v0.29.5`.
 
 ### [2026-11-27 14:27:45 IST] - v0.29.4
 - **Session:** Login Header Bar + Subscriptions Button.

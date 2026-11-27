@@ -943,33 +943,51 @@ a.info-contact-row:hover {
 /* Brand above the login card */
 /* Login header — fixed-width bar, embedded single line, right-side button */
 .login-header-bar {
-  width: 350px;
+  position: relative;
+  width: 175px;
   max-width: 100%;
-  height: 56px;
+  height: 52px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
-  padding: 0 0.25rem 0 0.5rem;
+  gap: 0.25rem;
+  padding: 0 0.15rem 0 0.3rem;
   margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Full page-width separator (left edge to right edge) */
+.login-header-bar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .login-brand-above {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.3rem;
   color: #6ee7b7;
   min-width: 0;
 }
 
+.login-brand-above svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
 .login-brand-above span {
   font-family: var(--font-family-display);
-  font-size: 1.25rem;
-  font-weight: 800;
+  font-size: 0.8rem;
+  font-weight: 700;
   color: #ffffff;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -981,10 +999,10 @@ a.info-contact-row:hover {
   border: 1px solid #3b82f6;
   color: #ffffff;
   font-family: inherit;
-  font-size: 0.72rem;
+  font-size: 0.6rem;
   font-weight: 600;
-  padding: 0.4rem 0.65rem;
-  border-radius: 6px;
+  padding: 0.32rem 0.4rem;
+  border-radius: 5px;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.15s ease;
 }

@@ -309,7 +309,6 @@ function initFirmSelection() {
 async function loadFirmOptions() {
   const firmOptions = document.getElementById('firmSelectOptions');
   const firmPlaceholder = document.getElementById('firmSelectPlaceholder');
-  const firmHint = document.getElementById('firmSelectHint');
   if (!firmOptions || !firmPlaceholder) return;
 
   try {
@@ -342,12 +341,8 @@ async function loadFirmOptions() {
 
     selectedFirmId = firms[0].id;
     firmPlaceholder.textContent = firmOptions.firstElementChild.textContent;
-    if (firmHint) {
-      firmHint.textContent = `${firms.length} active firm license available. Login usi firm ke context mein hoga.`;
-    }
   } catch (err) {
     firmPlaceholder.textContent = 'Firm list load nahi hui';
-    if (firmHint) firmHint.textContent = 'Server connection check karein.';
   }
 }
 
