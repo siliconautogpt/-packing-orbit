@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.27.8` (Badge — Cyan Bales Row Above Total Takha)
+- **Current Version:** `v0.27.9` (Badge — Bale Boxes + Digital Signatory)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -276,10 +276,22 @@ Packing Orbit/
 | `v0.27.6` | **Completed** | Badge minimal field spacing, bale numbers in two clear lines at bold 26px, CSS/JS v63 | 2026-11-27 |
 | `v0.27.7` | **Completed** | Reduced Bales→Bale Numbers gap, bale values aligned at x=240, CSS/JS v64 | 2026-11-27 |
 | `v0.27.8` | **Completed** | Bales highlight row (cyan) above Total Takha with right-aligned output, CSS/JS v65 | 2026-11-27 |
+| `v0.27.9` | **Completed** | Bale numbers in hollow boxes + Authorised Signatory with cursive digital sign, CSS/JS v66 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 08:07:05 IST] - v0.27.9
+- **Session:** Badge — Bale Boxes + Digital Signatory.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Bale Numbers ab comma-separated text nahi — har bale number apne **hollow rectangle box** (gray outline) me, centered text; up to 10 bales ke liye 56px boxes, zyada ke liye 46px, dynamic multi-line layout.
+  - Cyan "Bales" aur green "Total Takha" highlight rows ab dynamically position hote hain taake box lines ke saath overlap na ho; card height 600.
+  - Bottom-right me "Authorised Signatory" placeholder + uske upar cursive signature text **"Admin1 Digital sign"** (italic bold Georgia, cyan).
+  - Cache-busted `style.css?v=66` / `app.js?v=66`; package.json `0.27.9`.
+  - Updated DB `system_info.version` to `v0.27.9`.
+  - Bumped version to `v0.27.9`.
 
 ### [2026-11-27 07:53:18 IST] - v0.27.8
 - **Session:** Badge — Bales Highlight Row Above Total Takha.

@@ -1722,7 +1722,7 @@ function buildInwardBadgeCanvas(e) {
 
   ctx.strokeStyle = '#e5e7eb';
   ctx.lineWidth = 2;
-  ctx.strokeRect(24, 330, 590, 520);
+  ctx.strokeRect(24, 330, 590, 600);
 
   // Compact rows — minimal line spacing
   const compactRows = [
@@ -1744,35 +1744,63 @@ function buildInwardBadgeCanvas(e) {
 
   // Bale Numbers — split into two clear, larger lines using the free space below
   const bales = (e.bales || []).map(String);
-  const half = Math.ceil(bales.length / 2);
-  const baleLine1 = bales.slice(0, half).join(', ');
-  const baleLine2 = bales.slice(half).join(', ');
-
   put('Bale Numbers', 44, 640, '19px Arial', '#4b5563');
-  put(baleLine1, 240, 640, 'bold 26px Arial', '#111827', 350);
-  if (baleLine2) put(baleLine2, 240, 678, 'bold 26px Arial', '#111827', 350);
+
+  // Hollow rectangle boxes for each bale number (no comma separator)
+  const boxW = bales.length <= 10 ? 56 : 46;
+  const boxH = 34;
+  const gap = 8;
+  const cols = Math.max(1, Math.floor((360 + gap) / (boxW + gap)));
+  const lines = Math.max(1, Math.ceil(bales.length / cols));
+  bales.forEach((num, i) => {
+    const line = Math.floor(i / cols);
+    const col = i % cols;
+    const x = 240 + col * (boxW + gap);
+    const yc = 632 + line * 36;
+    ctx.strokeStyle = '#94a3b8';
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(x, yc - boxH / 2, boxW, boxH);
+    ctx.textAlign = 'center';
+    put(num, x + boxW / 2, yc + 6, 'bold 18px Arial', '#111827', boxW - 4);
+    ctx.textAlign = 'left';
+  });
+  if (!bales.length) put('—', 240, 640, 'bold 26px Arial', '#111827');
+
+  const balesBottom = 632 + (lines - 1) * 36 + 17;
+  const balesPatchY = balesBottom + 18;
+  const totalPatchY = balesPatchY + 66;
 
   // Bales — light cyan patch (just above Total Takha)
   ctx.fillStyle = '#cffafe';
-  ctx.fillRect(40, 710, 558, 60);
-  put('Bales', 44, 750, '20px Arial', '#4b5563');
+  ctx.fillRect(40, balesPatchY, 558, 58);
+  put('Bales', 44, balesPatchY + 38, '20px Arial', '#4b5563');
   ctx.textAlign = 'right';
-  put(e.bale_numbers != null ? e.bale_numbers : '—', 590, 750, 'bold 30px Arial', '#0e7490', 200);
+  put(e.bale_numbers != null ? e.bale_numbers : '—', 590, balesPatchY + 38, 'bold 30px Arial', '#0e7490', 200);
   ctx.textAlign = 'left';
 
-  // Total Takha
+  // Total Takha — light green patch
   ctx.fillStyle = '#d1fae5';
-  ctx.fillRect(40, 780, 558, 60);
-  put('Total Takha', 44, 820, '20px Arial', '#4b5563');
+  ctx.fillRect(40, totalPatchY, 558, 58);
+  put('Total Takha', 44, totalPatchY + 38, '20px Arial', '#4b5563');
   ctx.textAlign = 'right';
-  put(e.total_takha != null ? e.total_takha : '—', 590, 820, 'bold 30px Arial', '#065f46', 200);
+  put(e.total_takha != null ? e.total_takha : '—', 590, totalPatchY + 38, 'bold 30px Arial', '#065f46', 200);
   ctx.textAlign = 'left';
 
+  const sepY = Math.min(totalPatchY + 72, 905);
   ctx.fillStyle = '#e5e7eb';
-  ctx.fillRect(24, 875, 590, 1);
-  ctx.textAlign = 'center';
-  put('Original Brand - License Protected', 319, 915, '16px Arial', '#6b7280');
+  ctx.fillRect(24, sepY, 590, 1);
+
+  // Digital signature + Authorised Signatory placeholder (bottom right)
+  ctx.textAlign = 'right';
+  put('Admin1 Digital sign', 590, sepY + 26, 'italic bold 26px Georgia', '#0e7490', 340);
+  put('Authorised Signatory', 590, sepY + 52, '15px Arial', '#4b5563');
   ctx.textAlign = 'left';
+
+  // Brand footer
+  ctx.textAlign = 'center';
+  put('Original Brand - License Protected', 319, 994, '14px Arial', '#6b7280');
+  ctx.textAlign = 'left';
+
   ctx.restore();
   return canvas;
 }
