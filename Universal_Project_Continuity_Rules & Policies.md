@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.30.0` (Login Header — Vertically Centered + Bigger Brand)
+- **Current Version:** `v0.31.0` (Pricing Integrated Into Subscriptions Button)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -298,10 +298,23 @@ Packing Orbit/
 | `v0.29.8` | **Completed** | Brand left corner + Subscriptions right corner with max-fit font sizes, CSS/JS v85 | 2026-11-27 |
 | `v0.29.9` | **Completed** | Header full-width (420px max), overlap fixed, brand left + Subscriptions right, CSS/JS v86 | 2026-11-27 |
 | `v0.30.0` | **Completed** | Header height 44px, vertical center, brand 1.1rem + 18px icon, CSS/JS v87 | 2026-11-27 |
+| `v0.31.0` | **Completed** | Pricing menu removed from tabs + sidebar, available only via Subscriptions button, CSS/JS v88 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 15:41:31 IST] - v0.31.0
+- **Session:** Pricing Menu Integrated Into Subscriptions Button.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Header tab menu se **Pricing** button remove kiya.
+  - Left sidebar se bhi **Pricing** nav item remove kiya (`renderNavMenus()` me pricing block hata diya).
+  - Pricing page ab **sirf login header ke "Subscriptions" button** se khulti hai (`openPricingPage()` pehle se wired tha).
+  - Sidebar order fix: Dashboard → Ledger → Inward → Outward → Admin Control Panel (pricing ke bina bhi insertion sahi rahe).
+  - Cache-busted `style.css?v=88` / `app.js?v=88`; package.json `0.31.0`.
+  - Updated DB `system_info.version` to `v0.31.0`.
+  - Bumped version to `v0.31.0`.
 
 ### [2026-11-27 15:29:18 IST] - v0.30.0
 - **Session:** Login Header — Vertical Center + Bigger Brand.

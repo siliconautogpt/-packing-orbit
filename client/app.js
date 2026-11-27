@@ -446,28 +446,7 @@ function renderNavMenus(menus) {
 
   // Ledger is admin-only — injected by syncLedgerNavItem() based on role
 
-  // Always append Pricing (visible to everyone, opens standalone page)
-  const pricingLi = document.createElement('li');
-  pricingLi.className = 'nav-item';
-  pricingLi.setAttribute('data-menu', 'pricing');
-  pricingLi.innerHTML = `
-    <a href="#pricing" class="nav-link">
-      <span class="nav-icon">
-        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
-          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
-          <line x1="7" y1="7" x2="7.01" y2="7"></line>
-        </svg>
-      </span>
-      <span class="nav-label">Pricing</span>
-    </a>
-  `;
-  pricingLi.addEventListener('click', (e) => {
-    e.preventDefault();
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-    pricingLi.classList.add('active');
-    openPricingPage();
-  });
-  navList.appendChild(pricingLi);
+  // Pricing menu removed — available only via the Subscriptions button
 
   // Admin-only sidebar entry (never rendered for employees/customers/guests)
   syncAdminNavItem();
@@ -550,13 +529,13 @@ function syncLedgerNavItem() {
     });
   });
 
-  // Keep the order: Dashboard → Ledger → Pricing → Admin Control Panel
-  const pricingLi = navList.querySelector('.nav-item[data-menu="pricing"]');
-  if (pricingLi) navList.insertBefore(ledgerLi, pricingLi);
+  // Order: Dashboard → Ledger → Inward → Outward → Admin Control Panel
+  const firstNav = navList.querySelector('.nav-item');
+  if (firstNav) firstNav.after(ledgerLi);
   else navList.appendChild(ledgerLi);
 }
 
-// Inward / Outward placeholders — Admin + Employee (Labour) only, after Ledger before Pricing
+// Inward / Outward placeholders — Admin + Employee (Labour) only, after Ledger
 function syncOpsNavItems() {
   const navList = document.getElementById('navList');
   if (!navList) return;
@@ -595,7 +574,6 @@ function syncOpsNavItems() {
     });
 
     const ledgerLi = navList.querySelector('.nav-item[data-menu="ledger"]');
-    const pricingLi = navList.querySelector('.nav-item[data-menu="pricing"]');
     if (ledgerLi) {
       // insert after Ledger, keeping Inward before Outward
       if (key === 'outward') {
@@ -605,10 +583,10 @@ function syncOpsNavItems() {
       } else {
         ledgerLi.after(li);
       }
-    } else if (pricingLi) {
-      navList.insertBefore(li, pricingLi);
     } else {
-      navList.appendChild(li);
+      const firstNav = navList.querySelector('.nav-item');
+      if (firstNav) firstNav.after(li);
+      else navList.appendChild(li);
     }
   });
 }
