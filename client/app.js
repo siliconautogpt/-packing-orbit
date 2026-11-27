@@ -1751,7 +1751,7 @@ function buildInwardBadgeCanvas(e) {
   const boxH = 34;
   const gap = 8;
   const cols = Math.max(1, Math.floor((360 + gap) / (boxW + gap)));
-  const lines = Math.max(1, Math.ceil(bales.length / cols));
+  const lines = Math.min(3, Math.max(1, Math.ceil(bales.length / cols)));
   bales.forEach((num, i) => {
     const line = Math.floor(i / cols);
     const col = i % cols;
@@ -1791,31 +1791,28 @@ function buildInwardBadgeCanvas(e) {
   ctx.fillRect(24, sepY, 590, 1);
 
   // Digital signature + Authorised Signatory placeholder (bottom right)
-  // Human-style handwritten signature (cursive font + freehand flourish)
+  // Small, low-contrast scribble signature (intentionally hard to read)
   ctx.save();
-  ctx.translate(590, sepY + 22);
-  ctx.rotate(-0.045);
+  ctx.translate(600, 896);
+  ctx.rotate(-0.06);
   ctx.textAlign = 'right';
-  ctx.font = "italic 32px 'Brush Script MT', 'Segoe Script', 'Snell Roundhand', cursive";
-  ctx.fillStyle = '#1e3a8a';
-  ctx.fillText('Admin1 Digital sign', 0, 0, 330);
+  ctx.font = "italic 15px 'Brush Script MT', 'Segoe Script', cursive";
+  ctx.fillStyle = 'rgba(30, 58, 138, 0.72)';
+  ctx.fillText('Admin1 Digital sign', 0, 0, 220);
 
-  // freehand starting loop + underline stroke
+  // quick overlapping pen strokes to mimic a real scribble
   ctx.beginPath();
-  ctx.moveTo(-322, 4);
-  ctx.bezierCurveTo(-336, -12, -300, -18, -300, 2);
-  ctx.strokeStyle = '#1e3a8a';
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(-300, 9);
-  ctx.bezierCurveTo(-190, 19, -90, -1, 4, 9);
+  ctx.moveTo(-208, 4);
+  ctx.bezierCurveTo(-150, -9, -100, 10, -40, -4);
+  ctx.bezierCurveTo(-12, -10, 8, 5, 2, 0);
+  ctx.strokeStyle = 'rgba(30, 58, 138, 0.55)';
+  ctx.lineWidth = 1;
   ctx.stroke();
   ctx.restore();
 
+  // Placeholder at the extreme bottom-right corner of the outer grey box
   ctx.textAlign = 'right';
-  put('Authorised Signatory', 590, sepY + 52, '15px Arial', '#4b5563');
+  put('Authorised Signatory', 600, 920, '13px Arial', '#6b7280');
   ctx.textAlign = 'left';
 
   // Brand footer

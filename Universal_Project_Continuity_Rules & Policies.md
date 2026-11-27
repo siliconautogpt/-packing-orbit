@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.28.0` (Badge — Human-Style Digital Signature)
+- **Current Version:** `v0.28.1` (Badge — Tiny Scribble Signature + Corner Heading)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -278,10 +278,22 @@ Packing Orbit/
 | `v0.27.8` | **Completed** | Bales highlight row (cyan) above Total Takha with right-aligned output, CSS/JS v65 | 2026-11-27 |
 | `v0.27.9` | **Completed** | Bale numbers in hollow boxes + Authorised Signatory with cursive digital sign, CSS/JS v66 | 2026-11-27 |
 | `v0.28.0` | **Completed** | Human-style handwritten signature with cursive font, loop and underline flourish, CSS/JS v67 | 2026-11-27 |
+| `v0.28.1` | **Completed** | Tiny low-contrast scribble signature, Authorised Signatory at box bottom-right, CSS/JS v68 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 08:28:39 IST] - v0.28.1
+- **Session:** Badge — Tiny Scribble Signature + Corner Heading.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Signature "Admin1 Digital sign" ab **15px**, low-contrast, rotate ke saath aur **overlapping pen scribble strokes** ke saath — intentionally hard to read, real signature jaisa.
+  - "Authorised Signatory" ab **outer grey box ke extreme bottom-right corner** (x=600, y=920) par, 13px gray.
+  - Bale box lines 3 par cap kiye taake lower-right signature area free rahe.
+  - Cache-busted `style.css?v=68` / `app.js?v=68`; package.json `0.28.1`.
+  - Updated DB `system_info.version` to `v0.28.1`.
+  - Bumped version to `v0.28.1`.
 
 ### [2026-11-27 08:15:14 IST] - v0.28.0
 - **Session:** Badge — Human-Style Digital Signature.
