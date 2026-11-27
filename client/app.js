@@ -257,6 +257,17 @@ async function loadAdminTransportList() {
   }
 }
 
+// Login page role tabs — visual selection only
+function initLoginRoleTabs() {
+  const tabs = document.querySelectorAll('.login-role-tab');
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      tabs.forEach((t) => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+}
+
 // ===== LOGIN: ACTIVE FIRM / PAID LICENSE SELECTION =====
 function initFirmSelection() {
   const firmSelect = document.getElementById('firmSelect');
@@ -354,6 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSidebarDrawer();
   initMandatoryAuthGate();
   initAdminFeatures();
+  initLoginRoleTabs();
   initLedgerCreateForm();
   initLedgerEditDelete();
   initInwardForm();

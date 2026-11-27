@@ -1015,6 +1015,41 @@ a.info-contact-row:hover {
   transform: scale(0.97);
 }
 
+/* Login role tabs — just below the header separator line */
+.login-role-tabs {
+  display: flex;
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  gap: 0.25rem;
+  margin: -0.5rem 0 1rem;
+}
+
+.login-role-tab {
+  flex: 1;
+  min-width: 0;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.4rem 0.15rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.login-role-tab.active {
+  background: rgba(37, 99, 235, 0.18);
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+
+.login-role-tab:hover {
+  color: #ffffff;
+}
+
 .auth-card {
   background: #111827;
   border: 1px solid rgba(255, 255, 255, 0.14);

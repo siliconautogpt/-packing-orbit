@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.31.0` (Pricing Integrated Into Subscriptions Button)
+- **Current Version:** `v0.32.0` (Login Role Tabs)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -299,10 +299,22 @@ Packing Orbit/
 | `v0.29.9` | **Completed** | Header full-width (420px max), overlap fixed, brand left + Subscriptions right, CSS/JS v86 | 2026-11-27 |
 | `v0.30.0` | **Completed** | Header height 44px, vertical center, brand 1.1rem + 18px icon, CSS/JS v87 | 2026-11-27 |
 | `v0.31.0` | **Completed** | Pricing menu removed from tabs + sidebar, available only via Subscriptions button, CSS/JS v88 | 2026-11-27 |
+| `v0.32.0` | **Completed** | Login page role tabs (Admin/Employees/Customer/Subscribers) below header line, CSS/JS v89 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 15:55:30 IST] - v0.32.0
+- **Session:** Login Page — Role Tabs.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Login header separator line ke **neeche** 4 tabs add kiye: **Admin**, **Employees**, **Customer**, **Subscribers**.
+  - Tabs full-width (max 420px), equal flex width, active tab blue highlight; click par active state switch (`initLoginRoleTabs()`).
+  - Ye tabs abhi visual selection ke liye hain — login form ka behavior waise hi hai.
+  - Cache-busted `style.css?v=89` / `app.js?v=89`; package.json `0.32.0`.
+  - Updated DB `system_info.version` to `v0.32.0`.
+  - Bumped version to `v0.32.0`.
 
 ### [2026-11-27 15:41:31 IST] - v0.31.0
 - **Session:** Pricing Menu Integrated Into Subscriptions Button.
