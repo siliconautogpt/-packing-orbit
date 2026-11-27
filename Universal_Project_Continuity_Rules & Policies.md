@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.29.6` (Login Header Height 28px)
+- **Current Version:** `v0.29.7` (Login Header 22px + Balanced Sizing)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -294,10 +294,23 @@ Packing Orbit/
 | `v0.29.4` | **Completed** | Fixed-width login header bar with single separator line and right-corner Subscriptions button, CSS/JS v81 | 2026-11-27 |
 | `v0.29.5` | **Completed** | Login header half width, full-page-width separator line, firm hint text removed, CSS/JS v82 | 2026-11-27 |
 | `v0.29.6` | **Completed** | Login header height 52px -> 28px (width 175px unchanged), CSS/JS v83 | 2026-11-27 |
+| `v0.29.7` | **Completed** | Login header height 22px, brand/button balanced sizing, left/right corners, CSS/JS v84 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 15:03:09 IST] - v0.29.7
+- **Session:** Login Header — 22px Height + Balanced Sizing.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Header height **28px -> 22px** (width 175px unchanged).
+  - Brand font thoda bada (0.8rem -> 0.85rem), icon 16px -> 14px — 22px height me fit.
+  - Subscriptions button font 0.6rem -> 0.65rem, padding compact (0.15rem 0.3rem) — thoda bada aur readable, right corner me.
+  - Brand icon ke saath left corner, button right corner, dono vertically center (`align-items:center`, `justify-content:space-between`).
+  - Cache-busted `style.css?v=84` / `app.js?v=84`; package.json `0.29.7`.
+  - Updated DB `system_info.version` to `v0.29.7`.
+  - Bumped version to `v0.29.7`.
 
 ### [2026-11-27 14:52:36 IST] - v0.29.6
 - **Session:** Login Header Height Reduced.
