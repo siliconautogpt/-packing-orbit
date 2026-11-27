@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.36.0` (Stamp Seal — Rectangle Shape)
+- **Current Version:** `v0.36.1` (Stamp Seal — 16 Degree Tilt)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -304,10 +304,21 @@ Packing Orbit/
 | `v0.34.0` | **Completed** | Inward badge stamp seal (circular VERIFIED seal), CSS/JS v91 | 2026-11-27 |
 | `v0.35.0` | **Completed** | Ink-pad red seal with corrected text, placed between Terms and Authorised Signatory, CSS/JS v92 | 2026-11-27 |
 | `v0.36.0` | **Completed** | Rectangle ink stamp replacing circular seal (no text overlap), CSS/JS v93 | 2026-11-27 |
+| `v0.36.1` | **Completed** | Stamp tilted 16 degrees around its center, CSS/JS v94 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 21:36:54 IST] - v0.36.1
+- **Session:** Stamp Seal — Tilt.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Rectangle ink stamp ko **16 degree** rotate kiya (real ink-pad impression jaisa tilt).
+  - Rotation stamp ke apne center ke around hoti hai, position aur text waise hi.
+  - Cache-busted `style.css?v=94` / `app.js?v=94`; package.json `0.36.1`.
+  - Updated DB `system_info.version` to `v0.36.1`.
+  - Bumped version to `v0.36.1`.
 
 ### [2026-11-27 21:29:37 IST] - v0.36.0
 - **Session:** Stamp Seal — Rectangle Shape.

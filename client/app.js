@@ -1906,6 +1906,10 @@ function buildInwardBadgeCanvas(e) {
   ctx.save();
   const ink = 'rgba(185, 28, 28, 0.85)';
   const bx = 404, by = signImgY + 4, bw = 84, bh = 62;
+  // Tilt the stamp like a real ink-pad impression
+  ctx.translate(bx + bw / 2, by + bh / 2);
+  ctx.rotate(16 * Math.PI / 180);
+  ctx.translate(-(bx + bw / 2), -(by + bh / 2));
   ctx.strokeStyle = ink;
   ctx.lineWidth = 2.5;
   ctx.strokeRect(bx, by, bw, bh);
