@@ -1846,9 +1846,15 @@ function buildInwardBadgeCanvas(e) {
   put('Authorised Signatory', rightEdge, signHeadingY, '13px Arial', '#6b7280');
   ctx.textAlign = 'left';
 
-  // Brand footer
+  // Brand footer — compact dark green patch with white text
+  const footerW = 360;
+  const footerH = 30;
+  const footerX = (638 - footerW) / 2;
+  const footerY = 976;
+  ctx.fillStyle = '#065f46';
+  ctx.fillRect(footerX, footerY, footerW, footerH);
   ctx.textAlign = 'center';
-  put('Original Brand - License Protected', 319, 994, '14px Arial', '#6b7280');
+  put('Original Brand - License Protected', 319, footerY + 20, '13px Arial', '#ffffff', footerW - 16);
   ctx.textAlign = 'left';
 
   ctx.restore();
