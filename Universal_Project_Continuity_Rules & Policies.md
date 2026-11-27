@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.29.2` (Login Brand Above Card)
+- **Current Version:** `v0.29.3` (Login Card — Clean Professional Look)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -290,10 +290,22 @@ Packing Orbit/
 | `v0.29.0` | **Completed** | Footer full-width borderless dark green bar with white text, CSS/JS v77 | 2026-11-27 |
 | `v0.29.1` | **Completed** | Login page header + tab menu hidden; shown again after login, CSS/JS v78 | 2026-11-27 |
 | `v0.29.2` | **Completed** | Packing Orbit brand text moved above login card, card title only "Sign In", CSS/JS v79 | 2026-11-27 |
+| `v0.29.3` | **Completed** | Login lock icon + subtitle removed, thin Sign In font, CSS/JS v80 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 14:11:34 IST] - v0.29.3
+- **Session:** Login Card — Clean Professional Look.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Lock/shield icon ke andar ka symbol login card se **remove** kiya (card header ab sirf title).
+  - "Sign In" font ko **thin (300 weight)** kiya — Inter base font, 1.05rem, letter-spacing 0.06em, soft gray color (pehle bold display font tha).
+  - Subtitle **"Admins, Packing Labours aur Weavers ka Unified Portal"** remove kiya.
+  - Cache-busted `style.css?v=80` / `app.js?v=80`; package.json `0.29.3`.
+  - Updated DB `system_info.version` to `v0.29.3`.
+  - Bumped version to `v0.29.3`.
 
 ### [2026-11-27 14:01:12 IST] - v0.29.2
 - **Session:** Login Brand Text Above Card.
