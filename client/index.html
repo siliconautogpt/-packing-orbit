@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Packing Orbit - a packing automation</title>
-  <link rel="stylesheet" href="style.css?v=89">
+  <link rel="stylesheet" href="style.css?v=90">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
@@ -125,6 +125,8 @@
           </div>
 
           <form id="mainLoginForm" class="modal-form">
+            <p class="form-hint" id="loginRoleNote" style="display:none;"></p>
+
             <!-- 0. Firm / Paid License Selection (First) -->
             <div class="form-group">
               <label class="form-label">Select Firm (Paid License) *</label>
@@ -169,7 +171,7 @@
 
             <!-- 2. Mobile Number or Username -->
             <div class="form-group">
-              <label for="mainLoginIdentifier" class="form-label">Mobile Number or Username</label>
+              <label for="mainLoginIdentifier" class="form-label" id="loginIdentifierLabel">Mobile Number or Username</label>
               <div class="input-wrapper">
                 <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -181,7 +183,7 @@
 
             <!-- 3. Password / 4-digit PIN -->
             <div class="form-group">
-              <label for="mainLoginPassword" class="form-label">Password / 4-digit PIN</label>
+              <label for="mainLoginPassword" class="form-label" id="loginPasswordLabel">Password / 4-digit PIN</label>
               <div class="input-wrapper">
                 <svg class="input-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
                   <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -1173,6 +1175,6 @@
   </div>
 
   <script src="qrcode.js?v=1"></script>
-  <script src="app.js?v=89"></script>
+  <script src="app.js?v=90"></script>
 </body>
 </html>

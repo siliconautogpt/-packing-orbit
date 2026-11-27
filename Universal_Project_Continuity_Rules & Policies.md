@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.32.0` (Login Role Tabs)
+- **Current Version:** `v0.33.0` (Login Tabs — Role-Specific Login Flows)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -300,10 +300,25 @@ Packing Orbit/
 | `v0.30.0` | **Completed** | Header height 44px, vertical center, brand 1.1rem + 18px icon, CSS/JS v87 | 2026-11-27 |
 | `v0.31.0` | **Completed** | Pricing menu removed from tabs + sidebar, available only via Subscriptions button, CSS/JS v88 | 2026-11-27 |
 | `v0.32.0` | **Completed** | Login page role tabs (Admin/Employees/Customer/Subscribers) below header line, CSS/JS v89 | 2026-11-27 |
+| `v0.33.0` | **Completed** | Role-specific login flows under each tab, CSS/JS v90 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 16:09:09 IST] - v0.33.0
+- **Session:** Login Role Tabs — Dedicated Login Per Tab.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Har login tab ke saath apna login flow integrate kiya:
+    - **Admin**: quick-login list me sirf Admins (admin..admin5).
+    - **Employees**: quick-login list me sirf Packing Labours.
+    - **Customer**: quick-login hidden; labels/placeholders "Customer Mobile Number" / "Login PIN"; hint diya gaya ki admin se mila mobile+PIN use karein.
+    - **Subscribers**: login abhi available nahi — note + submit button disabled.
+  - Tab switch par credentials clear hote hain taake galat role ki credentials na bharin; logout par tab wapas Admin par reset.
+  - Cache-busted `style.css?v=90` / `app.js?v=90`; package.json `0.33.0`.
+  - Updated DB `system_info.version` to `v0.33.0`.
+  - Bumped version to `v0.33.0`.
 
 ### [2026-11-27 15:55:30 IST] - v0.32.0
 - **Session:** Login Page — Role Tabs.

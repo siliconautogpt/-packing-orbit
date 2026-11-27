@@ -260,12 +260,67 @@ async function loadAdminTransportList() {
 // Login page role tabs — visual selection only
 function initLoginRoleTabs() {
   const tabs = document.querySelectorAll('.login-role-tab');
-  tabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      tabs.forEach((t) => t.classList.remove('active'));
-      tab.classList.add('active');
+  const options = document.querySelectorAll('#customSelectOptions .select-option');
+  const groups = document.querySelectorAll('#customSelectOptions .select-optgroup');
+  const quickWrap = document.getElementById('customAccountSelect');
+  const quickGroup = quickWrap ? quickWrap.closest('.form-group') : null;
+  const triggerPlaceholder = quickWrap ? quickWrap.querySelector('.select-placeholder') : null;
+  const identifier = document.getElementById('mainLoginIdentifier');
+  const password = document.getElementById('mainLoginPassword');
+  const idLabel = document.getElementById('loginIdentifierLabel');
+  const pwLabel = document.getElementById('loginPasswordLabel');
+  const note = document.getElementById('loginRoleNote');
+  const submitBtn = document.getElementById('mainLoginSubmitBtn');
+
+  const applyLoginRole = (role) => {
+    tabs.forEach((t) => t.classList.toggle('active', t.getAttribute('data-role-tab') === role));
+
+    // Quick-login list filtered by tab
+    options.forEach((o) => {
+      o.style.display = o.getAttribute('data-role') === role ? '' : 'none';
     });
-  });
+    if (groups.length) {
+      if (groups[0]) groups[0].style.display = role === 'admin' ? '' : 'none';
+      if (groups[1]) groups[1].style.display = role === 'employee' ? '' : 'none';
+    }
+
+    const showQuick = role === 'admin' || role === 'employee';
+    if (quickGroup) quickGroup.style.display = showQuick ? '' : 'none';
+    if (triggerPlaceholder) {
+      triggerPlaceholder.textContent = role === 'admin' ? '-- Select Admin --'
+        : role === 'employee' ? '-- Select Packing Labour --'
+        : role === 'customer' ? '-- Mobile / PIN se login karein --'
+        : '-- Subscriber login coming soon --';
+      triggerPlaceholder.classList.add('select-placeholder');
+    }
+
+    if (identifier) {
+      identifier.value = '';
+      identifier.placeholder = role === 'customer' ? 'Customer mobile number' : 'e.g. admin or 9309384084';
+    }
+    if (password) {
+      password.value = '';
+      password.placeholder = role === 'customer' ? 'PIN' : 'Enter password or PIN';
+    }
+    if (idLabel) idLabel.textContent = role === 'customer' ? 'Customer Mobile Number' : 'Mobile Number or Username';
+    if (pwLabel) pwLabel.textContent = role === 'customer' ? 'Login PIN' : 'Password / 4-digit PIN';
+
+    if (note) {
+      if (role === 'customer') {
+        note.textContent = 'Customer login: admin se diya gaya mobile number aur PIN use karein.';
+        note.style.display = 'block';
+      } else if (role === 'subscriber') {
+        note.textContent = 'Subscriber login abhi available nahi hai.';
+        note.style.display = 'block';
+      } else {
+        note.style.display = 'none';
+      }
+    }
+    if (submitBtn) submitBtn.disabled = role === 'subscriber';
+  };
+
+  tabs.forEach((tab) => tab.addEventListener('click', () => applyLoginRole(tab.getAttribute('data-role-tab'))));
+  applyLoginRole('admin');
 }
 
 // ===== LOGIN: ACTIVE FIRM / PAID LICENSE SELECTION =====
@@ -2002,6 +2057,10 @@ function renderAppUI(user) {
     // Show Mandatory Login Gate, Hide Protected Content
     authGateContainer.style.display = 'flex';
     protectedDashboard.style.display = 'none';
+
+    // Reset login tabs to Admin on logout
+    const adminTab = document.querySelector('.login-role-tab[data-role-tab="admin"]');
+    if (adminTab) adminTab.click();
 
     // Login screen: header, tabs, sidebar aur backdrop sab hidden
     if (mainHeader) mainHeader.style.display = 'none';
