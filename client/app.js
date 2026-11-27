@@ -1791,8 +1791,30 @@ function buildInwardBadgeCanvas(e) {
   ctx.fillRect(24, sepY, 590, 1);
 
   // Digital signature + Authorised Signatory placeholder (bottom right)
+  // Human-style handwritten signature (cursive font + freehand flourish)
+  ctx.save();
+  ctx.translate(590, sepY + 22);
+  ctx.rotate(-0.045);
   ctx.textAlign = 'right';
-  put('Admin1 Digital sign', 590, sepY + 26, 'italic bold 26px Georgia', '#0e7490', 340);
+  ctx.font = "italic 32px 'Brush Script MT', 'Segoe Script', 'Snell Roundhand', cursive";
+  ctx.fillStyle = '#1e3a8a';
+  ctx.fillText('Admin1 Digital sign', 0, 0, 330);
+
+  // freehand starting loop + underline stroke
+  ctx.beginPath();
+  ctx.moveTo(-322, 4);
+  ctx.bezierCurveTo(-336, -12, -300, -18, -300, 2);
+  ctx.strokeStyle = '#1e3a8a';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(-300, 9);
+  ctx.bezierCurveTo(-190, 19, -90, -1, 4, 9);
+  ctx.stroke();
+  ctx.restore();
+
+  ctx.textAlign = 'right';
   put('Authorised Signatory', 590, sepY + 52, '15px Arial', '#4b5563');
   ctx.textAlign = 'left';
 

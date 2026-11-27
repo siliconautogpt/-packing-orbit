@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.27.9` (Badge — Bale Boxes + Digital Signatory)
+- **Current Version:** `v0.28.0` (Badge — Human-Style Digital Signature)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -277,10 +277,22 @@ Packing Orbit/
 | `v0.27.7` | **Completed** | Reduced Bales→Bale Numbers gap, bale values aligned at x=240, CSS/JS v64 | 2026-11-27 |
 | `v0.27.8` | **Completed** | Bales highlight row (cyan) above Total Takha with right-aligned output, CSS/JS v65 | 2026-11-27 |
 | `v0.27.9` | **Completed** | Bale numbers in hollow boxes + Authorised Signatory with cursive digital sign, CSS/JS v66 | 2026-11-27 |
+| `v0.28.0` | **Completed** | Human-style handwritten signature with cursive font, loop and underline flourish, CSS/JS v67 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 08:15:14 IST] - v0.28.0
+- **Session:** Badge — Human-Style Digital Signature.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - "Admin1 Digital sign" ko simple italic text se badal kar **handwritten signature style** me banaya: cursive font stack (Brush Script MT / Segoe Script / Snell Roundhand / cursive), 32px, dark blue, thoda rotate (-0.045 rad) natural tilt ke liye.
+  - Signature ke saath **freehand starting loop** aur **wavy underline flourish** (bezier curves) add kiye — human pen stroke jaisa look.
+  - "Authorised Signatory" heading waise hi niche right me.
+  - Cache-busted `style.css?v=67` / `app.js?v=67`; package.json `0.28.0`.
+  - Updated DB `system_info.version` to `v0.28.0`.
+  - Bumped version to `v0.28.0`.
 
 ### [2026-11-27 08:07:05 IST] - v0.27.9
 - **Session:** Badge — Bale Boxes + Digital Signatory.
