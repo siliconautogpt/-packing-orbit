@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.28.5` (Badge — Signatory at Bottom-Right Corner)
+- **Current Version:** `v0.28.8` (Terms — Godown Charge Wording)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -283,10 +283,42 @@ Packing Orbit/
 | `v0.28.3` | **Completed** | Real handwritten JPG signature integrated in badge with aspect ratio, CSS/JS v70 | 2026-11-27 |
 | `v0.28.4` | **Completed** | Badge Quality field shows Type + Quality combined (e.g. PC 62 x 42), CSS/JS v71 | 2026-11-27 |
 | `v0.28.5` | **Completed** | Signatory stamping shifted to outer box bottom-right corner, CSS/JS v72 | 2026-11-27 |
+| `v0.28.6` | **Completed** | Professional Terms & Conditions placeholder beside signatory block, CSS/JS v73 | 2026-11-27 |
+| `v0.28.7` | **Completed** | Terms wording (must be) + 3 new dispatch/risk/damage conditions, CSS/JS v74 | 2026-11-27 |
+| `v0.28.8` | **Completed** | Condition 7: godown charge applicable for >10 days late dispatch, CSS/JS v75 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 09:23:55 IST] - v0.28.8
+- **Session:** Terms Condition 7 Wording Fix.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Condition 7 corrected: "damage applicable" -> **"godown charge applicable"** if dispatch is more than 10 days late.
+  - Cache-busted `style.css?v=75` / `app.js?v=75`; package.json `0.28.8`.
+  - Updated DB `system_info.version` to `v0.28.8`.
+  - Bumped version to `v0.28.8`.
+
+### [2026-11-27 09:21:58 IST] - v0.28.7
+- **Session:** Badge Terms — Wording + 3 New Conditions.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Condition 1 me "must be received" wording lagaya.
+  - Teen nayi conditions add: (5) dispatch to transport within 24 hrs of inward, (6) goods risk ceases at our godown only, (7) >10 days late dispatch - damage applicable.
+  - Terms compact kiye (9px font, 12px line height) taake 7 conditions + heading box me fit rahein.
+  - Cache-busted `style.css?v=74` / `app.js?v=74`; package.json `0.28.7`.
+  - Updated DB `system_info.version` to `v0.28.7`.
+  - Bumped version to `v0.28.7`.
+
+### [2026-11-27 09:16:41 IST] - v0.28.6
+- **Session:** Badge — Terms & Conditions Placeholder.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Blank space left of the bottom-right signatory block filled with a professional **Terms & Conditions** placeholder (5 compact lines): material received in good condition, report shortage within 24 hours, quality/rate as per ledger entry, computer-generated inward record.
+  - Cache-busted `style.css?v=73` / `app.js?v=73`; package.json `0.28.6`.
+  - Updated DB `system_info.version` to `v0.28.6`.
+  - Bumped version to `v0.28.6`.
 
 ### [2026-11-27 09:03:33 IST] - v0.28.5
 - **Session:** Badge — Signatory to Bottom-Right Corner.

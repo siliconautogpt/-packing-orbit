@@ -1809,6 +1809,24 @@ function buildInwardBadgeCanvas(e) {
   const signImgH = 52;
   const signImgY = signHeadingY - 64;
 
+  // Terms & Conditions placeholder — fills the blank left of the signatory block
+  const terms = [
+    'Terms & Conditions',
+    '1. Material must be received in good condition.',
+    '2. Report shortage within 24 hours.',
+    '3. Quality / rate as per ledger entry.',
+    '4. Computer-generated inward record.',
+    '5. Dispatch to transport within 24 hrs of inward.',
+    '6. Goods risk ceases at our godown only.',
+    '7. >10 days late dispatch - godown charge applicable.'
+  ];
+  ctx.textAlign = 'left';
+  terms.forEach((line, i) => {
+    ctx.font = i === 0 ? 'bold 10px Arial' : '9px Arial';
+    ctx.fillStyle = i === 0 ? '#374151' : '#6b7280';
+    ctx.fillText(line, 44, signImgY - 12 + i * 12, 440);
+  });
+
   ctx.textAlign = 'right';
   put(`${firmName} [Admin1]`, rightEdge, signImgY - 8, '13px Arial', '#4b5563');
   ctx.textAlign = 'left';
