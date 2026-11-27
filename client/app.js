@@ -18,6 +18,18 @@ let selectedLedgerCustomer = null;
 let ledgerEntries = [];
 let selectedEditCustomer = null;
 
+// Optional JPG signature supplied by the admin — client/signature.jpg
+let signatureImage = null;
+(function preloadAdminSignature() {
+  try {
+    const img = new Image();
+    img.onload = () => { signatureImage = img; };
+    img.src = 'signature.jpg?v=1';
+  } catch (err) {
+    console.warn('Signature image preload skipped:', err);
+  }
+})();
+
 // ===== PRICING CONFIG — EDIT THESE VALUES LATER =====
 // Lifetime = one-time license fee. AMC = annual maintenance charge (renewed every year).
 const PRICING_CONFIG = {
@@ -1768,7 +1780,7 @@ function buildInwardBadgeCanvas(e) {
 
   const balesBottom = 632 + (lines - 1) * 36 + 17;
   const balesPatchY = balesBottom + 18;
-  const totalPatchY = balesPatchY + 66;
+  const totalPatchY = Math.min(balesPatchY + 66, 780);
 
   // Bales — light cyan patch (just above Total Takha)
   ctx.fillStyle = '#cffafe';
@@ -1791,28 +1803,27 @@ function buildInwardBadgeCanvas(e) {
   ctx.fillRect(24, sepY, 590, 1);
 
   // Digital signature + Authorised Signatory placeholder (bottom right)
-  // Small, low-contrast scribble signature (intentionally hard to read)
-  ctx.save();
-  ctx.translate(600, 896);
-  ctx.rotate(-0.06);
-  ctx.textAlign = 'right';
-  ctx.font = "italic 15px 'Brush Script MT', 'Segoe Script', cursive";
-  ctx.fillStyle = 'rgba(30, 58, 138, 0.72)';
-  ctx.fillText('Admin1 Digital sign', 0, 0, 220);
+  // Bottom-right signatory block — firm placeholder / real JPG signature / heading
+  const signStart = totalPatchY + 78;
 
-  // quick overlapping pen strokes to mimic a real scribble
-  ctx.beginPath();
-  ctx.moveTo(-208, 4);
-  ctx.bezierCurveTo(-150, -9, -100, 10, -40, -4);
-  ctx.bezierCurveTo(-12, -10, 8, 5, 2, 0);
-  ctx.strokeStyle = 'rgba(30, 58, 138, 0.55)';
-  ctx.lineWidth = 1;
-  ctx.stroke();
-  ctx.restore();
-
-  // Placeholder at the extreme bottom-right corner of the outer grey box
   ctx.textAlign = 'right';
-  put('Authorised Signatory', 600, 920, '13px Arial', '#6b7280');
+  put(`${firmName} [Admin1]`, 600, signStart, '13px Arial', '#4b5563');
+  ctx.textAlign = 'left';
+
+  if (signatureImage && signatureImage.complete && signatureImage.naturalWidth > 0) {
+    // Preserve the image aspect ratio (~1.9:1)
+    ctx.drawImage(signatureImage, 500, signStart + 6, 100, 52);
+  } else {
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(500, signStart + 32);
+    ctx.lineTo(600, signStart + 32);
+    ctx.stroke();
+  }
+
+  ctx.textAlign = 'right';
+  put('Authorised Signatory', 600, signStart + 74, '13px Arial', '#6b7280');
   ctx.textAlign = 'left';
 
   // Brand footer

@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.28.1` (Badge — Tiny Scribble Signature + Corner Heading)
+- **Current Version:** `v0.28.3` (Badge — Real JPG Signature Integrated)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -279,10 +279,36 @@ Packing Orbit/
 | `v0.27.9` | **Completed** | Bale numbers in hollow boxes + Authorised Signatory with cursive digital sign, CSS/JS v66 | 2026-11-27 |
 | `v0.28.0` | **Completed** | Human-style handwritten signature with cursive font, loop and underline flourish, CSS/JS v67 | 2026-11-27 |
 | `v0.28.1` | **Completed** | Tiny low-contrast scribble signature, Authorised Signatory at box bottom-right, CSS/JS v68 | 2026-11-27 |
+| `v0.28.2` | **Completed** | Scribble removed; firm [Admin1] placeholder + optional client/signature.jpg image + Authorised Signatory, CSS/JS v69 | 2026-11-27 |
+| `v0.28.3` | **Completed** | Real handwritten JPG signature integrated in badge with aspect ratio, CSS/JS v70 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 08:50:54 IST] - v0.28.3
+- **Session:** Real JPG Signature Integrated.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Admin ne apni handwritten signature `client/signature.jpg` (65 KB, verified) provide ki.
+  - Badge me signature ab **real image** se draw hoti hai — aspect ratio preserve (100x52) taake signature distort na ho. Firm placeholder `[Admin1]` upar, signature middle, `Authorised Signatory` niche — right aligned.
+  - Total Takha patch position cap kiya (max y=780) taake signatory block card ke andar rahe.
+  - `cap sync android` chal kar signature.jpg Android assets me include kiya.
+  - Cache-busted `style.css?v=70` / `app.js?v=70`; package.json `0.28.3`.
+  - Updated DB `system_info.version` to `v0.28.3`.
+  - Bumped version to `v0.28.3`.
+
+### [2026-11-27 08:40:09 IST] - v0.28.2
+- **Session:** Badge — Signature Image Support + Firm Placeholder.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Purana scribble signature **remove** kiya.
+  - Bottom-right signatory block ab 3 layers: (1) `\${firmName} [Admin1]` placeholder, (2) **signature image** — `client/signature.jpg` se loaded, (3) `Authorised Signatory`.
+  - Image preload: global `signatureImage` with `new Image()`; file na hone par lightweight placeholder line draw hoti hai.
+  - Admin ko apni real signature JPG `client/signature.jpg` me rakhni hoti hai — instructions `docs/SIGNATURE.md` me.
+  - Cache-busted `style.css?v=69` / `app.js?v=69`; package.json `0.28.2`.
+  - Updated DB `system_info.version` to `v0.28.2`.
+  - Bumped version to `v0.28.2`.
 
 ### [2026-11-27 08:28:39 IST] - v0.28.1
 - **Session:** Badge — Tiny Scribble Signature + Corner Heading.
