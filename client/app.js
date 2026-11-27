@@ -1749,22 +1749,22 @@ function buildInwardBadgeCanvas(e) {
   const baleLine1 = bales.slice(0, half).join(', ');
   const baleLine2 = bales.slice(half).join(', ');
 
-  put('Bale Numbers', 44, 656, '19px Arial', '#4b5563');
-  put(baleLine1, 44, 696, 'bold 26px Arial', '#111827', 550);
-  if (baleLine2) put(baleLine2, 44, 736, 'bold 26px Arial', '#111827', 550);
+  put('Bale Numbers', 44, 640, '19px Arial', '#4b5563');
+  put(baleLine1, 240, 640, 'bold 26px Arial', '#111827', 350);
+  if (baleLine2) put(baleLine2, 240, 678, 'bold 26px Arial', '#111827', 350);
 
   // Total Takha
   ctx.fillStyle = '#d1fae5';
-  ctx.fillRect(40, 776, 558, 60);
-  put('Total Takha', 44, 816, '20px Arial', '#4b5563');
+  ctx.fillRect(40, 750, 558, 60);
+  put('Total Takha', 44, 790, '20px Arial', '#4b5563');
   ctx.textAlign = 'right';
-  put(e.total_takha != null ? e.total_takha : '—', 590, 816, 'bold 30px Arial', '#065f46', 200);
+  put(e.total_takha != null ? e.total_takha : '—', 590, 790, 'bold 30px Arial', '#065f46', 200);
   ctx.textAlign = 'left';
 
   ctx.fillStyle = '#e5e7eb';
-  ctx.fillRect(24, 895, 590, 1);
+  ctx.fillRect(24, 855, 590, 1);
   ctx.textAlign = 'center';
-  put('Original Brand - License Protected', 319, 935, '16px Arial', '#6b7280');
+  put('Original Brand - License Protected', 319, 895, '16px Arial', '#6b7280');
   ctx.textAlign = 'left';
   ctx.restore();
   return canvas;

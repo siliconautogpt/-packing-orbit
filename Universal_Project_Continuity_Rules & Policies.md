@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.27.6` (Badge — Compact Fields + Two-Line Bale Numbers)
+- **Current Version:** `v0.27.7` (Badge — Bales Gap Reduced + Bale Values Aligned)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -274,10 +274,22 @@ Packing Orbit/
 | `v0.27.4` | **Completed** | Share caption removed, centered headings/footer, licensed-firm watermark, CSS/JS v61 | 2026-11-26 |
 | `v0.27.5` | **Completed** | Inward date `DD-MM-YYYY`, reduced badge line spacing, wider value column, CSS/JS v62 | 2026-11-26 |
 | `v0.27.6` | **Completed** | Badge minimal field spacing, bale numbers in two clear lines at bold 26px, CSS/JS v63 | 2026-11-27 |
+| `v0.27.7` | **Completed** | Reduced Bales→Bale Numbers gap, bale values aligned at x=240, CSS/JS v64 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 07:39:00 IST] - v0.27.7
+- **Session:** Badge — Bales Gap + Bale Numbers Alignment.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Gap between "Bales" row and "Bale Numbers" label reduced (656 -> 640; ~34px from Bales baseline).
+  - Bale Numbers values moved from x=44 to **x=240** — aligned with all other field values instead of sitting under the label. Two lines kept at y=640 / 678, bold 26px, maxWidth 350.
+  - Total Takha block moved up (750..810), separator/footer shifted accordingly to use space cleanly.
+  - Cache-busted `style.css?v=64` / `app.js?v=64`; package.json `0.27.7`.
+  - Updated DB `system_info.version` to `v0.27.7`.
+  - Bumped version to `v0.27.7`.
 
 ### [2026-11-27 01:54:08 IST] - v0.27.6
 - **Session:** Badge — Minimal Field Spacing + Two-Line Bale Numbers.
