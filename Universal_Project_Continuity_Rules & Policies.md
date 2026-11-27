@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.33.0` (Login Tabs — Role-Specific Login Flows)
+- **Current Version:** `v0.34.0` (Inward Badge — Stamp Seal)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -301,10 +301,21 @@ Packing Orbit/
 | `v0.31.0` | **Completed** | Pricing menu removed from tabs + sidebar, available only via Subscriptions button, CSS/JS v88 | 2026-11-27 |
 | `v0.32.0` | **Completed** | Login page role tabs (Admin/Employees/Customer/Subscribers) below header line, CSS/JS v89 | 2026-11-27 |
 | `v0.33.0` | **Completed** | Role-specific login flows under each tab, CSS/JS v90 | 2026-11-27 |
+| `v0.34.0` | **Completed** | Inward badge stamp seal (circular VERIFIED seal), CSS/JS v91 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 16:28:22 IST] - v0.34.0
+- **Session:** Inward Badge — Stamp Seal.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Badge header me QR ke left ek **professional circular stamp seal** add kiya: double ring, circular text "PACKING ORBIT" aur "LICENSED FIRM", center me "VERIFIED".
+  - `drawCircularText()` helper add kiya — characters ko arc par rotate karke likhta hai.
+  - Cache-busted `style.css?v=91` / `app.js?v=91`; package.json `0.34.0`.
+  - Updated DB `system_info.version` to `v0.34.0`.
+  - Bumped version to `v0.34.0`.
 
 ### [2026-11-27 16:09:09 IST] - v0.33.0
 - **Session:** Login Role Tabs — Dedicated Login Per Tab.

@@ -1688,6 +1688,25 @@ async function pngWithDpi(blob, dpi) {
   }
 }
 
+function drawCircularText(ctx, text, cx, cy, radius, startAngle, font, color) {
+  ctx.save();
+  ctx.font = font;
+  ctx.fillStyle = color;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  const chars = text.split('');
+  const step = (Math.PI * 1.25) / Math.max(chars.length - 1, 1);
+  chars.forEach((ch, i) => {
+    const a = startAngle + i * step;
+    ctx.save();
+    ctx.translate(cx + Math.cos(a) * radius, cy + Math.sin(a) * radius);
+    ctx.rotate(a + Math.PI / 2);
+    ctx.fillText(ch, 0, 0);
+    ctx.restore();
+  });
+  ctx.restore();
+}
+
 function buildInwardBadgeCanvas(e) {
   const canvas = document.createElement('canvas');
   canvas.width = 638;
@@ -1734,6 +1753,21 @@ function buildInwardBadgeCanvas(e) {
   ctx.fillRect(0, 0, 638, 240);
   put('PACKING ORBIT', 32, 58, 'bold 30px Arial', '#ffffff');
   put('Original Brand - License Protected', 32, 80, '15px Arial', '#d1fae5');
+  // Professional stamp seal — left of the QR, inside the header band
+  ctx.save();
+  const sealX = 235, sealY = 158, sealR = 54;
+  ctx.strokeStyle = 'rgba(255,255,255,0.75)';
+  ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(sealX, sealY, sealR, 0, Math.PI * 2); ctx.stroke();
+  ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(sealX, sealY, sealR - 8, 0, Math.PI * 2); ctx.stroke();
+  drawCircularText(ctx, 'PACKING ORBIT', sealX, sealY, sealR - 17, -Math.PI * 0.85, 'bold 11px Arial', '#ffffff');
+  drawCircularText(ctx, 'LICENSED FIRM', sealX, sealY, sealR - 17, Math.PI * 0.15, 'bold 9px Arial', '#d1fae5');
+  ctx.textAlign = 'center';
+  put('VERIFIED', sealX, sealY + 2, 'bold 12px Arial', '#ffffff');
+  ctx.textAlign = 'left';
+  ctx.restore();
 
   // QR — unique for this record, top-right inside header
   try {
