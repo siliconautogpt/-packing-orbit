@@ -1847,14 +1847,12 @@ function buildInwardBadgeCanvas(e) {
   ctx.textAlign = 'left';
 
   // Brand footer — compact dark green patch with white text
-  const footerW = 360;
-  const footerH = 30;
-  const footerX = (638 - footerW) / 2;
-  const footerY = 976;
+  const footerH = 34;
+  const footerY = 1011 - footerH;
   ctx.fillStyle = '#065f46';
-  ctx.fillRect(footerX, footerY, footerW, footerH);
+  ctx.fillRect(0, footerY, 638, footerH);
   ctx.textAlign = 'center';
-  put('Original Brand - License Protected', 319, footerY + 20, '13px Arial', '#ffffff', footerW - 16);
+  put('Original Brand - License Protected', 319, footerY + 22, '13px Arial', '#ffffff', 620);
   ctx.textAlign = 'left';
 
   ctx.restore();

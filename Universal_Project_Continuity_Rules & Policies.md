@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.28.9` (Badge — Dark Green Footer Patch)
+- **Current Version:** `v0.29.0` (Badge — Full-Width Borderless Footer)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -287,10 +287,21 @@ Packing Orbit/
 | `v0.28.7` | **Completed** | Terms wording (must be) + 3 new dispatch/risk/damage conditions, CSS/JS v74 | 2026-11-27 |
 | `v0.28.8` | **Completed** | Condition 7: godown charge applicable for >10 days late dispatch, CSS/JS v75 | 2026-11-27 |
 | `v0.28.9` | **Completed** | Badge footer dark green compact patch with white text, CSS/JS v76 | 2026-11-27 |
+| `v0.29.0` | **Completed** | Footer full-width borderless dark green bar with white text, CSS/JS v77 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 09:45:36 IST] - v0.29.0
+- **Session:** Badge — Full-Width Borderless Footer.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Footer patch ab **poori width (638px)** me, left/right/bottom flush — header ki tarah borderless (rounded corners clip apply hoti hai).
+  - Height 34px, text white centered — "Original Brand - License Protected".
+  - Cache-busted `style.css?v=77` / `app.js?v=77`; package.json `0.29.0`.
+  - Updated DB `system_info.version` to `v0.29.0`.
+  - Bumped version to `v0.29.0`.
 
 ### [2026-11-27 09:35:44 IST] - v0.28.9
 - **Session:** Badge — Dark Green Footer Patch.
