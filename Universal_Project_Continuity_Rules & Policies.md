@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.36.1` (Stamp Seal — 16 Degree Tilt)
+- **Current Version:** `v0.37.0` (Stamp — Right Pivot + Ink Spread)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -305,10 +305,22 @@ Packing Orbit/
 | `v0.35.0` | **Completed** | Ink-pad red seal with corrected text, placed between Terms and Authorised Signatory, CSS/JS v92 | 2026-11-27 |
 | `v0.36.0` | **Completed** | Rectangle ink stamp replacing circular seal (no text overlap), CSS/JS v93 | 2026-11-27 |
 | `v0.36.1` | **Completed** | Stamp tilted 16 degrees around its center, CSS/JS v94 | 2026-11-27 |
+| `v0.37.0` | **Completed** | Right-edge pivot, ink-spread speckles, raised lower border, CSS/JS v95 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 21:45:09 IST] - v0.37.0
+- **Session:** Stamp — Right Pivot, Ink Spread, Raised Lower Line.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Stamp rotation ab **right edge** ko pivot karke hoti hai (center ke bajaye) — natural hand-stamp tilt.
+  - **Ink-spread speckles** add kiye (46 chhote red dots, deterministic pattern) — manually stamp karne par ink failne jaisa look.
+  - Stamp ki **lower border line thoda upar** ki (height 62 -> 56) aur text positions usi hisaab se adjust.
+  - Cache-busted `style.css?v=95` / `app.js?v=95`; package.json `0.37.0`.
+  - Updated DB `system_info.version` to `v0.37.0`.
+  - Bumped version to `v0.37.0`.
 
 ### [2026-11-27 21:36:54 IST] - v0.36.1
 - **Session:** Stamp Seal — Tilt.
