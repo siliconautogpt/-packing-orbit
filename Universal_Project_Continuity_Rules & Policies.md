@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.34.0` (Inward Badge — Stamp Seal)
+- **Current Version:** `v0.35.0` (Stamp Seal — Ink Colour & Correct Position)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -302,10 +302,23 @@ Packing Orbit/
 | `v0.32.0` | **Completed** | Login page role tabs (Admin/Employees/Customer/Subscribers) below header line, CSS/JS v89 | 2026-11-27 |
 | `v0.33.0` | **Completed** | Role-specific login flows under each tab, CSS/JS v90 | 2026-11-27 |
 | `v0.34.0` | **Completed** | Inward badge stamp seal (circular VERIFIED seal), CSS/JS v91 | 2026-11-27 |
+| `v0.35.0` | **Completed** | Ink-pad red seal with corrected text, placed between Terms and Authorised Signatory, CSS/JS v92 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 16:38:54 IST] - v0.35.0
+- **Session:** Stamp Seal — Ink Colour, Correct Wording, Right Position.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Header se purana seal remove kiya.
+  - Naya **ink-pad colour** (red ink `rgba(185,28,28,0.82)`) ka circular stamp seal banaya: text **"PACKING ORBIT"** + **"OFFICIAL SEAL"**, center **"VERIFIED"** (spelling/galat wording theek).
+  - Seal ab **Terms & Conditions aur Authorised Signatory ke beech** (white background area) me place hai.
+  - Terms text width 440 -> 350 kiya taake seal ke liye jagah mile.
+  - Cache-busted `style.css?v=92` / `app.js?v=92`; package.json `0.35.0`.
+  - Updated DB `system_info.version` to `v0.35.0`.
+  - Bumped version to `v0.35.0`.
 
 ### [2026-11-27 16:28:22 IST] - v0.34.0
 - **Session:** Inward Badge — Stamp Seal.

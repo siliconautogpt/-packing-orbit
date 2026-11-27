@@ -1753,22 +1753,6 @@ function buildInwardBadgeCanvas(e) {
   ctx.fillRect(0, 0, 638, 240);
   put('PACKING ORBIT', 32, 58, 'bold 30px Arial', '#ffffff');
   put('Original Brand - License Protected', 32, 80, '15px Arial', '#d1fae5');
-  // Professional stamp seal — left of the QR, inside the header band
-  ctx.save();
-  const sealX = 235, sealY = 158, sealR = 54;
-  ctx.strokeStyle = 'rgba(255,255,255,0.75)';
-  ctx.lineWidth = 2;
-  ctx.beginPath(); ctx.arc(sealX, sealY, sealR, 0, Math.PI * 2); ctx.stroke();
-  ctx.strokeStyle = 'rgba(255,255,255,0.35)';
-  ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.arc(sealX, sealY, sealR - 8, 0, Math.PI * 2); ctx.stroke();
-  drawCircularText(ctx, 'PACKING ORBIT', sealX, sealY, sealR - 17, -Math.PI * 0.85, 'bold 11px Arial', '#ffffff');
-  drawCircularText(ctx, 'LICENSED FIRM', sealX, sealY, sealR - 17, Math.PI * 0.15, 'bold 9px Arial', '#d1fae5');
-  ctx.textAlign = 'center';
-  put('VERIFIED', sealX, sealY + 2, 'bold 12px Arial', '#ffffff');
-  ctx.textAlign = 'left';
-  ctx.restore();
-
   // QR — unique for this record, top-right inside header
   try {
     if (typeof qrcode === 'function') {
@@ -1900,7 +1884,7 @@ function buildInwardBadgeCanvas(e) {
   terms.forEach((line, i) => {
     ctx.font = i === 0 ? 'bold 10px Arial' : '9px Arial';
     ctx.fillStyle = i === 0 ? '#374151' : '#6b7280';
-    ctx.fillText(line, 44, signImgY - 12 + i * 12, 440);
+    ctx.fillText(line, 44, signImgY - 12 + i * 12, 350);
   });
 
   ctx.textAlign = 'right';
@@ -1917,6 +1901,24 @@ function buildInwardBadgeCanvas(e) {
     ctx.lineTo(rightEdge, signImgY + signImgH / 2);
     ctx.stroke();
   }
+
+  // Ink-pad stamp seal — between Terms & Conditions and Authorised Signatory
+  ctx.save();
+  const ink = 'rgba(185, 28, 28, 0.82)';
+  const sx = 445, sy = signImgY + 26, sr = 38;
+  ctx.strokeStyle = ink;
+  ctx.lineWidth = 2.5;
+  ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2); ctx.stroke();
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.arc(sx, sy, sr - 6, 0, Math.PI * 2); ctx.stroke();
+  drawCircularText(ctx, 'PACKING ORBIT', sx, sy, sr - 14, -Math.PI * 0.82, 'bold 9px Arial', ink);
+  drawCircularText(ctx, 'OFFICIAL SEAL', sx, sy, sr - 14, Math.PI * 0.18, 'bold 8px Arial', ink);
+  ctx.textAlign = 'center';
+  ctx.fillStyle = ink;
+  ctx.font = 'bold 11px Arial';
+  ctx.fillText('VERIFIED', sx, sy + 4);
+  ctx.textAlign = 'left';
+  ctx.restore();
 
   ctx.textAlign = 'right';
   put('Authorised Signatory', rightEdge, signHeadingY, '13px Arial', '#6b7280');
