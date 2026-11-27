@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.37.0` (Stamp — Right Pivot + Ink Spread)
+- **Current Version:** `v0.38.0` (Login — Financial Year & Week Dates)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -306,10 +306,23 @@ Packing Orbit/
 | `v0.36.0` | **Completed** | Rectangle ink stamp replacing circular seal (no text overlap), CSS/JS v93 | 2026-11-27 |
 | `v0.36.1` | **Completed** | Stamp tilted 16 degrees around its center, CSS/JS v94 | 2026-11-27 |
 | `v0.37.0` | **Completed** | Right-edge pivot, ink-spread speckles, raised lower border, CSS/JS v95 | 2026-11-27 |
+| `v0.38.0` | **Completed** | Login FY + Monday-Saturday week info with configurable extended end dates, CSS/JS v96 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 21:56:50 IST] - v0.38.0
+- **Session:** Login Page — Financial Year & Week Dates.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Login page par role tabs ke neeche **Financial Year / Week Start / Week Ends** info panel add kiya.
+  - Financial Year Indian rule (April → March) se auto compute: `2026-2027 (01-04-2026 to 31-03-2027)`.
+  - Week **Monday → Saturday** automatically compute hoti hai (DD-MM-YYYY).
+  - Saal me 3-4 baar week-end 3-5 din badhne ka provision: `FINANCIAL_CONFIG.weekEndExtensions` array — wahan `{ date: 'DD-MM-YYYY', extraDays: 3 }` entries daal kar extended end date auto dikh jayegi. Default array khali hai (user specific dates abhi diye nahi).
+  - Cache-busted `style.css?v=96` / `app.js?v=96`; package.json `0.38.0`.
+  - Updated DB `system_info.version` to `v0.38.0`.
+  - Bumped version to `v0.38.0`.
 
 ### [2026-11-27 21:45:09 IST] - v0.37.0
 - **Session:** Stamp — Right Pivot, Ink Spread, Raised Lower Line.

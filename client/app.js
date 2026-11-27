@@ -41,6 +41,20 @@ const PRICING_CONFIG = {
   contactEmail: 'support@packingorbit.in'
 };
 
+// ===== FINANCIAL YEAR / WEEK CONFIG =====
+// Week: Monday → Saturday. Add entries here for the 3-4 special weeks per year
+// when the Saturday end date is extended by 3-5 days.
+const FINANCIAL_CONFIG = {
+  financialYearStartMonth: 4,   // April
+  weekStartDay: 1,              // Monday
+  weekEndDay: 6,                // Saturday
+  weekEndExtensions: []         // e.g. [{ date: '28-11-2026', extraDays: 3 }]
+};
+
+function formatISTDate(d) {
+  return `${String(d.getDate()).padStart(2, '0')}-${String(d.getMonth() + 1).padStart(2, '0')}-${d.getFullYear()}`;
+}
+
 function applyPricingConfig() {
   const lifetimeEl = document.getElementById('pricingLifetimePrice');
   const amcEl = document.getElementById('pricingAmcPrice');
@@ -258,6 +272,33 @@ async function loadAdminTransportList() {
 }
 
 // Login page role tabs — visual selection only
+// Login page — Financial Year + Monday-to-Saturday week info
+function renderLoginFinancialInfo() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = now.getMonth() + 1;
+  const fyStartYear = m >= FINANCIAL_CONFIG.financialYearStartMonth ? y : y - 1;
+  const fy = `${fyStartYear}-${fyStartYear + 1}`;
+
+  const day = now.getDay();
+  const mondayOffset = day === 0 ? -6 : 1 - day;
+  const start = new Date(now);
+  start.setDate(now.getDate() + mondayOffset);
+  const end = new Date(start);
+  end.setDate(start.getDate() + 5);
+
+  const extension = FINANCIAL_CONFIG.weekEndExtensions
+    .find((item) => item.date === formatISTDate(end));
+  if (extension) end.setDate(end.getDate() + extension.extraDays);
+
+  const fyEl = document.getElementById('loginFinancialYear');
+  const startEl = document.getElementById('loginWeekStart');
+  const endEl = document.getElementById('loginWeekEnd');
+  if (fyEl) fyEl.textContent = `${fy} (01-04-${fyStartYear} to 31-03-${fyStartYear + 1})`;
+  if (startEl) startEl.textContent = formatISTDate(start);
+  if (endEl) endEl.textContent = formatISTDate(end) + (extension ? ` (+${extension.extraDays} days)` : '');
+}
+
 function initLoginRoleTabs() {
   const tabs = document.querySelectorAll('.login-role-tab');
   const options = document.querySelectorAll('#customSelectOptions .select-option');
@@ -421,6 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMandatoryAuthGate();
   initAdminFeatures();
   initLoginRoleTabs();
+  renderLoginFinancialInfo();
   initLedgerCreateForm();
   initLedgerEditDelete();
   initInwardForm();

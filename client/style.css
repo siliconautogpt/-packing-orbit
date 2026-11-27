@@ -1050,6 +1050,38 @@ a.info-contact-row:hover {
   color: #ffffff;
 }
 
+/* Financial year + week info on login page */
+.login-financial-info {
+  width: 100%;
+  max-width: 420px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+  margin: -0.4rem 0 1rem;
+}
+
+.login-financial-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.15rem 0;
+}
+
+.login-financial-label {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+.login-financial-value {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #e5e7eb;
+  text-align: right;
+}
+
 .auth-card {
   background: #111827;
   border: 1px solid rgba(255, 255, 255, 0.14);
