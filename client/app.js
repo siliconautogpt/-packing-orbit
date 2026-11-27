@@ -1902,21 +1902,26 @@ function buildInwardBadgeCanvas(e) {
     ctx.stroke();
   }
 
-  // Ink-pad stamp seal — between Terms & Conditions and Authorised Signatory
+  // Ink-pad RECTANGLE stamp — between Terms & Conditions and Authorised Signatory
   ctx.save();
-  const ink = 'rgba(185, 28, 28, 0.82)';
-  const sx = 445, sy = signImgY + 26, sr = 38;
+  const ink = 'rgba(185, 28, 28, 0.85)';
+  const bx = 404, by = signImgY + 4, bw = 84, bh = 62;
   ctx.strokeStyle = ink;
   ctx.lineWidth = 2.5;
-  ctx.beginPath(); ctx.arc(sx, sy, sr, 0, Math.PI * 2); ctx.stroke();
+  ctx.strokeRect(bx, by, bw, bh);
   ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.arc(sx, sy, sr - 6, 0, Math.PI * 2); ctx.stroke();
-  drawCircularText(ctx, 'PACKING ORBIT', sx, sy, sr - 14, -Math.PI * 0.82, 'bold 9px Arial', ink);
-  drawCircularText(ctx, 'OFFICIAL SEAL', sx, sy, sr - 14, Math.PI * 0.18, 'bold 8px Arial', ink);
+  ctx.strokeRect(bx + 4, by + 4, bw - 8, bh - 8);
+
   ctx.textAlign = 'center';
   ctx.fillStyle = ink;
-  ctx.font = 'bold 11px Arial';
-  ctx.fillText('VERIFIED', sx, sy + 4);
+  ctx.font = 'bold 8px Arial';
+  ctx.fillText('PACKING ORBIT', bx + bw / 2, by + 16, bw - 10);
+  ctx.font = '8px Arial';
+  ctx.fillText(firmName, bx + bw / 2, by + 29, bw - 10);
+  ctx.font = 'bold 8px Arial';
+  ctx.fillText('OFFICIAL SEAL', bx + bw / 2, by + 41, bw - 10);
+  ctx.font = 'bold 12px Arial';
+  ctx.fillText('VERIFIED', bx + bw / 2, by + 55, bw - 10);
   ctx.textAlign = 'left';
   ctx.restore();
 
