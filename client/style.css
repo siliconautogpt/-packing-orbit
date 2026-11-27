@@ -933,10 +933,29 @@ a.info-contact-row:hover {
 /* 1. MANDATORY LOGIN GATE */
 .auth-gate-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   padding: 1rem 0.5rem;
+}
+
+/* Brand above the login card */
+.login-brand-above {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+  color: #6ee7b7;
+}
+
+.login-brand-above span {
+  font-family: var(--font-family-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.02em;
 }
 
 .auth-card {

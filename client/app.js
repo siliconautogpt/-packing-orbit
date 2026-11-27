@@ -379,6 +379,8 @@ async function initSystemInfo() {
         if (footerName) footerName.textContent = data.app_name;
         const firmBrand = document.getElementById('firmBrandName');
         if (firmBrand) firmBrand.textContent = data.app_name;
+        const loginBrand = document.getElementById('loginBrandName');
+        if (loginBrand) loginBrand.textContent = data.app_name;
         firmBrandCache = data.app_name;
       }
       if (data.tagline) document.getElementById('appTagline').textContent = data.tagline;

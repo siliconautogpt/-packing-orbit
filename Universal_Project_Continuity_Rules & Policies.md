@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.29.1` (Login Page — Header & Tabs Hidden)
+- **Current Version:** `v0.29.2` (Login Brand Above Card)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -289,10 +289,23 @@ Packing Orbit/
 | `v0.28.9` | **Completed** | Badge footer dark green compact patch with white text, CSS/JS v76 | 2026-11-27 |
 | `v0.29.0` | **Completed** | Footer full-width borderless dark green bar with white text, CSS/JS v77 | 2026-11-27 |
 | `v0.29.1` | **Completed** | Login page header + tab menu hidden; shown again after login, CSS/JS v78 | 2026-11-27 |
+| `v0.29.2` | **Completed** | Packing Orbit brand text moved above login card, card title only "Sign In", CSS/JS v79 | 2026-11-27 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-27 14:01:12 IST] - v0.29.2
+- **Session:** Login Brand Text Above Card.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - "Packing Orbit" brand text ko login card ke andar se nikal kar **card ke upar** place kiya (shield icon + brand name, `#loginBrandName`).
+  - Card ka title ab sirf **"Sign In"** hai (pehle "Sign In to Packing Orbit").
+  - `.auth-gate-container` ko `flex-direction: column` diya taake brand upar aur card neeche aaye.
+  - Brand name `system_info.app_name` se dynamic set hota hai.
+  - Cache-busted `style.css?v=79` / `app.js?v=79`; package.json `0.29.2`.
+  - Updated DB `system_info.version` to `v0.29.2`.
+  - Bumped version to `v0.29.2`.
 
 ### [2026-11-27 12:24:12 IST] - v0.29.1
 - **Session:** Login Page — Header & Tabs Hidden.
