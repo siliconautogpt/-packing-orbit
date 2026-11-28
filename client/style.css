@@ -1082,6 +1082,29 @@ a.info-contact-row:hover {
   text-align: right;
 }
 
+.week-end-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.week-end-edit {
+  background: rgba(37, 99, 235, 0.16);
+  border: 1px solid #3b82f6;
+  color: #93c5fd;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  line-height: 1;
+  padding: 0.15rem 0.4rem;
+  cursor: pointer;
+}
+
+.week-end-edit.active {
+  background: #2563eb;
+  color: #ffffff;
+}
+
 .auth-card {
   background: #111827;
   border: 1px solid rgba(255, 255, 255, 0.14);

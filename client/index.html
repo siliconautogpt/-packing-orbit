@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Packing Orbit - a packing automation</title>
-  <link rel="stylesheet" href="style.css?v=97">
+  <link rel="stylesheet" href="style.css?v=98">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
@@ -153,11 +153,14 @@
             <div class="form-row-2">
               <div class="form-group">
                 <label for="loginWeekStart" class="form-label">Week Starts</label>
-                <input type="text" id="loginWeekStart" class="form-input-plain" readonly>
+                <input type="text" id="loginWeekStart" class="form-input-plain" readonly disabled>
               </div>
               <div class="form-group">
-                <label for="loginWeekEnd" class="form-label">Week Ends</label>
-                <input type="text" id="loginWeekEnd" class="form-input-plain" readonly>
+                <div class="week-end-head">
+                  <label for="loginWeekEnd" class="form-label">Week Ends</label>
+                  <button type="button" class="week-end-edit" id="weekEndEditBtn" title="Edit (Admin only)" style="display:none;">✎</button>
+                </div>
+                <input type="text" id="loginWeekEnd" class="form-input-plain" readonly disabled>
               </div>
             </div>
 
@@ -1193,6 +1196,6 @@
   </div>
 
   <script src="qrcode.js?v=1"></script>
-  <script src="app.js?v=97"></script>
+  <script src="app.js?v=98"></script>
 </body>
 </html>

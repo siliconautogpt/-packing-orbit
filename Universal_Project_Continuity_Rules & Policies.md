@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.39.0` (FY & Week — Real Data Fields)
+- **Current Version:** `v0.40.0` (Week Fields Disabled + Admin Edit)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -308,10 +308,24 @@ Packing Orbit/
 | `v0.37.0` | **Completed** | Right-edge pivot, ink-spread speckles, raised lower border, CSS/JS v95 | 2026-11-27 |
 | `v0.38.0` | **Completed** | Login FY + Monday-Saturday week info with configurable extended end dates, CSS/JS v96 | 2026-11-27 |
 | `v0.39.0` | **Completed** | FY/Week as real data fields in login card, stored in login_logs + inward_entries, CSS/JS v97 | 2026-11-28 |
+| `v0.40.0` | **Completed** | Week Start/End disabled, admin-only pencil edit for festival-extended Week End, CSS/JS v98 | 2026-11-28 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-28 17:44:46 IST] - v0.40.0
+- **Session:** Week Fields — Disabled + Admin Edit for Week Ends.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - **Week Starts** field ab set hone ke baad `disabled` (change nahi ho sakta).
+  - **Week Ends** field bhi normally `disabled`.
+  - Admin ke liye Week Ends ke paas chhota **pencil (✎) edit button** — tab Admin par ya admin account select karne par dikhata hai. Click karne par field temporarily unlock hoti hai; festival season me 3-5 din badhakar week 10-12 din ki kar sakte hain.
+  - Employee/customer select karte hi edit button chhup jata hai aur field dobara disable.
+  - Edited Week End value login ke saath `login_logs` me aur har inward entry ke saath save hoti hai.
+  - Cache-busted `style.css?v=98` / `app.js?v=98`; package.json `0.40.0`.
+  - Updated DB `system_info.version` to `v0.40.0`.
+  - Bumped version to `v0.40.0`.
 
 ### [2026-11-28 11:00:29 IST] - v0.39.0
 - **Session:** FY & Week — Real Data Fields in Login Card.

@@ -312,6 +312,8 @@ function initLoginRoleTabs() {
   const pwLabel = document.getElementById('loginPasswordLabel');
   const note = document.getElementById('loginRoleNote');
   const submitBtn = document.getElementById('mainLoginSubmitBtn');
+  const weekEditBtn = document.getElementById('weekEndEditBtn');
+  const weekEndInput = document.getElementById('loginWeekEnd');
 
   const applyLoginRole = (role) => {
     tabs.forEach((t) => t.classList.toggle('active', t.getAttribute('data-role-tab') === role));
@@ -358,9 +360,27 @@ function initLoginRoleTabs() {
       }
     }
     if (submitBtn) submitBtn.disabled = role === 'subscriber';
+
+    // Week Ends editable only when Admin is selected
+    if (weekEndInput) weekEndInput.disabled = true;
+    if (weekEditBtn) {
+      weekEditBtn.style.display = role === 'admin' ? '' : 'none';
+      weekEditBtn.classList.remove('active');
+    }
   };
 
   tabs.forEach((tab) => tab.addEventListener('click', () => applyLoginRole(tab.getAttribute('data-role-tab'))));
+
+  // Admin can temporarily unlock Week Ends (festival weeks can be 10-12 days)
+  if (weekEditBtn && weekEndInput) {
+    weekEditBtn.addEventListener('click', () => {
+      const unlock = weekEndInput.disabled;
+      weekEndInput.disabled = !unlock;
+      weekEditBtn.classList.toggle('active', unlock);
+      if (unlock) weekEndInput.focus();
+    });
+  }
+
   applyLoginRole('admin');
 }
 
@@ -2251,6 +2271,15 @@ if (customSelect && customSelectTrigger && customSelectOptions && mainLoginIdent
       mainLoginIdentifier.value = identifier;
       mainLoginPassword.value = password || '';
       mainLoginPassword.focus();
+
+      const selectedRole = option.getAttribute('data-role');
+      const weekEditBtn = document.getElementById('weekEndEditBtn');
+      const weekEndInput = document.getElementById('loginWeekEnd');
+      if (weekEditBtn) weekEditBtn.style.display = selectedRole === 'admin' ? '' : 'none';
+      if (selectedRole !== 'admin' && weekEndInput) {
+        weekEndInput.disabled = true;
+        if (weekEditBtn) weekEditBtn.classList.remove('active');
+      }
 
       if (selectPlaceholder) selectPlaceholder.textContent = option.textContent;
       
