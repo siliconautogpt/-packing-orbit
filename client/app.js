@@ -315,6 +315,7 @@ function initLoginRoleTabs() {
   const weekEditBtn = document.getElementById('weekEndEditBtn');
   const weekEndInput = document.getElementById('loginWeekEnd');
   const cardTitle = document.getElementById('loginCardTitle');
+  const financialFields = document.getElementById('loginFinancialFields');
 
   const roleTitles = {
     admin: 'Admin Login',
@@ -367,6 +368,10 @@ function initLoginRoleTabs() {
         note.style.display = 'none';
       }
     }
+    if (financialFields) financialFields.style.display = role === 'subscriber' ? 'none' : '';
+    const fySelect = document.getElementById('loginFinancialYear');
+    if (fySelect) fySelect.required = role !== 'subscriber';
+
     if (cardTitle) cardTitle.textContent = roleTitles[role] || 'Sign In';
 
     if (submitBtn) submitBtn.disabled = role === 'subscriber';

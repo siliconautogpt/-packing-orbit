@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.41.0` (Role-Specific Login Card Titles)
+- **Current Version:** `v0.42.0` (Subscriber Card — FY/Week Hidden)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -310,10 +310,22 @@ Packing Orbit/
 | `v0.39.0` | **Completed** | FY/Week as real data fields in login card, stored in login_logs + inward_entries, CSS/JS v97 | 2026-11-28 |
 | `v0.40.0` | **Completed** | Week Start/End disabled, admin-only pencil edit for festival-extended Week End, CSS/JS v98 | 2026-11-28 |
 | `v0.41.0` | **Completed** | Login card title per role (Admin/Employees/Customer/Subscribers), CSS/JS v99 | 2026-11-28 |
+| `v0.42.0` | **Completed** | FY/Week fields hidden on Subscriber login card only, CSS/JS v100 | 2026-11-28 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-28 18:26:48 IST] - v0.42.0
+- **Session:** Subscriber Card — FY/Week Fields Hidden.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - User clarification: Subscriber tab rahega (sirf license purchase karta hai), lekin uske login card me **Financial Year / Week Starts / Week Ends** fields nahi chahiye.
+  - FY/week fields ko `#loginFinancialFields` wrapper me daala aur Subscriber tab par hide kiya (`display:none`), saath hi FY select ka `required` bhi hata diya taake form validation block na ho.
+  - Admin / Employees / Customer tabs par ye fields waise hi dikhte hain.
+  - Cache-busted `style.css?v=100` / `app.js?v=100`; package.json `0.42.0`.
+  - Updated DB `system_info.version` to `v0.42.0`.
+  - Bumped version to `v0.42.0`.
 
 ### [2026-11-28 17:52:13 IST] - v0.41.0
 - **Session:** Login Card Titles Per Role.
