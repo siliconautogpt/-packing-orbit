@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Packing Orbit - a packing automation</title>
-  <link rel="stylesheet" href="style.css?v=96">
+  <link rel="stylesheet" href="style.css?v=97">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
@@ -119,21 +119,6 @@
           <button type="button" class="login-role-tab" data-role-tab="subscriber">Subscribers</button>
         </div>
 
-        <div class="login-financial-info" id="loginFinancialInfo">
-          <div class="login-financial-row">
-            <span class="login-financial-label">Financial Year</span>
-            <span class="login-financial-value" id="loginFinancialYear">—</span>
-          </div>
-          <div class="login-financial-row">
-            <span class="login-financial-label">Week Start</span>
-            <span class="login-financial-value" id="loginWeekStart">—</span>
-          </div>
-          <div class="login-financial-row">
-            <span class="login-financial-label">Week Ends</span>
-            <span class="login-financial-value" id="loginWeekEnd">—</span>
-          </div>
-        </div>
-
         <div class="auth-card">
           <div class="auth-card-header">
             <h2 class="auth-title">Sign In</h2>
@@ -155,6 +140,24 @@
                 <div class="custom-select-options" id="firmSelectOptions">
                   <!-- Populated by JS from active firm licenses -->
                 </div>
+              </div>
+            </div>
+
+            <!-- 0.5 Financial Year + Week (real data fields) -->
+            <div class="form-group">
+              <label for="loginFinancialYear" class="form-label">Select Financial Year *</label>
+              <select id="loginFinancialYear" class="form-input-plain" required>
+                <option value="">Loading financial years...</option>
+              </select>
+            </div>
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="loginWeekStart" class="form-label">Week Starts</label>
+                <input type="text" id="loginWeekStart" class="form-input-plain" readonly>
+              </div>
+              <div class="form-group">
+                <label for="loginWeekEnd" class="form-label">Week Ends</label>
+                <input type="text" id="loginWeekEnd" class="form-input-plain" readonly>
               </div>
             </div>
 
@@ -1190,6 +1193,6 @@
   </div>
 
   <script src="qrcode.js?v=1"></script>
-  <script src="app.js?v=96"></script>
+  <script src="app.js?v=97"></script>
 </body>
 </html>

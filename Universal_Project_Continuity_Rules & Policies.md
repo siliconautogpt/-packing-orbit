@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.38.0` (Login — Financial Year & Week Dates)
+- **Current Version:** `v0.39.0` (FY & Week — Real Data Fields)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -307,10 +307,25 @@ Packing Orbit/
 | `v0.36.1` | **Completed** | Stamp tilted 16 degrees around its center, CSS/JS v94 | 2026-11-27 |
 | `v0.37.0` | **Completed** | Right-edge pivot, ink-spread speckles, raised lower border, CSS/JS v95 | 2026-11-27 |
 | `v0.38.0` | **Completed** | Login FY + Monday-Saturday week info with configurable extended end dates, CSS/JS v96 | 2026-11-27 |
+| `v0.39.0` | **Completed** | FY/Week as real data fields in login card, stored in login_logs + inward_entries, CSS/JS v97 | 2026-11-28 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-28 11:00:29 IST] - v0.39.0
+- **Session:** FY & Week — Real Data Fields in Login Card.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - User clarification: FY aur Week dates **placeholder nahi**, poore project ke data record/retrieve karne wale **real fields** hain.
+  - Login page ka info panel remove kiya; ab login card me **Select Firm → Select Financial Year → Week Starts / Week Ends** fields hain.
+  - Naya server endpoint `GET /api/financial/context` — Indian FY options (past 2 + current + next 2), Monday-Saturday week dates, extension provision.
+  - FY/week ab **login_logs** me record hote hain (login ke saath) aur **inward_entries** me bhi store hote hain (sessionStorage se payload me bhej kar).
+  - DB migration: `login_logs.financial_year/week_start/week_end` aur `inward_entries.financial_year/week_start/week_end`.
+  - Verified API: FY `2026-2027`, week `23-11-2026 → 28-11-2026`.
+  - Cache-busted `style.css?v=97` / `app.js?v=97`; package.json `0.39.0`.
+  - Updated DB `system_info.version` to `v0.39.0`.
+  - Bumped version to `v0.39.0`.
 
 ### [2026-11-27 21:56:50 IST] - v0.38.0
 - **Session:** Login Page — Financial Year & Week Dates.

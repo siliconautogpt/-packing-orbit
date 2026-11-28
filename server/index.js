@@ -77,6 +77,42 @@ function getISTInwardDateTime() {
   return `${dd}-${mm}-${yyyy} ${hh}:${mi}:${ss} ${ampm}`;
 }
 
+// Financial context — Indian FY (April-March) + Monday-Saturday week
+function getFinancialContext() {
+  const now = new Date(Date.now() + 5.5 * 60 * 60 * 1000);
+  const y = now.getUTCFullYear();
+  const m = now.getUTCMonth() + 1;
+  const startYear = m >= 4 ? y : y - 1;
+  const fmt = (d) => `${String(d.getUTCDate()).padStart(2, '0')}-${String(d.getUTCMonth() + 1).padStart(2, '0')}-${d.getUTCFullYear()}`;
+
+  const day = now.getUTCDay();
+  const mondayOffset = day === 0 ? -6 : 1 - day;
+  const start = new Date(now);
+  start.setUTCDate(now.getUTCDate() + mondayOffset);
+  const end = new Date(start);
+  end.setUTCDate(start.getUTCDate() + 5);
+
+  // 3-4 special weeks per year can extend the Saturday end by 3-5 days
+  const extensions = []; // e.g. [{ date: '28-11-2026', extraDays: 3 }]
+  const ext = extensions.find((item) => item.date === fmt(end));
+  if (ext) end.setUTCDate(end.getUTCDate() + ext.extraDays);
+
+  const years = [];
+  for (let i = -2; i <= 2; i++) {
+    years.push(`${startYear + i}-${startYear + i + 1}`);
+  }
+
+  return {
+    financialYear: `${startYear}-${startYear + 1}`,
+    financialYears: years,
+    fyStart: `01-04-${startYear}`,
+    fyEnd: `31-03-${startYear + 1}`,
+    weekStart: fmt(start),
+    weekEnd: fmt(end),
+    extensionDays: ext ? ext.extraDays : 0
+  };
+}
+
 function parseJsonBody(req) {
   return new Promise((resolve, reject) => {
     let body = '';
@@ -117,6 +153,13 @@ const server = http.createServer(async (req, res) => {
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
     res.end();
+    return;
+  }
+
+  // --- API: Financial context (FY + Week) ---
+  if (pathname === '/api/financial/context' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ success: true, data: getFinancialContext() }));
     return;
   }
 
@@ -168,7 +211,7 @@ const server = http.createServer(async (req, res) => {
   // --- API: Unified Login (Option A) ---
   if (pathname === '/api/auth/login' && req.method === 'POST') {
     try {
-      const { identifier, password, firmId } = await parseJsonBody(req);
+      const { identifier, password, firmId, financialYear, weekStart, weekEnd } = await parseJsonBody(req);
 
       if (!identifier || !password) {
         res.writeHead(400, { 'Content-Type': 'application/json' });
@@ -234,12 +277,14 @@ const server = http.createServer(async (req, res) => {
 
       db.prepare(`
         INSERT INTO login_logs
-          (user_id, identifier, full_name, role, login_time_ist, ip_address, user_agent, firm_id, firm_name)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+          (user_id, identifier, full_name, role, login_time_ist, ip_address, user_agent, firm_id, firm_name,
+           financial_year, week_start, week_end)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `).run(
         user.id, user.identifier, user.full_name, user.role, istTime, ip, userAgent,
         selectedFirm ? selectedFirm.id : null,
-        selectedFirm ? selectedFirm.firm_name : null
+        selectedFirm ? selectedFirm.firm_name : null,
+        financialYear || null, weekStart || null, weekEnd || null
       );
 
       const token = crypto.randomBytes(24).toString('hex');
@@ -1071,11 +1116,14 @@ const server = http.createServer(async (req, res) => {
 
       const result = db.prepare(`
         INSERT INTO inward_entries
-          (firm_id, customer_id, customer_code, token, type, quality, bale_numbers, inward_no, inward_at, takha_per_bale, total_takha, created_by)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          (firm_id, customer_id, customer_code, token, type, quality, bale_numbers, inward_no, inward_at,
+           takha_per_bale, total_takha, financial_year, week_start, week_end, created_by)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `).run(
         firmId, customer.id, customerCode, token, type, quality, baleList.length,
-        inwardNo, inwardAt, takhaPerBale, totalTakha, authUser.id
+        inwardNo, inwardAt, takhaPerBale, totalTakha,
+        body.financialYear || null, body.weekStart || null, body.weekEnd || null,
+        authUser.id
       );
 
       const inwardId = result.lastInsertRowid;

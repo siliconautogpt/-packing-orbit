@@ -271,32 +271,32 @@ async function loadAdminTransportList() {
   }
 }
 
-// Login page role tabs — visual selection only
-// Login page — Financial Year + Monday-to-Saturday week info
-function renderLoginFinancialInfo() {
-  const now = new Date();
-  const y = now.getFullYear();
-  const m = now.getMonth() + 1;
-  const fyStartYear = m >= FINANCIAL_CONFIG.financialYearStartMonth ? y : y - 1;
-  const fy = `${fyStartYear}-${fyStartYear + 1}`;
-
-  const day = now.getDay();
-  const mondayOffset = day === 0 ? -6 : 1 - day;
-  const start = new Date(now);
-  start.setDate(now.getDate() + mondayOffset);
-  const end = new Date(start);
-  end.setDate(start.getDate() + 5);
-
-  const extension = FINANCIAL_CONFIG.weekEndExtensions
-    .find((item) => item.date === formatISTDate(end));
-  if (extension) end.setDate(end.getDate() + extension.extraDays);
-
-  const fyEl = document.getElementById('loginFinancialYear');
+// Login page — Financial Year + Week data fields (loaded from server)
+async function loadFinancialContext() {
+  const fySelect = document.getElementById('loginFinancialYear');
   const startEl = document.getElementById('loginWeekStart');
   const endEl = document.getElementById('loginWeekEnd');
-  if (fyEl) fyEl.textContent = `${fy} (01-04-${fyStartYear} to 31-03-${fyStartYear + 1})`;
-  if (startEl) startEl.textContent = formatISTDate(start);
-  if (endEl) endEl.textContent = formatISTDate(end) + (extension ? ` (+${extension.extraDays} days)` : '');
+  try {
+    const res = await fetch('/api/financial/context');
+    const result = await res.json();
+    if (!result.success || !result.data) return;
+    const ctx = result.data;
+
+    if (fySelect) {
+      fySelect.innerHTML = '';
+      (ctx.financialYears || []).forEach((fy) => {
+        const opt = document.createElement('option');
+        opt.value = fy;
+        opt.textContent = `${fy} (${ctx.fyStart} to ${ctx.fyEnd})`;
+        if (fy === ctx.financialYear) opt.selected = true;
+        fySelect.appendChild(opt);
+      });
+    }
+    if (startEl) startEl.value = ctx.weekStart;
+    if (endEl) endEl.value = ctx.weekEnd + (ctx.extensionDays ? ` (+${ctx.extensionDays} days)` : '');
+  } catch (err) {
+    console.error('Financial context load error:', err);
+  }
 }
 
 function initLoginRoleTabs() {
@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMandatoryAuthGate();
   initAdminFeatures();
   initLoginRoleTabs();
-  renderLoginFinancialInfo();
+  loadFinancialContext();
   initLedgerCreateForm();
   initLedgerEditDelete();
   initInwardForm();
@@ -799,13 +799,23 @@ async function initMandatoryAuthGate() {
         const res = await fetch('/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ identifier, password, firmId: selectedFirmId })
+          body: JSON.stringify({
+            identifier,
+            password,
+            firmId: selectedFirmId,
+            financialYear: document.getElementById('loginFinancialYear').value,
+            weekStart: document.getElementById('loginWeekStart').value,
+            weekEnd: document.getElementById('loginWeekEnd').value
+          })
         });
 
         const data = await res.json();
 
         if (data.success && data.token) {
           sessionStorage.setItem('packing_orbit_session', data.token);
+          sessionStorage.setItem('packing_orbit_financial_year', document.getElementById('loginFinancialYear').value);
+          sessionStorage.setItem('packing_orbit_week_start', document.getElementById('loginWeekStart').value);
+          sessionStorage.setItem('packing_orbit_week_end', document.getElementById('loginWeekEnd').value);
           currentUser = data.user;
           renderAppUI(currentUser);
         } else {
@@ -1542,7 +1552,10 @@ function initInwardForm() {
       token: inwardSelection.token,
       type: inwardSelection.type,
       quality: inwardSelection.quality,
-      baleNumbers: baleList
+      baleNumbers: baleList,
+      financialYear: sessionStorage.getItem('packing_orbit_financial_year'),
+      weekStart: sessionStorage.getItem('packing_orbit_week_start'),
+      weekEnd: sessionStorage.getItem('packing_orbit_week_end')
     };
 
     const submitBtn = form.querySelector('button[type="submit"]');

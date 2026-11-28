@@ -199,6 +199,13 @@ ensureColumn('inward_entries', 'inward_no', 'TEXT DEFAULT NULL');
 ensureColumn('inward_entries', 'inward_at', 'TEXT DEFAULT NULL');
 ensureColumn('inward_entries', 'takha_per_bale', 'INTEGER DEFAULT NULL');
 ensureColumn('inward_entries', 'total_takha', 'INTEGER DEFAULT NULL');
+ensureColumn('inward_entries', 'financial_year', 'TEXT DEFAULT NULL');
+ensureColumn('inward_entries', 'week_start', 'TEXT DEFAULT NULL');
+ensureColumn('inward_entries', 'week_end', 'TEXT DEFAULT NULL');
+
+ensureColumn('login_logs', 'financial_year', 'TEXT DEFAULT NULL');
+ensureColumn('login_logs', 'week_start', 'TEXT DEFAULT NULL');
+ensureColumn('login_logs', 'week_end', 'TEXT DEFAULT NULL');
 
 
 // Seed default firm metadata if not already seeded
