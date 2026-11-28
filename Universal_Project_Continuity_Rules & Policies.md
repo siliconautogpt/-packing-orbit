@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.40.0` (Week Fields Disabled + Admin Edit)
+- **Current Version:** `v0.41.0` (Role-Specific Login Card Titles)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -309,10 +309,22 @@ Packing Orbit/
 | `v0.38.0` | **Completed** | Login FY + Monday-Saturday week info with configurable extended end dates, CSS/JS v96 | 2026-11-27 |
 | `v0.39.0` | **Completed** | FY/Week as real data fields in login card, stored in login_logs + inward_entries, CSS/JS v97 | 2026-11-28 |
 | `v0.40.0` | **Completed** | Week Start/End disabled, admin-only pencil edit for festival-extended Week End, CSS/JS v98 | 2026-11-28 |
+| `v0.41.0` | **Completed** | Login card title per role (Admin/Employees/Customer/Subscribers), CSS/JS v99 | 2026-11-28 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-28 17:52:13 IST] - v0.41.0
+- **Session:** Login Card Titles Per Role.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Firm / Financial Year / Week Starts / Week Ends fields ek hi shared form me hain — isliye wo **Admin, Employees aur Customer** teeno tabs par dikhte hain (aur Subscribers par bhi).
+  - Ab card ka title role ke saath badalta hai: **Admin Login**, **Employees Login**, **Customer Login**, **Subscribers Login** — taake teen alag login cards jaisa dikhe.
+  - Week Ends ka edit pencil sirf Admin role par (festival extension ke liye).
+  - Cache-busted `style.css?v=99` / `app.js?v=99`; package.json `0.41.0`.
+  - Updated DB `system_info.version` to `v0.41.0`.
+  - Bumped version to `v0.41.0`.
 
 ### [2026-11-28 17:44:46 IST] - v0.40.0
 - **Session:** Week Fields — Disabled + Admin Edit for Week Ends.

@@ -314,6 +314,14 @@ function initLoginRoleTabs() {
   const submitBtn = document.getElementById('mainLoginSubmitBtn');
   const weekEditBtn = document.getElementById('weekEndEditBtn');
   const weekEndInput = document.getElementById('loginWeekEnd');
+  const cardTitle = document.getElementById('loginCardTitle');
+
+  const roleTitles = {
+    admin: 'Admin Login',
+    employee: 'Employees Login',
+    customer: 'Customer Login',
+    subscriber: 'Subscribers Login'
+  };
 
   const applyLoginRole = (role) => {
     tabs.forEach((t) => t.classList.toggle('active', t.getAttribute('data-role-tab') === role));
@@ -359,6 +367,8 @@ function initLoginRoleTabs() {
         note.style.display = 'none';
       }
     }
+    if (cardTitle) cardTitle.textContent = roleTitles[role] || 'Sign In';
+
     if (submitBtn) submitBtn.disabled = role === 'subscriber';
 
     // Week Ends editable only when Admin is selected
