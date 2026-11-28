@@ -113,7 +113,7 @@ Packing Orbit/
 
 ## 8. Current Project State & Resume Point
 
-- **Current Version:** `v0.42.0` (Subscriber Card — FY/Week Hidden)
+- **Current Version:** `v0.43.0` (FY Custom Dropdown + Short Format)
 - **Status:** Paused / Awaiting Next User Instructions
 - **Active Phase:** Phase 5 - Core Grey Cloth Production & Packing Workflow
 - **Last Action Taken:** 
@@ -311,10 +311,24 @@ Packing Orbit/
 | `v0.40.0` | **Completed** | Week Start/End disabled, admin-only pencil edit for festival-extended Week End, CSS/JS v98 | 2026-11-28 |
 | `v0.41.0` | **Completed** | Login card title per role (Admin/Employees/Customer/Subscribers), CSS/JS v99 | 2026-11-28 |
 | `v0.42.0` | **Completed** | FY/Week fields hidden on Subscriber login card only, CSS/JS v100 | 2026-11-28 |
+| `v0.43.0` | **Completed** | FY custom dropdown like Firm select, short format 2024-25, CSS/JS v101 | 2026-11-28 |
 
 ---
 
 ## 10. Changelog & Activity Log (IST)
+
+### [2026-11-28 21:23:20 IST] - v0.43.0
+- **Session:** Financial Year — Custom Dropdown + Short Format.
+- **Agent:** OpenCode AI Assistant
+- **Action:**
+  - Native `<select>` ko **custom dropdown** se replace kiya — ab Select Firm (Paid License) wale jaisa dikhata hai, form bounds ke andar hi khulta hai.
+  - FY format chhota kiya: `2024-25`, `2025-26`, `2026-27`, `2027-28`, `2028-29` (pehle lamba `2024-2025 (01-04-2024 to 31-03-2025)` tha).
+  - `selectedFinancialYear` global variable se value login payload aur sessionStorage me save hoti hai.
+  - `shortFinancialYear()` helper + `initFinancialYearDropdown()` add kiya (click/outside/Escape handling).
+  - Subscriber tab par FY fields hidden waise hi.
+  - Cache-busted `style.css?v=101` / `app.js?v=101`; package.json `0.43.0`.
+  - Updated DB `system_info.version` to `v0.43.0`.
+  - Bumped version to `v0.43.0`.
 
 ### [2026-11-28 18:26:48 IST] - v0.42.0
 - **Session:** Subscriber Card — FY/Week Fields Hidden.

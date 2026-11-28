@@ -9,6 +9,7 @@ window.fetch = function (input, init) {
 };
 
 let currentUser = null;
+let selectedFinancialYear = null;
 let firmCache = [];
 let firmBrandCache = 'Packing Orbit';
 let selectedFirmId = null;
@@ -272,8 +273,14 @@ async function loadAdminTransportList() {
 }
 
 // Login page — Financial Year + Week data fields (loaded from server)
+function shortFinancialYear(fy) {
+  const parts = String(fy || '').split('-');
+  return parts.length > 1 ? `${parts[0]}-${parts[1].slice(-2)}` : String(fy || '');
+}
+
 async function loadFinancialContext() {
-  const fySelect = document.getElementById('loginFinancialYear');
+  const optionsEl = document.getElementById('financialYearOptions');
+  const placeholder = document.getElementById('financialYearPlaceholder');
   const startEl = document.getElementById('loginWeekStart');
   const endEl = document.getElementById('loginWeekEnd');
   try {
@@ -282,21 +289,52 @@ async function loadFinancialContext() {
     if (!result.success || !result.data) return;
     const ctx = result.data;
 
-    if (fySelect) {
-      fySelect.innerHTML = '';
+    if (optionsEl) {
+      optionsEl.innerHTML = '';
       (ctx.financialYears || []).forEach((fy) => {
-        const opt = document.createElement('option');
-        opt.value = fy;
-        opt.textContent = `${fy} (${ctx.fyStart} to ${ctx.fyEnd})`;
-        if (fy === ctx.financialYear) opt.selected = true;
-        fySelect.appendChild(opt);
+        const opt = document.createElement('div');
+        opt.className = 'select-option' + (fy === ctx.financialYear ? ' selected' : '');
+        opt.setAttribute('data-fy', fy);
+        opt.textContent = shortFinancialYear(fy);
+        optionsEl.appendChild(opt);
       });
     }
+    selectedFinancialYear = ctx.financialYear;
+    if (placeholder) placeholder.textContent = shortFinancialYear(ctx.financialYear);
+
     if (startEl) startEl.value = ctx.weekStart;
     if (endEl) endEl.value = ctx.weekEnd + (ctx.extensionDays ? ` (+${ctx.extensionDays} days)` : '');
   } catch (err) {
     console.error('Financial context load error:', err);
   }
+}
+
+function initFinancialYearDropdown() {
+  const selectWrap = document.getElementById('financialYearSelect');
+  const trigger = document.getElementById('financialYearTrigger');
+  const options = document.getElementById('financialYearOptions');
+  const placeholder = document.getElementById('financialYearPlaceholder');
+  if (!selectWrap || !trigger || !options || !placeholder) return;
+
+  const close = () => { options.classList.remove('open'); trigger.classList.remove('open'); };
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = !options.classList.contains('open');
+    options.classList.toggle('open', open);
+    trigger.classList.toggle('open', open);
+  });
+  options.addEventListener('click', (e) => {
+    const opt = e.target.closest('.select-option');
+    if (!opt) return;
+    selectedFinancialYear = opt.getAttribute('data-fy');
+    placeholder.textContent = opt.textContent;
+    placeholder.classList.remove('select-placeholder');
+    options.querySelectorAll('.select-option').forEach((o) => o.classList.remove('selected'));
+    opt.classList.add('selected');
+    close();
+  });
+  document.addEventListener('click', (e) => { if (!selectWrap.contains(e.target)) close(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 }
 
 function initLoginRoleTabs() {
@@ -369,8 +407,6 @@ function initLoginRoleTabs() {
       }
     }
     if (financialFields) financialFields.style.display = role === 'subscriber' ? 'none' : '';
-    const fySelect = document.getElementById('loginFinancialYear');
-    if (fySelect) fySelect.required = role !== 'subscriber';
 
     if (cardTitle) cardTitle.textContent = roleTitles[role] || 'Sign In';
 
@@ -497,6 +533,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initMandatoryAuthGate();
   initAdminFeatures();
   initLoginRoleTabs();
+  initFinancialYearDropdown();
   loadFinancialContext();
   initLedgerCreateForm();
   initLedgerEditDelete();
@@ -838,7 +875,7 @@ async function initMandatoryAuthGate() {
             identifier,
             password,
             firmId: selectedFirmId,
-            financialYear: document.getElementById('loginFinancialYear').value,
+            financialYear: selectedFinancialYear,
             weekStart: document.getElementById('loginWeekStart').value,
             weekEnd: document.getElementById('loginWeekEnd').value
           })
@@ -848,7 +885,7 @@ async function initMandatoryAuthGate() {
 
         if (data.success && data.token) {
           sessionStorage.setItem('packing_orbit_session', data.token);
-          sessionStorage.setItem('packing_orbit_financial_year', document.getElementById('loginFinancialYear').value);
+          sessionStorage.setItem('packing_orbit_financial_year', selectedFinancialYear || '');
           sessionStorage.setItem('packing_orbit_week_start', document.getElementById('loginWeekStart').value);
           sessionStorage.setItem('packing_orbit_week_end', document.getElementById('loginWeekEnd').value);
           currentUser = data.user;

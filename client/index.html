@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Packing Orbit - a packing automation</title>
-  <link rel="stylesheet" href="style.css?v=100">
+  <link rel="stylesheet" href="style.css?v=101">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
@@ -146,10 +146,18 @@
             <!-- 0.5 Financial Year + Week (hidden for Subscribers) -->
             <div id="loginFinancialFields">
               <div class="form-group">
-                <label for="loginFinancialYear" class="form-label">Select Financial Year *</label>
-                <select id="loginFinancialYear" class="form-input-plain" required>
-                  <option value="">Loading financial years...</option>
-                </select>
+                <label class="form-label">Select Financial Year *</label>
+                <div class="custom-select" id="financialYearSelect">
+                  <div class="custom-select-trigger" id="financialYearTrigger">
+                    <span class="select-placeholder" id="financialYearPlaceholder">Loading financial years...</span>
+                    <svg class="select-arrow" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </div>
+                  <div class="custom-select-options" id="financialYearOptions">
+                    <!-- Populated by JS -->
+                  </div>
+                </div>
               </div>
               <div class="form-row-2">
                 <div class="form-group">
@@ -1198,6 +1206,6 @@
   </div>
 
   <script src="qrcode.js?v=1"></script>
-  <script src="app.js?v=100"></script>
+  <script src="app.js?v=101"></script>
 </body>
 </html>
